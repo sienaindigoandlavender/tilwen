@@ -114,6 +114,7 @@ export default function Footer() {
             <div>
               <span className="footer__col-title">Information</span>
               <div className="footer__links">
+                <Link href="/glossary" className="footer__link">Glossary</Link>
                 <Link href="/care" className="footer__link">Care & Shipping</Link>
                 <Link href="/returns" className="footer__link">Returns</Link>
                 <Link href="/payments" className="footer__link">Payments</Link>

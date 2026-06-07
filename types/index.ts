@@ -82,3 +82,26 @@ export interface Essay {
   published_at: string
   cover_image?: string
 }
+
+export type GlossaryCategory =
+  | 'technique'
+  | 'material'
+  | 'cultural'
+  | 'spatial'
+  | 'condition'
+  | 'provenance'
+
+export interface GlossaryEntry {
+  slug: string
+  term: string
+  short_definition: string
+  explanation: string
+  why_it_matters: string
+  language_note?: string
+  related_term_slugs: string[]
+  related_motif_slugs: string[]
+  related_region_slugs: string[]
+  related_rug_slugs: string[]
+  related_essay_slugs: string[]
+  category: GlossaryCategory
+}

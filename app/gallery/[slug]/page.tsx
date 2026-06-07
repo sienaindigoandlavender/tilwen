@@ -251,12 +251,12 @@ export default function RugPage({ params }: { params: { slug: string } }) {
                     <tr><td>Region</td><td><Link href={`/regions/${rug.region_slug}`} className="rp-motif-link">{rug.region}</Link></td></tr>
                     <tr><td>Community</td><td>{rug.community_tribe || 'Not determined'}</td></tr>
                     <tr><td>Material</td><td>{rug.material_primary}</td></tr>
-                    <tr><td>Technique</td><td>{rug.technique}</td></tr>
-                    <tr><td>Age</td><td>{rug.age_period}</td></tr>
+                    <tr><td>Technique</td><td><Link href={`/glossary/${rug.technique_slug === 'flatweave-kilim' ? 'kilim' : rug.technique_slug}`} className="rp-motif-link">{rug.technique}</Link></td></tr>
+                    <tr><td>Age</td><td>{rug.age_period} <Link href="/glossary/vintage" className="rp-motif-link" style={{fontSize:'0.625rem',marginLeft:'0.5rem'}}>→ vintage</Link></td></tr>
                     <tr><td>Dimensions</td><td>{rug.length_cm} × {rug.width_cm} cm</td></tr>
-                    <tr><td>Pile</td><td>{rug.pile_height}</td></tr>
-                    <tr><td>Condition</td><td>{rug.condition} — {rug.condition_notes}</td></tr>
-                    <tr><td>Dyes</td><td>{rug.dye_type}</td></tr>
+                    <tr><td>Pile</td><td><Link href="/glossary/pile-height" className="rp-motif-link">{rug.pile_height}</Link></td></tr>
+                    <tr><td>Condition</td><td><Link href="/glossary/condition-grades" className="rp-motif-link">{rug.condition}</Link> — {rug.condition_notes}</td></tr>
+                    <tr><td>Dyes</td><td><Link href={`/glossary/${rug.dye_type.toLowerCase().startsWith('natural') ? 'natural-dye' : 'synthetic-dye'}`} className="rp-motif-link">{rug.dye_type}</Link></td></tr>
                   </tbody>
                 </table>
               </div>

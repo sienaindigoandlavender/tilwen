@@ -118,8 +118,6 @@ export default function Footer() {
                 <Link href="/care" className="footer__link">Care & Shipping</Link>
                 <Link href="/returns" className="footer__link">Returns</Link>
                 <Link href="/payments" className="footer__link">Payments</Link>
-                <Link href="/privacy" className="footer__link">Privacy Policy</Link>
-                <Link href="/terms" className="footer__link">Terms of Use</Link>
               </div>
             </div>
           </div>
@@ -130,8 +128,6 @@ export default function Footer() {
               <Link href="/terms" className="footer__legal-link">Terms</Link>
               <Link href="/privacy" className="footer__legal-link">Privacy</Link>
               <Link href="/care" className="footer__legal-link">Shipping</Link>
-              <Link href="/returns" className="footer__legal-link">Returns</Link>
-              <Link href="/payments" className="footer__legal-link">Payments</Link>
             </div>
           </div>
         </div>

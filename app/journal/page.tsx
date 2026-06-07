@@ -316,7 +316,7 @@ export default function JournalPage() {
 
       {/* Theme pills */}
       {(() => {
-        const allTags = [...new Set(essays.flatMap(e => e.theme_tags))]
+        const allTags = Array.from(new Set(essays.flatMap(e => e.theme_tags)))
         return (
           <div className="jl-themes">
             <div className="container" style={{ display: 'flex', alignItems: 'baseline', gap: 'var(--sp-8)', flexWrap: 'wrap' }}>

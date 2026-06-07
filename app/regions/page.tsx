@@ -1,6 +1,9 @@
 import Link from 'next/link'
-import { regions } from '@/data/regions'
+import Image from 'next/image'
 import dynamic from 'next/dynamic'
+import { regions } from '@/data/regions'
+import { rugs } from '@/data/rugs'
+
 const RegionsMap = dynamic(() => import('@/components/gallery/RegionsMap'), { ssr: false })
 
 export const metadata = { title: 'Regions' }
@@ -9,103 +12,170 @@ export default function RegionsPage() {
   return (
     <>
       <style>{`
-        .regions-header { padding: var(--sp-16) 0 var(--sp-8); border-bottom: var(--border); }
-        .regions-list { padding: var(--sp-12) 0 var(--sp-32); }
-        .region-item {
-          display: grid;
-          grid-template-columns: 200px 1fr 1fr;
-          gap: var(--sp-8);
-          padding: var(--sp-8) 0;
+        .rg-top {
+          padding: var(--sp-16) 0 var(--sp-8);
           border-bottom: var(--border);
-          align-items: start;
         }
-        @media (max-width: 768px) { .region-item { grid-template-columns: 1fr 1fr; } }
-        @media (max-width: 480px) { .region-item { grid-template-columns: 1fr; } }
-        .region-item__name {
-          font-family: var(--font-display);
-          font-size: 1.75rem;
-          font-weight: 300;
-          letter-spacing: -0.02em;
-          line-height: 1.1;
+        .rg-top__inner {
+          display: flex;
+          align-items: baseline;
+          justify-content: space-between;
+          gap: var(--sp-8);
+          flex-wrap: wrap;
         }
-        .region-item__overview {
-          font-family: var(--font-body);
-          font-size: 0.9375rem;
-          color: var(--grey-800);
-          line-height: 1.65;
-        }
-        .region-item__grammar {
-          font-family: var(--font-body);
-          font-size: 0.9375rem;
-          color: var(--grey-800);
-          line-height: 1.65;
-          font-style: italic;
-        }
-        @media (max-width: 768px) { .region-item__grammar { display: none; } }
-        .region-item__link {
+        .rg-top__title {
           font-family: var(--font-ui);
-          font-size: 0.5625rem;
+          font-size: 0.6875rem;
           font-weight: 500;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: var(--grey-600);
-          display: inline-block;
-          margin-top: var(--sp-4);
-          border-bottom: 1px solid var(--grey-200);
-          padding-bottom: 1px;
-          transition: all var(--t);
+          color: var(--black);
         }
-        .region-item__link:hover { color: var(--black); border-bottom-color: var(--black); }
-        .regions-map-label {
-          padding: var(--sp-8) 0 var(--sp-4);
+        .rg-top__count {
+          font-family: var(--font-ui);
+          font-size: 0.6875rem;
+          letter-spacing: 0.06em;
+          color: var(--grey-400);
+        }
+
+        /* Statement */
+        .rg-statement {
+          padding: var(--sp-6) 0;
+          border-bottom: var(--border);
+        }
+        .rg-statement__text {
+          font-family: var(--font-body);
+          font-size: 0.9375rem;
+          font-style: italic;
+          color: var(--grey-600);
+          max-width: 72ch;
+        }
+
+        /* Map label */
+        .rg-map-bar {
+          padding: var(--sp-6) 0 var(--sp-3);
           display: flex;
           justify-content: space-between;
           align-items: baseline;
         }
-        .regions-map-hint-text {
+        .rg-map-hint {
           font-family: var(--font-body);
           font-size: 0.875rem;
           font-style: italic;
           color: var(--grey-400);
         }
-        @media (max-width: 600px) { .regions-map-hint-text { display: none; } }
+        @media (max-width: 600px) { .rg-map-hint { display: none; } }
+
+        /* 6-col grid — uses wide sizing since only 5 regions */
+        .rg-grid {
+          padding: var(--sp-8) 0 var(--sp-32);
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: var(--sp-8) var(--sp-4);
+        }
+        @media (max-width: 900px)  { .rg-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 480px)  { .rg-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .rg-item {
+          display: block;
+          text-decoration: none;
+          color: inherit;
+        }
+        .rg-item__img {
+          position: relative;
+          aspect-ratio: 1 / 1;
+          overflow: hidden;
+          background: var(--grey-100);
+        }
+        .rg-item__img img { transition: transform 600ms var(--ease); }
+        .rg-item:hover .rg-item__img img { transform: scale(1.05); }
+
+        .rg-item__body { padding: 0.5rem 0 0; }
+        .rg-item__ref {
+          font-family: var(--font-ui);
+          font-size: 0.5rem;
+          letter-spacing: 0.06em;
+          color: var(--grey-400);
+          display: block;
+          margin-bottom: 0.15rem;
+        }
+        .rg-item__name {
+          font-family: var(--font-ui);
+          font-size: 0.6875rem;
+          font-weight: 400;
+          color: var(--black);
+          display: block;
+          letter-spacing: 0.005em;
+          line-height: 1.3;
+        }
+        .rg-item__overview {
+          margin-top: 0.15rem;
+          font-family: var(--font-ui);
+          font-size: 0.4375rem;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: var(--grey-400);
+          line-height: 1.5;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
       `}</style>
 
-      {/* Header */}
-      <div className="regions-header">
+      {/* Top bar */}
+      <div className="rg-top">
         <div className="container">
-          <p className="t-label fade-up" style={{ marginBottom: 'var(--sp-2)' }}>Origin</p>
-          <h1 className="t-display fade-up-1">Weaving Regions</h1>
-          <p className="t-body fade-up-2" style={{ marginTop: 'var(--sp-6)', maxWidth: '60ch', color: 'var(--grey-600)' }}>
-            Each region of Morocco produces a distinct visual language. Understanding where a rug comes from — its climate, communities, and material culture — is the starting point for understanding what it means.
+          <div className="rg-top__inner">
+            <span className="rg-top__title">Weaving Regions</span>
+            <span className="rg-top__count">{regions.length} regions</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Statement */}
+      <div className="rg-statement">
+        <div className="container">
+          <p className="rg-statement__text">
+            Each region of Morocco produces a distinct visual language shaped by its climate, communities, and material culture. Understanding where a rug comes from is the starting point for understanding what it means.
           </p>
         </div>
       </div>
 
-      {/* Map — full width, between header and list */}
+      {/* Map */}
       <div className="container">
-        <div className="regions-map-label">
+        <div className="rg-map-bar">
           <span className="t-label">Select a region</span>
-          <span className="regions-map-hint-text">Click a marker to explore a weaving tradition</span>
+          <span className="rg-map-hint">Click a marker to explore a weaving tradition</span>
         </div>
       </div>
       <RegionsMap />
 
-      {/* Region list */}
+      {/* Grid */}
       <div className="container">
-        <div className="regions-list">
-          {regions.map(r => (
-            <div key={r.slug} className="region-item">
-              <div>
-                <Link href={`/regions/${r.slug}`}>
-                  <h2 className="region-item__name">{r.name}</h2>
-                  <span className="region-item__link">Browse rugs →</span>
-                </Link>
-              </div>
-              <p className="region-item__overview">{r.overview}</p>
-              <p className="region-item__grammar">{r.visual_grammar}</p>
-            </div>
-          ))}
+        <div className="rg-grid">
+          {regions.map((region, i) => {
+            // Use the first available rug image from this region as the card image
+            const regionRug = rugs.find(r => r.region_slug === region.slug && r.images.length > 0)
+            const img = region.hero_image || regionRug?.images[0] || null
+            const ref = `(${String(i).padStart(3, '0')})`
+            return (
+              <Link key={region.slug} href={`/regions/${region.slug}`} className="rg-item">
+                <div className="rg-item__img">
+                  {img ? (
+                    <Image src={img} alt={region.name} fill style={{ objectFit: 'cover' }} sizes="(max-width:480px) 50vw, (max-width:900px) 33vw, 20vw" />
+                  ) : (
+                    <div style={{ width: '100%', height: '100%', background: 'var(--grey-100)' }} />
+                  )}
+                </div>
+                <div className="rg-item__body">
+                  <span className="rg-item__ref">{ref}</span>
+                  <span className="rg-item__name">{region.name}</span>
+                  <p className="rg-item__overview">{region.overview}</p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </>

@@ -22,7 +22,7 @@ export default function CarePage() {
           padding: var(--sp-2) 0; border-bottom: var(--border);
         }
         .info-list-item:last-child { border-bottom: none; }
-        .info-list-item dt { font-family: var(--font-ui); font-size: 0.75rem; color: var(--grey-400); }
+        .info-list-item dt { font-family: var(--font-ui); font-size: 0.75rem; color: var(--grey-600); }
         .info-list-item dd { font-family: var(--font-body); font-size: 0.9375rem; color: var(--grey-800); }
       `}</style>
 

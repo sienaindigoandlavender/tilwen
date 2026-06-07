@@ -15,7 +15,7 @@ export default function PaymentsPage() {
           padding: var(--sp-4) 0; border-bottom: var(--border); align-items: start;
         }
         .payment-method:last-child { border-bottom: none; }
-        .payment-method dt { font-family: var(--font-ui); font-size: 0.75rem; color: var(--grey-400); }
+        .payment-method dt { font-family: var(--font-ui); font-size: 0.75rem; color: var(--grey-600); }
         .payment-method dd { font-family: var(--font-body); font-size: 0.9375rem; color: var(--grey-800); line-height: 1.6; }
       `}</style>
 

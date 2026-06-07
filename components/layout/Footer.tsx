@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import TanitMark from '@/components/TanitMark'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -22,17 +23,21 @@ export default function Footer() {
         .footer__col-brand p {
           font-family: var(--font-body);
           font-size: 0.9375rem;
-          color: var(--grey-600);
+          color: var(--grey-800);
           line-height: 1.6;
           max-width: 32ch;
           margin-top: var(--sp-4);
         }
         .footer__wordmark {
+          display: flex;
+          align-items: center;
+          gap: 0.625rem;
+        }
+        .footer__wordmark-text {
           font-family: var(--font-display);
           font-size: 1.5rem;
           font-weight: 300;
           letter-spacing: -0.01em;
-          display: block;
         }
         .footer__col-title {
           font-family: var(--font-ui);
@@ -40,7 +45,7 @@ export default function Footer() {
           font-weight: 600;
           letter-spacing: 0.16em;
           text-transform: uppercase;
-          color: var(--grey-400);
+          color: var(--grey-600);
           margin-bottom: var(--sp-4);
           display: block;
         }
@@ -48,7 +53,7 @@ export default function Footer() {
         .footer__link {
           font-family: var(--font-ui);
           font-size: 0.75rem;
-          color: var(--grey-600);
+          color: var(--black);
           transition: color var(--t);
         }
         .footer__link:hover { color: var(--black); }
@@ -67,14 +72,14 @@ export default function Footer() {
           font-family: var(--font-ui);
           font-size: 0.625rem;
           letter-spacing: 0.04em;
-          color: var(--grey-400);
+          color: var(--grey-600);
           transition: color var(--t);
         }
-        .footer__legal-link:hover { color: var(--grey-600); }
+        .footer__legal-link:hover { color: var(--black); }
         .footer__copy {
           font-family: var(--font-ui);
           font-size: 0.625rem;
-          color: var(--grey-400);
+          color: var(--grey-600);
           letter-spacing: 0.04em;
         }
       `}</style>
@@ -83,7 +88,7 @@ export default function Footer() {
         <div className="container">
           <div className="footer__grid">
             <div className="footer__col-brand">
-              <span className="footer__wordmark">Tilwen</span>
+              <div className="footer__wordmark"><TanitMark size={28} color="currentColor" /><span className="footer__wordmark-text">Tilwen</span></div>
               <p>A shoppable ethnographic gallery for Moroccan and Amazigh rugs. Each piece is one of a kind, fully documented, and irreplaceable.</p>
             </div>
 

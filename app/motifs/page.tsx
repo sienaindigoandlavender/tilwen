@@ -34,7 +34,7 @@ export default function MotifsPage() {
         .motif-item__summary {
           font-family: var(--font-body);
           font-size: 0.9375rem;
-          color: var(--grey-600);
+          color: var(--grey-800);
           line-height: 1.6;
           max-width: 36ch;
         }
@@ -42,7 +42,7 @@ export default function MotifsPage() {
           font-family: var(--font-ui);
           font-size: 0.625rem;
           letter-spacing: 0.08em;
-          color: var(--grey-400);
+          color: var(--grey-600);
           margin-top: var(--sp-4);
           display: block;
         }

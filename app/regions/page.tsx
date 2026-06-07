@@ -30,13 +30,13 @@ export default function RegionsPage() {
         .region-item__overview {
           font-family: var(--font-body);
           font-size: 0.9375rem;
-          color: var(--grey-600);
+          color: var(--grey-800);
           line-height: 1.65;
         }
         .region-item__grammar {
           font-family: var(--font-body);
           font-size: 0.9375rem;
-          color: var(--grey-600);
+          color: var(--grey-800);
           line-height: 1.65;
           font-style: italic;
         }
@@ -47,7 +47,7 @@ export default function RegionsPage() {
           font-weight: 500;
           letter-spacing: 0.1em;
           text-transform: uppercase;
-          color: var(--grey-400);
+          color: var(--grey-600);
           display: inline-block;
           margin-top: var(--sp-4);
           border-bottom: 1px solid var(--grey-200);

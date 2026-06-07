@@ -47,7 +47,7 @@ export default function RegionPage({ params }: { params: { slug: string } }) {
       <div className="region-page">
         <div className="region-page-header">
           <div className="container">
-            <p className="t-label fade-up"><Link href="/regions" style={{ color: 'var(--grey-400)' }}>Regions</Link> /</p>
+            <p className="t-label fade-up"><Link href="/regions" style={{ color: 'var(--grey-600)' }}>Regions</Link> /</p>
             <h1 className="t-display fade-up-1" style={{ marginTop: 'var(--sp-2)' }}>{region.name}</h1>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function RegionPage({ params }: { params: { slug: string } }) {
               {regionRugs.length > 0 ? `${regionRugs.length} Piece${regionRugs.length > 1 ? 's' : ''} from this Region` : 'No pieces currently available from this region'}
             </span>
             {regionRugs.length === 0 && (
-              <p className="t-body" style={{ color: 'var(--grey-400)', fontStyle: 'italic', marginTop: 'var(--sp-4)' }}>
+              <p className="t-body" style={{ color: 'var(--grey-600)', fontStyle: 'italic', marginTop: 'var(--sp-4)' }}>
                 We do not currently have a piece from this region. <Link href="/inquire" style={{ borderBottom: '1px solid var(--grey-200)' }}>Contact us</Link> if you are looking for one.
               </p>
             )}

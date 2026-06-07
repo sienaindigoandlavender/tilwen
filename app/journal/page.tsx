@@ -22,7 +22,7 @@ export default function JournalPage() {
         .journal-item__meta { display: flex; gap: var(--sp-4); margin-bottom: var(--sp-4); flex-wrap: wrap; }
         .journal-item__tag {
           font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 500;
-          letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-400);
+          letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-600);
         }
         .journal-item__title {
           font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2.25rem);
@@ -31,11 +31,11 @@ export default function JournalPage() {
         }
         .journal-item__excerpt {
           font-family: var(--font-body); font-size: 1rem;
-          color: var(--grey-600); line-height: 1.7; margin-bottom: var(--sp-6);
+          color: var(--grey-800); line-height: 1.7; margin-bottom: var(--sp-6);
         }
         .journal-item__read {
           font-family: var(--font-ui); font-size: 0.625rem; font-weight: 500;
-          letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-400);
+          letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-600);
         }
       `}</style>
 

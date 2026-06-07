@@ -28,16 +28,16 @@ export default function AboutPage() {
         .about-criterion:last-child { border-bottom: none; }
         .about-criterion__num {
           font-family: var(--font-ui); font-size: 0.625rem; font-weight: 500;
-          letter-spacing: 0.1em; color: var(--grey-400); padding-top: 0.25rem;
+          letter-spacing: 0.1em; color: var(--grey-600); padding-top: 0.25rem;
         }
         .about-criterion__text {
           font-family: var(--font-body); font-size: 0.9375rem; line-height: 1.6;
-          color: var(--grey-800);
+          color: var(--black);
         }
         .about-statement {
           font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2.25rem);
           font-weight: 300; letter-spacing: -0.02em; line-height: 1.2;
-          color: var(--grey-800); padding: var(--sp-16) 0; border-top: var(--border);
+          color: var(--black); padding: var(--sp-16) 0; border-top: var(--border);
           max-width: 60ch;
         }
       `}</style>

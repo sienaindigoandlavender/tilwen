@@ -20,7 +20,7 @@ export default function GalleryPage() {
         .gallery-meta {
           font-family: var(--font-ui);
           font-size: 0.6875rem;
-          color: var(--grey-400);
+          color: var(--grey-600);
           letter-spacing: 0.04em;
         }
         .gallery-filters {
@@ -41,7 +41,7 @@ export default function GalleryPage() {
           font-family: var(--font-ui);
           font-size: 0.625rem;
           letter-spacing: 0.06em;
-          color: var(--grey-600);
+          color: var(--black);
           border: var(--border);
           padding: 0.25rem 0.75rem;
           transition: all var(--t);

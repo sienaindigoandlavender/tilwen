@@ -98,7 +98,7 @@ export default function RugPage({ params }: { params: { slug: string } }) {
           font-family: var(--font-ui); font-size: 0.8125rem;
         }
         .rp-specs td:first-child {
-          color: var(--grey-400); width: 140px; letter-spacing: 0.02em;
+          color: var(--grey-600); width: 140px; letter-spacing: 0.02em;
           padding-right: var(--sp-4); font-size: 0.75rem;
         }
         .rp-specs td:last-child { color: var(--black); }
@@ -116,10 +116,10 @@ export default function RugPage({ params }: { params: { slug: string } }) {
         }
         .rp-spatial-item p {
           font-family: var(--font-body); font-size: 0.9375rem;
-          line-height: 1.65; color: var(--grey-800);
+          line-height: 1.65; color: var(--black);
         }
         .rp-spatial-item--full { grid-column: 1 / -1; }
-        .rp-spatial-item--doesnt p { color: var(--grey-600); font-style: italic; }
+        .rp-spatial-item--doesnt p { color: var(--grey-800); font-style: italic; }
 
         /* Motif links */
         .rp-motifs { display: flex; gap: var(--sp-4); flex-wrap: wrap; margin-top: var(--sp-4); }
@@ -127,7 +127,7 @@ export default function RugPage({ params }: { params: { slug: string } }) {
           font-family: var(--font-ui); font-size: 0.625rem; font-weight: 500;
           letter-spacing: 0.1em; text-transform: uppercase;
           border-bottom: 1px solid var(--grey-200);
-          padding-bottom: 1px; color: var(--grey-600); transition: all var(--t);
+          padding-bottom: 1px; color: var(--black); transition: all var(--t);
         }
         .rp-motif-link:hover { color: var(--black); border-bottom-color: var(--black); }
 
@@ -144,10 +144,10 @@ export default function RugPage({ params }: { params: { slug: string } }) {
         .rp-acq__price-main {
           font-family: var(--font-display); font-size: 2.25rem; font-weight: 300; letter-spacing: -0.02em;
         }
-        .rp-acq__dims { font-family: var(--font-ui); font-size: 0.75rem; color: var(--grey-600); }
+        .rp-acq__dims { font-family: var(--font-ui); font-size: 0.75rem; color: var(--grey-800); }
         .rp-acq__note {
           font-family: var(--font-body); font-size: 0.875rem; line-height: 1.6;
-          color: var(--grey-600); font-style: italic; margin: var(--sp-4) 0;
+          color: var(--grey-800); font-style: italic; margin: var(--sp-4) 0;
         }
         .rp-acq__cta { width: 100%; display: flex; justify-content: center; }
         .rp-trust {
@@ -156,8 +156,8 @@ export default function RugPage({ params }: { params: { slug: string } }) {
         .rp-trust-row {
           display: flex; gap: var(--sp-4); padding: var(--sp-2) 0;
         }
-        .rp-trust-icon { color: var(--grey-400); font-size: 0.75rem; min-width: 12px; }
-        .rp-trust-text { font-family: var(--font-ui); font-size: 0.6875rem; color: var(--grey-600); line-height: 1.4; }
+        .rp-trust-icon { color: var(--grey-600); font-size: 0.75rem; min-width: 12px; }
+        .rp-trust-text { font-family: var(--font-ui); font-size: 0.6875rem; color: var(--grey-800); line-height: 1.4; }
 
         /* Related */
         .rp-related { padding: var(--sp-16) 0 0; border-top: var(--border); }
@@ -183,7 +183,7 @@ export default function RugPage({ params }: { params: { slug: string } }) {
         }
         .rp-knowledge-item__hint {
           font-family: var(--font-body); font-size: 0.8125rem;
-          color: var(--grey-600); margin-top: 0.25rem; font-style: italic;
+          color: var(--grey-800); margin-top: 0.25rem; font-style: italic;
         }
       `}</style>
 
@@ -354,8 +354,8 @@ export default function RugPage({ params }: { params: { slug: string } }) {
                   <span className="rp-trust-text">Condition guaranteed as described</span>
                 </div>
                 <div style={{ marginTop: 'var(--sp-4)', display: 'flex', gap: 'var(--sp-4)' }}>
-                  <Link href="/care" className="t-ui-xs" style={{ color: 'var(--grey-400)', borderBottom: '1px solid var(--grey-200)' }}>Care & Shipping</Link>
-                  <Link href="/returns" className="t-ui-xs" style={{ color: 'var(--grey-400)', borderBottom: '1px solid var(--grey-200)' }}>Returns</Link>
+                  <Link href="/care" className="t-ui-xs" style={{ color: 'var(--grey-600)', borderBottom: '1px solid var(--grey-200)' }}>Care & Shipping</Link>
+                  <Link href="/returns" className="t-ui-xs" style={{ color: 'var(--grey-600)', borderBottom: '1px solid var(--grey-200)' }}>Returns</Link>
                 </div>
               </div>
             </div>

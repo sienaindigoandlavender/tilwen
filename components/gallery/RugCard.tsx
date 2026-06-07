@@ -63,7 +63,7 @@ export default function RugCard({ rug, label }: Props) {
         .rug-card__cultural {
           font-family: var(--font-body);
           font-size: 0.8125rem;
-          color: var(--grey-600);
+          color: var(--grey-800);
           font-style: italic;
           margin-top: 0.125rem;
           line-height: 1.3;
@@ -78,14 +78,14 @@ export default function RugCard({ rug, label }: Props) {
           font-size: 0.5625rem;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: var(--grey-400);
+          color: var(--grey-600);
         }
         .rug-card__atmo {
           font-family: var(--font-ui);
           font-size: 0.5625rem;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          color: var(--grey-600);
+          color: var(--black);
         }
       `}</style>
 

@@ -7,9 +7,9 @@
   --off-white:#f2f1ef;
   --grey-100: #eeede9;
   --grey-200: #dedcd7;
-  --grey-400: #9b9890;
-  --grey-600: #5a5855;
-  --grey-800: #1f1e1c;
+  --grey-400: #6b6966;  /* darkened for readability */
+  --grey-600: #2e2d2b;  /* near-black, always legible */
+  --grey-800: #1a1917;
 
   --font-display: 'Cormorant Garamond', 'Palatino Linotype', Georgia, serif;
   --font-body:    'EB Garamond', Georgia, serif;
@@ -192,7 +192,7 @@ input, textarea, select {
 .btn--ghost {
   background: transparent;
   color: var(--grey-600);
-  border: 1px solid var(--grey-200);
+  border: 1px solid var(--grey-400);
 }
 .btn--ghost:hover { border-color: var(--black); color: var(--black); }
 

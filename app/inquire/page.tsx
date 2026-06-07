@@ -16,7 +16,7 @@ export default function InquirePage() {
         .form-field { display: flex; flex-direction: column; gap: var(--sp-2); }
         .form-label {
           font-family: var(--font-ui); font-size: 0.625rem; font-weight: 500;
-          letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-600);
+          letter-spacing: 0.12em; text-transform: uppercase; color: var(--black);
         }
         .form-input {
           height: 44px; padding: 0 var(--sp-4); border: var(--border);
@@ -44,7 +44,7 @@ export default function InquirePage() {
         .inquire-section-title { margin-bottom: var(--sp-4); }
         .inquire-section p {
           font-family: var(--font-body); font-size: 0.9375rem;
-          color: var(--grey-600); line-height: 1.65;
+          color: var(--grey-800); line-height: 1.65;
         }
         .trade-anchor { padding-top: var(--sp-24); border-top: var(--border); margin-top: var(--sp-16); }
       `}</style>

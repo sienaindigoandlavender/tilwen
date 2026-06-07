@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import TanitMark from '@/components/TanitMark'
 
 const links = [
   { href: '/gallery', label: 'Gallery' },
@@ -43,19 +44,26 @@ export default function Nav() {
         }
         .nav__left { display: flex; align-items: center; gap: var(--sp-8); }
         .nav__logo {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: var(--black);
+          white-space: nowrap;
+          text-decoration: none;
+        }
+        .nav__logo-wordmark {
           font-family: var(--font-ui);
           font-size: 0.6875rem;
           font-weight: 600;
           letter-spacing: 0.16em;
           text-transform: uppercase;
           color: var(--black);
-          white-space: nowrap;
         }
         .nav__tagline {
           font-family: var(--font-body);
           font-size: 0.75rem;
           font-style: italic;
-          color: var(--grey-400);
+          color: var(--grey-600);
           display: none;
         }
         @media (min-width: 900px) { .nav__tagline { display: block; } }
@@ -70,7 +78,7 @@ export default function Nav() {
           font-weight: 500;
           letter-spacing: 0.1em;
           text-transform: uppercase;
-          color: var(--grey-600);
+          color: var(--black);
           height: 56px;
           padding: 0 var(--sp-4);
           display: flex; align-items: center;
@@ -149,7 +157,7 @@ export default function Nav() {
       <nav className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
         <div className="nav__inner">
           <div className="nav__left">
-            <Link href="/" className="nav__logo">Tilwen</Link>
+            <Link href="/" className="nav__logo"><TanitMark size={22} color="currentColor" /><span className="nav__logo-wordmark">Tilwen</span></Link>
             <span className="nav__tagline">Each piece is one of a kind. When it is gone, it is gone.</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>

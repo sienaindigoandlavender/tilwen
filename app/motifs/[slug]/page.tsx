@@ -46,7 +46,7 @@ export default function MotifPage({ params }: { params: { slug: string } }) {
       <div className="motif-page">
         <div className="motif-page-header">
           <div className="container">
-            <p className="t-label fade-up"><Link href="/motifs" style={{ color: 'var(--grey-400)' }}>Motifs</Link> /</p>
+            <p className="t-label fade-up"><Link href="/motifs" style={{ color: 'var(--grey-600)' }}>Motifs</Link> /</p>
             <h1 className="t-display fade-up-1" style={{ marginTop: 'var(--sp-2)' }}>{motif.name}</h1>
             <p className="t-body fade-up-2" style={{ marginTop: 'var(--sp-4)', maxWidth: '60ch', color: 'var(--grey-600)' }}>
               {motif.summary}
@@ -96,7 +96,7 @@ export default function MotifPage({ params }: { params: { slug: string } }) {
               {motifRugs.length > 0 ? `${motifRugs.length} Piece${motifRugs.length > 1 ? 's' : ''} in the Gallery` : 'No pieces currently in the gallery'}
             </span>
             {motifRugs.length === 0 && (
-              <p className="t-body" style={{ color: 'var(--grey-400)', fontStyle: 'italic', marginTop: 'var(--sp-4)' }}>
+              <p className="t-body" style={{ color: 'var(--grey-600)', fontStyle: 'italic', marginTop: 'var(--sp-4)' }}>
                 We do not currently have a piece carrying this motif. <Link href="/inquire" style={{ borderBottom: '1px solid var(--grey-200)' }}>Contact us</Link> if you are looking for one specifically.
               </p>
             )}

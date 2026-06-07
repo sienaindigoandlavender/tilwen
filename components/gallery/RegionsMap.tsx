@@ -118,8 +118,17 @@ export default function RegionsMap() {
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
 
-  // Inject marker styles into document head once
+  // Inject Mapbox CSS + marker styles into document head once
   useEffect(() => {
+    // Mapbox GL CSS — must load before map initialises
+    if (!document.getElementById('mapbox-gl-css')) {
+      const link = document.createElement('link')
+      link.id = 'mapbox-gl-css'
+      link.rel = 'stylesheet'
+      link.href = 'https://api.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css'
+      document.head.appendChild(link)
+    }
+    // Marker styles
     if (document.getElementById('region-marker-styles')) return
     const style = document.createElement('style')
     style.id = 'region-marker-styles'
@@ -136,6 +145,8 @@ export default function RegionsMap() {
     let map: mapboxgl.Map
     let cancelled = false
 
+    // Small delay ensures CSS is parsed before Mapbox measures container
+    const timer = setTimeout(() => {
     import('mapbox-gl').then(({ default: mapboxgl }) => {
       if (cancelled || !containerRef.current) return
       mapboxgl.accessToken = token
@@ -205,8 +216,10 @@ export default function RegionsMap() {
 
       map.on('error', () => setError(true))
     }).catch(() => setError(true))
+    }, 100)
 
     return () => {
+      clearTimeout(timer)
       cancelled = true
       markersRef.current.forEach(m => m.remove())
       markersRef.current = []

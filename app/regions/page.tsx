@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { regions } from '@/data/regions'
-import RegionsMap from '@/components/gallery/RegionsMap'
+import dynamic from 'next/dynamic'
+const RegionsMap = dynamic(() => import('@/components/gallery/RegionsMap'), { ssr: false })
 
 export const metadata = { title: 'Regions' }
 

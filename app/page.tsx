@@ -3,7 +3,8 @@ import Image from 'next/image'
 import { rugs } from '@/data/rugs'
 import { essays } from '@/data/essays'
 import RugCard from '@/components/gallery/RugCard'
-import RegionsMap from '@/components/gallery/RegionsMap'
+import dynamic from 'next/dynamic'
+const RegionsMap = dynamic(() => import('@/components/gallery/RegionsMap'), { ssr: false })
 
 export default function HomePage() {
   const featured = rugs.filter(r => r.availability_status !== 'sold').slice(0, 3)

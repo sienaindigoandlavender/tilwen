@@ -82,67 +82,66 @@ export default function JournalPage() {
           color: var(--grey-200);
         }
 
-        /* ── Grid — Cereal masonry register ─────────────────── */
+        /* ── Grid — strict 4-col, uniform cards ────────────── */
         .jl-grid {
           padding-top: var(--sp-8);
-          columns: 3;
-          column-gap: var(--sp-6);
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: var(--sp-6) var(--sp-4);
         }
-        @media (max-width: 900px) { .jl-grid { columns: 2; } }
-        @media (max-width: 480px) { .jl-grid { columns: 1; } }
+        @media (max-width: 1024px) { .jl-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 680px)  { .jl-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 400px)  { .jl-grid { grid-template-columns: 1fr; } }
 
         .jl-item {
-          break-inside: avoid;
           display: block;
-          margin-bottom: var(--sp-8);
           text-decoration: none;
           color: inherit;
         }
         .jl-item__img {
           position: relative;
+          aspect-ratio: 3/2;
           overflow: hidden;
           background: var(--grey-100);
-          display: block;
         }
-        /* Alternate aspect ratios for visual rhythm — like Cereal */
-        .jl-item:nth-child(3n+1) .jl-item__img { aspect-ratio: 4/5; }
-        .jl-item:nth-child(3n+2) .jl-item__img { aspect-ratio: 3/4; }
-        .jl-item:nth-child(3n)   .jl-item__img { aspect-ratio: 1/1; }
-        .jl-item__img img {
-          transition: transform 700ms var(--ease);
-        }
+        .jl-item__img img { transition: transform 600ms var(--ease); }
         .jl-item:hover .jl-item__img img { transform: scale(1.04); }
 
-        .jl-item__body {
-          padding: var(--sp-3, 0.75rem) 0 0;
-        }
+        .jl-item__body { padding: var(--sp-3, 0.75rem) 0 0; }
         .jl-item__ref {
           font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          letter-spacing: 0.06em;
+          font-size: 0.5rem;
+          letter-spacing: 0.08em;
           color: var(--grey-400);
           display: block;
-          margin-bottom: 0.25rem;
+          margin-bottom: 0.2rem;
         }
         .jl-item__title {
           font-family: var(--font-ui);
-          font-size: 0.8125rem;
+          font-size: 0.75rem;
           font-weight: 400;
           color: var(--black);
           display: block;
           letter-spacing: 0.01em;
+          line-height: 1.35;
         }
         .jl-item__tags {
-          margin-top: 0.25rem;
+          margin-top: 0.2rem;
           display: flex;
-          gap: var(--sp-3, 0.75rem);
+          gap: var(--sp-2);
+          flex-wrap: wrap;
         }
         .jl-item__tag {
           font-family: var(--font-ui);
-          font-size: 0.5rem;
+          font-size: 0.4375rem;
           letter-spacing: 0.08em;
           text-transform: uppercase;
           color: var(--grey-400);
+        }
+        .jl-item__tag + .jl-item__tag::before {
+          content: '·';
+          margin-right: var(--sp-2);
+          color: var(--grey-200);
         }
 
         /* ── Statement at bottom ────────────────────────────── */

@@ -149,7 +149,7 @@ export default function Nav() {
       <nav className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
         <div className="nav__inner">
           <div className="nav__left">
-            <Link href="/" className="nav__logo">House of Weaves</Link>
+            <Link href="/" className="nav__logo">Tilwen</Link>
             <span className="nav__tagline">Each piece is one of a kind. When it is gone, it is gone.</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>

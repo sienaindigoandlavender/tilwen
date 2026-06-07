@@ -29,7 +29,7 @@ export default function TermsPage() {
             <div className="legal-section">
               <p className="t-label legal-section-title">Use of This Website</p>
               <div className="prose">
-                <p>This website is provided for informational and commercial purposes related to House of Weaves. By using the site, you agree to these terms. If you do not agree, please do not use the site.</p>
+                <p>This website is provided for informational and commercial purposes related to Tilwen. By using the site, you agree to these terms. If you do not agree, please do not use the site.</p>
                 <p>You may browse and use the site for personal, non-commercial purposes. You may not reproduce, distribute, or republish any content from this site without our express written permission.</p>
               </div>
             </div>
@@ -37,8 +37,8 @@ export default function TermsPage() {
             <div className="legal-section">
               <p className="t-label legal-section-title">Intellectual Property</p>
               <div className="prose">
-                <p>All content on this site — text, images, descriptions, curatorial writing — is the property of House of Weaves unless otherwise stated. The ethnographic and cultural content is original research and editorial work. It may not be reproduced or used without permission.</p>
-                <p>The rugs depicted are physical objects with their own cultural heritage. Photography and documentation of those objects belongs to House of Weaves. Use of product images without permission is not permitted.</p>
+                <p>All content on this site — text, images, descriptions, curatorial writing — is the property of Tilwen unless otherwise stated. The ethnographic and cultural content is original research and editorial work. It may not be reproduced or used without permission.</p>
+                <p>The rugs depicted are physical objects with their own cultural heritage. Photography and documentation of those objects belongs to Tilwen. Use of product images without permission is not permitted.</p>
               </div>
             </div>
 
@@ -61,7 +61,7 @@ export default function TermsPage() {
             <div className="legal-section">
               <p className="t-label legal-section-title">Limitation of Liability</p>
               <div className="prose">
-                <p>House of Weaves is not liable for any loss or damage arising from the use of this website, errors or omissions in content, or the purchase of any piece beyond the value of that piece. Our liability in any transaction is limited to the purchase price paid.</p>
+                <p>Tilwen is not liable for any loss or damage arising from the use of this website, errors or omissions in content, or the purchase of any piece beyond the value of that piece. Our liability in any transaction is limited to the purchase price paid.</p>
               </div>
             </div>
 
@@ -75,7 +75,7 @@ export default function TermsPage() {
             <div className="legal-section">
               <p className="t-label legal-section-title">Contact</p>
               <div className="prose">
-                <p>For any questions about these terms, contact us at <a href="mailto:hello@houseofweaves.com">hello@houseofweaves.com</a>.</p>
+                <p>For any questions about these terms, contact us at <a href="mailto:hello@tilwen.com">hello@tilwen.com</a>.</p>
               </div>
             </div>
           </div>

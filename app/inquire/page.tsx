@@ -1,6 +1,6 @@
 export const metadata = {
   title: 'Inquire',
-  description: 'Contact House of Weaves to inquire about a piece, the trade programme, or a custom sourcing request.',
+  description: 'Contact Tilwen to inquire about a piece, the trade programme, or a custom sourcing request.',
 }
 
 export default function InquirePage() {
@@ -110,8 +110,8 @@ export default function InquirePage() {
             <div className="inquire-section">
               <p className="t-label inquire-section-title">Contact Directly</p>
               <p>
-                <a href="mailto:hello@houseofweaves.com" style={{ borderBottom: '1px solid var(--grey-200)', transition: 'border-color var(--t)', fontFamily: 'var(--font-ui)', fontSize: '0.875rem' }}>
-                  hello@houseofweaves.com
+                <a href="mailto:hello@tilwen.com" style={{ borderBottom: '1px solid var(--grey-200)', transition: 'border-color var(--t)', fontFamily: 'var(--font-ui)', fontSize: '0.875rem' }}>
+                  hello@tilwen.com
                 </a>
               </p>
             </div>

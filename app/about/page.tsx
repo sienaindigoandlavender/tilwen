@@ -47,7 +47,7 @@ export default function AboutPage() {
           <p className="t-label fade-up" style={{ marginBottom: 'var(--sp-2)' }}>About</p>
           <h1 className="t-display fade-up-1">Methodology</h1>
           <p className="t-body fade-up-2" style={{ marginTop: 'var(--sp-6)', maxWidth: '60ch', color: 'var(--grey-600)' }}>
-            House of Weaves is a shoppable ethnographic gallery. Every rug that appears here has been documented against a five-criteria standard before it goes live.
+            Tilwen is a shoppable ethnographic gallery. Every rug that appears here has been documented against a five-criteria standard before it goes live.
           </p>
         </div>
       </div>
@@ -58,7 +58,7 @@ export default function AboutPage() {
             <div className="about-section">
               <p className="t-label about-section-title">What This Is</p>
               <div className="prose">
-                <p>House of Weaves is not a marketplace, a craft tourism site, or a digitised museum. It is a gallery with a point of view, a scholar's rigour, a merchant's clarity, and a curator's warmth.</p>
+                <p>Tilwen is not a marketplace, a craft tourism site, or a digitised museum. It is a gallery with a point of view, a scholar's rigour, a merchant's clarity, and a curator's warmth.</p>
                 <p>Each rug is treated as having three distinct existences. As an <em>object</em>, it has provenance, material, age, maker-community, and symbolic grammar. As a <em>knowledge node</em>, it connects outward to motifs, regions, techniques, and cultural histories. As a <em>spatial actor</em>, it has presence, scale, palette behaviour, and atmosphere in a room.</p>
                 <p>The commercial proposition is inseparable from the cultural intelligence. You cannot buy well here without first understanding what you are buying.</p>
               </div>

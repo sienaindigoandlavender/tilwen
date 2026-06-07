@@ -1,4 +1,4 @@
-# House of Weaves
+# Tilwen
 
 Shoppable ethnographic gallery for Moroccan and Amazigh rugs.
 

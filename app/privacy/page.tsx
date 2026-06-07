@@ -29,7 +29,7 @@ export default function PrivacyPage() {
             <div className="legal-section">
               <p className="t-label legal-section-title">Who We Are</p>
               <div className="prose">
-                <p>House of Weaves is an independent gallery. When you use this website or contact us, you are dealing directly with the gallery. We can be reached at <a href="mailto:hello@houseofweaves.com">hello@houseofweaves.com</a>.</p>
+                <p>Tilwen is an independent gallery. When you use this website or contact us, you are dealing directly with the gallery. We can be reached at <a href="mailto:hello@tilwen.com">hello@tilwen.com</a>.</p>
               </div>
             </div>
 
@@ -60,7 +60,7 @@ export default function PrivacyPage() {
             <div className="legal-section">
               <p className="t-label legal-section-title">Your Rights</p>
               <div className="prose">
-                <p>You have the right to request access to the personal data we hold about you, to correct inaccurate data, to request deletion, and to object to processing. To exercise any of these rights, contact us at <a href="mailto:hello@houseofweaves.com">hello@houseofweaves.com</a>. We will respond within 30 days.</p>
+                <p>You have the right to request access to the personal data we hold about you, to correct inaccurate data, to request deletion, and to object to processing. To exercise any of these rights, contact us at <a href="mailto:hello@tilwen.com">hello@tilwen.com</a>. We will respond within 30 days.</p>
               </div>
             </div>
 

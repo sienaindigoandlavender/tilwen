@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { rugs } from '@/data/rugs'
-import { regions } from '@/data/regions'
 import { essays } from '@/data/essays'
 import RugCard from '@/components/gallery/RugCard'
+import RegionsMap from '@/components/gallery/RegionsMap'
 
 export default function HomePage() {
   const featured = rugs.filter(r => r.availability_status !== 'sold').slice(0, 3)
@@ -58,6 +58,7 @@ export default function HomePage() {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           border-left: var(--border);
+          margin-top: var(--sp-6);
         }
         @media (max-width: 900px) {
           .home-entries__grid { grid-template-columns: repeat(2, 1fr); }
@@ -118,41 +119,22 @@ export default function HomePage() {
           line-height: 1.7;
           margin-bottom: var(--sp-6);
         }
-        .home-regions { padding: var(--sp-24) 0; border-top: var(--border); }
-        .home-regions__grid {
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          border-left: var(--border);
-          margin-top: var(--sp-8);
+
+        /* Map section */
+        .home-map { border-top: var(--border); }
+        .home-map__header {
+          padding: var(--sp-12) 0 var(--sp-6);
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
         }
-        @media (max-width: 900px) {
-          .home-regions__grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 480px) {
-          .home-regions__grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        .home-region {
-          padding: var(--sp-6) var(--sp-4);
-          border-right: var(--border);
-          border-bottom: var(--border);
-          display: block;
-          transition: background var(--t);
-        }
-        .home-region:hover { background: var(--grey-100); }
-        .home-region__name {
-          font-family: var(--font-display);
-          font-size: 1.0625rem;
-          font-weight: 400;
-          letter-spacing: -0.01em;
-          margin-bottom: 0.25rem;
-        }
-        .home-region__hint {
-          font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
+        .home-map__sub {
+          font-family: var(--font-body);
+          font-size: 0.875rem;
           color: var(--grey-400);
+          font-style: italic;
         }
+        @media (max-width: 600px) { .home-map__sub { display: none; } }
       `}</style>
 
       {/* Hero */}
@@ -161,7 +143,7 @@ export default function HomePage() {
           <div className="home-hero__inner">
             <div>
               <p className="t-label fade-up">Shoppable Ethnographic Gallery</p>
-              <h1 className="t-hero fade-up-1">House<br />of<br />Weaves</h1>
+              <h1 className="t-hero fade-up-1">Tilwen</h1>
             </div>
             <div className="fade-up-2">
               <p className="home-hero__thesis">
@@ -199,7 +181,7 @@ export default function HomePage() {
       <section className="home-entries">
         <div className="container">
           <span className="t-label">Explore by</span>
-          <div className="home-entries__grid" style={{ marginTop: 'var(--sp-6)' }}>
+          <div className="home-entries__grid">
             <Link href="/motifs" className="home-entry">
               <span className="t-label home-entry__label">Knowledge</span>
               <p className="home-entry__title">Motifs &amp; Symbols</p>
@@ -215,7 +197,7 @@ export default function HomePage() {
               <p className="home-entry__title">The Journal</p>
               <p className="home-entry__desc">Long-form writing on material culture, natural dye traditions, and spatial intelligence.</p>
             </Link>
-            <Link href="/gallery?filter=room" className="home-entry">
+            <Link href="/gallery" className="home-entry">
               <span className="t-label home-entry__label">Spatial</span>
               <p className="home-entry__title">Room Guide</p>
               <p className="home-entry__desc">How a rug behaves in a room — light, atmosphere, pile, and scale. Find the right piece for your space.</p>
@@ -247,19 +229,16 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* Regions quick nav */}
-      <section className="home-regions">
+      {/* Interactive regions map */}
+      <section className="home-map">
         <div className="container">
-          <span className="t-label">Browse by Region</span>
-          <div className="home-regions__grid">
-            {regions.map(r => (
-              <Link key={r.slug} href={`/regions/${r.slug}`} className="home-region">
-                <p className="home-region__name">{r.name}</p>
-                <span className="home-region__hint">Browse rugs →</span>
-              </Link>
-            ))}
+          <div className="home-map__header">
+            <span className="t-label">Browse by Region</span>
+            <span className="home-map__sub">Select a marker to explore a weaving tradition</span>
           </div>
         </div>
+        <RegionsMap />
+        <div style={{ height: 'var(--sp-16)' }} />
       </section>
     </>
   )

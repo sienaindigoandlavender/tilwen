@@ -27,7 +27,7 @@ export default function ReturnsPage() {
               <p className="t-label info-section-title">Return Policy</p>
               <div className="prose">
                 <p>Returns are accepted within 14 days of confirmed delivery. The piece must be returned in the same condition as received — unaltered, undamaged, rolled as shipped. Return shipping costs are the responsibility of the buyer, and the piece must be insured at its full value for transit.</p>
-                <p>To initiate a return, contact us at <a href="mailto:hello@houseofweaves.com">hello@houseofweaves.com</a> within 14 days of delivery with your order reference and the reason for return. We will confirm return instructions within 24 hours.</p>
+                <p>To initiate a return, contact us at <a href="mailto:hello@tilwen.com">hello@tilwen.com</a> within 14 days of delivery with your order reference and the reason for return. We will confirm return instructions within 24 hours.</p>
                 <p>Refunds are issued within 5 business days of confirmed receipt of the returned piece in its original condition. Refunds are to the original payment method only.</p>
               </div>
             </div>

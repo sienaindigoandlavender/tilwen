@@ -4,9 +4,9 @@ import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
 
 export const metadata: Metadata = {
-  title: { default: 'House of Weaves', template: '%s — House of Weaves' },
-  description: 'A shoppable ethnographic gallery for Moroccan and Amazigh rugs. Each piece is one of a kind.',
-  openGraph: { siteName: 'House of Weaves', type: 'website' },
+  title: { default: 'Tilwen', template: '%s — Tilwen' },
+  description: 'Tilwen — a shoppable ethnographic gallery for Moroccan and Amazigh rugs. Each piece is one of a kind.',
+  openGraph: { siteName: 'Tilwen', type: 'website' },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -83,7 +83,7 @@ export default function Footer() {
         <div className="container">
           <div className="footer__grid">
             <div className="footer__col-brand">
-              <span className="footer__wordmark">House of Weaves</span>
+              <span className="footer__wordmark">Tilwen</span>
               <p>A shoppable ethnographic gallery for Moroccan and Amazigh rugs. Each piece is one of a kind, fully documented, and irreplaceable.</p>
             </div>
 
@@ -119,7 +119,7 @@ export default function Footer() {
           </div>
 
           <div className="footer__bottom">
-            <span className="footer__copy">© {year} House of Weaves. All rights reserved.</span>
+            <span className="footer__copy">© {year} Tilwen. All rights reserved.</span>
             <div className="footer__legal">
               <Link href="/terms" className="footer__legal-link">Terms</Link>
               <Link href="/privacy" className="footer__legal-link">Privacy</Link>

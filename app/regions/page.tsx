@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { regions } from '@/data/regions'
+import RegionsMap from '@/components/gallery/RegionsMap'
 
 export const metadata = { title: 'Regions' }
 
@@ -16,7 +17,6 @@ export default function RegionsPage() {
           padding: var(--sp-8) 0;
           border-bottom: var(--border);
           align-items: start;
-          transition: background var(--t);
         }
         @media (max-width: 768px) { .region-item { grid-template-columns: 1fr 1fr; } }
         @media (max-width: 480px) { .region-item { grid-template-columns: 1fr; } }
@@ -55,8 +55,22 @@ export default function RegionsPage() {
           transition: all var(--t);
         }
         .region-item__link:hover { color: var(--black); border-bottom-color: var(--black); }
+        .regions-map-label {
+          padding: var(--sp-8) 0 var(--sp-4);
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+        }
+        .regions-map-hint-text {
+          font-family: var(--font-body);
+          font-size: 0.875rem;
+          font-style: italic;
+          color: var(--grey-400);
+        }
+        @media (max-width: 600px) { .regions-map-hint-text { display: none; } }
       `}</style>
 
+      {/* Header */}
       <div className="regions-header">
         <div className="container">
           <p className="t-label fade-up" style={{ marginBottom: 'var(--sp-2)' }}>Origin</p>
@@ -67,6 +81,16 @@ export default function RegionsPage() {
         </div>
       </div>
 
+      {/* Map — full width, between header and list */}
+      <div className="container">
+        <div className="regions-map-label">
+          <span className="t-label">Select a region</span>
+          <span className="regions-map-hint-text">Click a marker to explore a weaving tradition</span>
+        </div>
+      </div>
+      <RegionsMap />
+
+      {/* Region list */}
       <div className="container">
         <div className="regions-list">
           {regions.map(r => (

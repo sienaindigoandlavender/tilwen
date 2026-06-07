@@ -6,15 +6,14 @@ import type { Region } from '@/types'
 interface RegionPoint extends Region {
   lng: number
   lat: number
-  rug_count?: number
 }
 
 const REGION_POINTS: RegionPoint[] = [
   {
     slug: 'high-atlas',
     name: 'High Atlas',
-    lat: 31.5,
-    lng: -7.0,
+    lat: 31.6,
+    lng: -6.8,
     overview: 'Dense lozenge grids, undyed wool, compositions of protective precision. The altitude and isolation of these mountains produced a visual language unlike anywhere else in Morocco.',
     visual_grammar: '',
     technique_traditions: '',
@@ -22,8 +21,8 @@ const REGION_POINTS: RegionPoint[] = [
   {
     slug: 'middle-atlas',
     name: 'Middle Atlas',
-    lat: 33.2,
-    lng: -5.1,
+    lat: 33.0,
+    lng: -4.9,
     overview: 'Beni Ourain country — deep ivory pile, sparse geometric fields, and a wool quality shaped by altitude. The tradition is richer and more varied than its global reputation suggests.',
     visual_grammar: '',
     technique_traditions: '',
@@ -31,8 +30,8 @@ const REGION_POINTS: RegionPoint[] = [
   {
     slug: 'anti-atlas',
     name: 'Anti-Atlas',
-    lat: 29.6,
-    lng: -8.5,
+    lat: 29.8,
+    lng: -8.2,
     overview: 'Austere stripe-fields and structural compositions in near-monochrome. The mineral landscape of the Anti-Atlas shaped a formal restraint that produces objects of concentrated intelligence.',
     visual_grammar: '',
     technique_traditions: '',
@@ -40,8 +39,8 @@ const REGION_POINTS: RegionPoint[] = [
   {
     slug: 'haouz-plain',
     name: 'Haouz Plain',
-    lat: 31.65,
-    lng: -8.05,
+    lat: 31.9,
+    lng: -7.9,
     overview: 'The agricultural plain around Marrakech — mixed techniques, saffron and henna palettes, and compositions that bridge the mountain severity to the south with the urban influence of the city.',
     visual_grammar: '',
     technique_traditions: '',
@@ -49,28 +48,88 @@ const REGION_POINTS: RegionPoint[] = [
   {
     slug: 'saharan',
     name: 'Saharan',
-    lat: 30.1,
-    lng: -5.4,
+    lat: 30.0,
+    lng: -5.2,
     overview: 'Nomadic flatweaves shaped by desert life, trans-Saharan trade, and the visual cultures of communities who moved through the pre-Saharan margins. Directional compositions, deep indigo, mineral palette.',
     visual_grammar: '',
     technique_traditions: '',
   },
 ]
 
-// Monochrome Mapbox style — we use a custom light style that strips colour
+// Marker styles injected into document head — CSS variables don't resolve
+// inside Mapbox marker DOM so we hardcode colours
+const MARKER_STYLES = `
+  .region-marker {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .region-marker__dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #080808;
+    border-radius: 50%;
+    z-index: 3;
+    transition: transform 180ms ease;
+  }
+  .region-marker__ring {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid #080808;
+    border-radius: 50%;
+    z-index: 2;
+    animation: markerPulse 2s ease-out infinite;
+  }
+  .region-marker__ring:nth-child(3) {
+    animation-delay: 0.7s;
+  }
+  .region-marker:hover .region-marker__dot {
+    transform: scale(1.7);
+  }
+  .region-marker.active .region-marker__dot {
+    background: #080808;
+    transform: scale(1.5);
+  }
+  .region-marker.active .region-marker__ring {
+    border-color: #080808;
+    animation-duration: 1.4s;
+  }
+  @keyframes markerPulse {
+    0%   { transform: scale(1);   opacity: 0.7; }
+    80%  { transform: scale(3.2); opacity: 0;   }
+    100% { transform: scale(3.2); opacity: 0;   }
+  }
+`
+
 const MAP_STYLE = 'mapbox://styles/mapbox/light-v11'
 
 export default function RegionsMap() {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const markersRef = useRef<mapboxgl.Marker[]>([])
+  const markerElsRef = useRef<Map<string, HTMLElement>>(new Map())
   const [active, setActive] = useState<RegionPoint | null>(null)
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
 
+  // Inject marker styles into document head once
+  useEffect(() => {
+    if (document.getElementById('region-marker-styles')) return
+    const style = document.createElement('style')
+    style.id = 'region-marker-styles'
+    style.textContent = MARKER_STYLES
+    document.head.appendChild(style)
+    return () => { style.remove() }
+  }, [])
+
   useEffect(() => {
     if (!containerRef.current) return
-
     const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN
     if (!token) { setError(true); return }
 
@@ -79,19 +138,22 @@ export default function RegionsMap() {
 
     import('mapbox-gl').then(({ default: mapboxgl }) => {
       if (cancelled || !containerRef.current) return
-
       mapboxgl.accessToken = token
 
       map = new mapboxgl.Map({
         container: containerRef.current,
         style: MAP_STYLE,
-        center: [-6.5, 31.5],
-        zoom: 4.8,
-        minZoom: 4,
-        maxZoom: 9,
-        maxBounds: [[-18, 25], [5, 38]], // Morocco + margin
+        // Centred on Morocco, tight zoom
+        center: [-6.0, 31.2],
+        zoom: 5.6,
+        minZoom: 5.0,
+        maxZoom: 8,
+        // Tight bounds — Morocco only, small buffer
+        maxBounds: [[-14.0, 27.0], [0.5, 36.5]],
         attributionControl: false,
         logoPosition: 'bottom-right',
+        dragRotate: false,
+        touchPitch: false,
       })
 
       mapRef.current = map
@@ -99,42 +161,45 @@ export default function RegionsMap() {
       map.on('load', () => {
         if (cancelled) return
 
-        // Apply greyscale paint overrides to make it match the monochrome design
-        // Remove roads, labels we don't need, desaturate land
-        const desaturateLayers = [
-          'land', 'landuse', 'national-park', 'water',
-          'hillshade', 'building', 'aeroway', 'background'
-        ]
+        // Dim country labels and reduce visual noise
+        try {
+          // Make country/region labels lighter
+          map.setPaintProperty('country-label', 'text-color', '#aaa9a6')
+          map.setPaintProperty('state-label', 'text-color', '#bbb')
+          map.setPaintProperty('settlement-label', 'text-color', '#999')
+          map.setPaintProperty('settlement-subdivision-label', 'text-color', '#bbb')
+          // Lighten water
+          map.setPaintProperty('water', 'fill-color', '#e8e6e1')
+          // Lighten land fill
+          map.setPaintProperty('land', 'background-color', '#f5f4f1')
+        } catch (_) { /* layer names vary by style version */ }
 
-        // Add custom markers for each region
+        // Add markers
         REGION_POINTS.forEach(region => {
-          // Create marker element
           const el = document.createElement('div')
           el.className = 'region-marker'
           el.setAttribute('data-slug', region.slug)
+          // Two rings for staggered pulse
           el.innerHTML = `
+            <div class="region-marker__ring"></div>
+            <div class="region-marker__ring"></div>
             <div class="region-marker__dot"></div>
-            <div class="region-marker__pulse"></div>
           `
 
           const marker = new mapboxgl.Marker({ element: el, anchor: 'center' })
             .setLngLat([region.lng, region.lat])
             .addTo(map)
 
-          el.addEventListener('mouseenter', () => setActive(region))
-          el.addEventListener('click', () => setActive(r => r?.slug === region.slug ? r : region))
-
+          markerElsRef.current.set(region.slug, el)
           markersRef.current.push(marker)
+
+          el.addEventListener('click', (e) => {
+            e.stopPropagation()
+            setActive(prev => prev?.slug === region.slug ? null : region)
+          })
         })
 
-        map.on('click', (e) => {
-          // Click on map (not marker) — close panel
-          const target = e.originalEvent.target as HTMLElement
-          if (!target.closest('.region-marker')) {
-            setActive(null)
-          }
-        })
-
+        map.on('click', () => setActive(null))
         setLoaded(true)
       })
 
@@ -145,20 +210,38 @@ export default function RegionsMap() {
       cancelled = true
       markersRef.current.forEach(m => m.remove())
       markersRef.current = []
+      markerElsRef.current.clear()
       map?.remove()
     }
   }, [])
 
-  // Fly to region when active changes
+  // Sync active class on marker elements
+  useEffect(() => {
+    markerElsRef.current.forEach((el, slug) => {
+      el.classList.toggle('active', active?.slug === slug)
+    })
+  }, [active])
+
+  // Fly to region
   useEffect(() => {
     if (!active || !mapRef.current) return
     mapRef.current.flyTo({
       center: [active.lng, active.lat],
-      zoom: 6.2,
-      duration: 900,
-      offset: [120, 0], // offset right to account for the panel on left
+      zoom: 6.8,
+      duration: 800,
+      offset: [100, 0],
     })
   }, [active])
+
+  // Reset view when panel closes
+  useEffect(() => {
+    if (active || !mapRef.current || !loaded) return
+    mapRef.current.flyTo({
+      center: [-6.0, 31.2],
+      zoom: 5.6,
+      duration: 700,
+    })
+  }, [active, loaded])
 
   return (
     <>
@@ -166,139 +249,127 @@ export default function RegionsMap() {
         .regions-map-wrap {
           position: relative;
           width: 100%;
-          height: 560px;
-          background: var(--grey-100);
+          height: 580px;
+          background: #eeecea;
           overflow: hidden;
+          border-top: 1px solid var(--grey-200);
+          border-bottom: 1px solid var(--grey-200);
         }
-        @media (max-width: 768px) { .regions-map-wrap { height: 420px; } }
+        @media (max-width: 768px) { .regions-map-wrap { height: 460px; } }
 
         .regions-map-canvas {
-          position: absolute;
-          inset: 0;
-          filter: grayscale(1) contrast(0.9) brightness(1.05);
-          transition: filter 500ms ease;
-        }
-        .regions-map-canvas.loaded { filter: grayscale(1) contrast(0.88) brightness(1.08); }
-
-        /* Custom marker */
-        .region-marker {
-          position: relative;
-          width: 18px;
-          height: 18px;
-          cursor: pointer;
-        }
-        .region-marker__dot {
-          position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          width: 7px; height: 7px;
-          background: var(--black);
-          border-radius: 0;
-          transition: transform 200ms ease, background 200ms ease;
-          z-index: 2;
-        }
-        .region-marker__pulse {
-          position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%, -50%);
-          width: 18px; height: 18px;
-          border: 1px solid var(--black);
-          border-radius: 0;
-          opacity: 0;
-          animation: markerPulse 2.4s ease-out infinite;
-        }
-        .region-marker:hover .region-marker__dot {
-          transform: translate(-50%, -50%) scale(1.6);
-          background: var(--black);
-        }
-        @keyframes markerPulse {
-          0%   { transform: translate(-50%,-50%) scale(0.6); opacity: 0.5; }
-          100% { transform: translate(-50%,-50%) scale(2.2); opacity: 0; }
+          position: absolute; inset: 0;
+          filter: grayscale(1) contrast(0.82) brightness(1.1);
         }
 
         /* Info panel */
         .regions-map-panel {
           position: absolute;
-          top: var(--sp-6);
-          left: var(--sp-6);
-          width: 280px;
-          background: var(--white);
-          border: var(--border);
+          top: var(--sp-6); left: var(--sp-6);
+          width: 270px;
+          background: #f9f9f7;
+          border: 1px solid #dedcd7;
           padding: var(--sp-6);
           z-index: 10;
+          opacity: 1;
           transform: translateX(0);
-          transition: opacity 300ms ease, transform 300ms ease;
+          transition: opacity 280ms ease, transform 280ms ease;
+          box-shadow: 0 2px 16px rgba(8,8,8,0.06);
         }
         .regions-map-panel--hidden {
           opacity: 0;
           pointer-events: none;
-          transform: translateX(-12px);
+          transform: translateX(-10px);
         }
         @media (max-width: 600px) {
           .regions-map-panel {
-            top: auto;
-            bottom: var(--sp-4);
-            left: var(--sp-4);
-            right: var(--sp-4);
+            top: auto; bottom: var(--sp-4);
+            left: var(--sp-4); right: var(--sp-4);
             width: auto;
           }
         }
-        .regions-map-panel__label { display: block; margin-bottom: var(--sp-2); }
+        .regions-map-panel__close {
+          position: absolute; top: 10px; right: 12px;
+          font-family: var(--font-ui);
+          font-size: 0.625rem;
+          color: #6b6966;
+          cursor: pointer; padding: 4px;
+          transition: color 200ms ease;
+          background: none; border: none;
+          line-height: 1;
+        }
+        .regions-map-panel__close:hover { color: #080808; }
+        .regions-map-panel__label {
+          font-family: var(--font-ui);
+          font-size: 0.5625rem;
+          font-weight: 500;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #6b6966;
+          display: block;
+          margin-bottom: 0.375rem;
+        }
         .regions-map-panel__name {
-          font-family: var(--font-display);
+          font-family: 'Cormorant Garamond', Georgia, serif;
           font-size: 1.5rem;
           font-weight: 300;
           letter-spacing: -0.02em;
           line-height: 1.1;
+          color: #080808;
           margin-bottom: var(--sp-4);
         }
         .regions-map-panel__overview {
-          font-family: var(--font-body);
+          font-family: 'EB Garamond', Georgia, serif;
           font-size: 0.875rem;
           line-height: 1.65;
-          color: var(--grey-600);
+          color: #2e2d2b;
           margin-bottom: var(--sp-4);
         }
-        .regions-map-panel__close {
-          position: absolute;
-          top: var(--sp-4);
-          right: var(--sp-4);
-          font-family: var(--font-ui);
-          font-size: 0.625rem;
-          color: var(--grey-400);
-          cursor: pointer;
-          padding: 4px;
-          transition: color var(--t);
-        }
-        .regions-map-panel__close:hover { color: var(--black); }
-
-        /* Instruction hint */
-        .regions-map-hint {
-          position: absolute;
-          bottom: var(--sp-4);
-          right: var(--sp-4);
-          font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          color: var(--grey-400);
-          background: rgba(249,249,247,0.85);
-          padding: 0.35rem 0.65rem;
-          pointer-events: none;
-          transition: opacity 500ms ease;
-        }
-        .regions-map-hint--hidden { opacity: 0; }
-
-        /* Loading skeleton */
-        .regions-map-loading {
-          position: absolute;
-          inset: 0;
+        .regions-map-panel__link {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: var(--grey-100);
-          transition: opacity 600ms ease;
+          width: 100%;
+          font-family: var(--font-ui);
+          font-size: 0.625rem;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #080808;
+          border: 1px solid #080808;
+          height: 36px;
+          transition: background 200ms ease, color 200ms ease;
+          text-decoration: none;
+        }
+        .regions-map-panel__link:hover {
+          background: #080808;
+          color: #f9f9f7;
+        }
+
+        /* Hint */
+        .regions-map-hint {
+          position: absolute;
+          bottom: var(--sp-4); right: var(--sp-4);
+          font-family: var(--font-ui);
+          font-size: 0.5625rem;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #6b6966;
+          background: rgba(249,249,247,0.9);
+          padding: 0.375rem 0.75rem;
+          pointer-events: none;
+          transition: opacity 400ms ease;
+          border: 1px solid rgba(222,220,215,0.6);
+        }
+        .regions-map-hint--hidden { opacity: 0; }
+
+        /* Loading */
+        .regions-map-loading {
+          position: absolute; inset: 0;
+          display: flex; align-items: center; justify-content: center;
+          background: #eeecea;
           z-index: 5;
+          transition: opacity 600ms ease;
         }
         .regions-map-loading--done { opacity: 0; pointer-events: none; }
         .regions-map-loading__text {
@@ -306,47 +377,29 @@ export default function RegionsMap() {
           font-size: 0.5625rem;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: var(--grey-400);
+          color: #9b9890;
         }
 
-        /* Error state */
-        .regions-map-error {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: var(--sp-4);
-          background: var(--grey-100);
-        }
-
-        /* Mapbox attribution — minimal */
-        .mapboxgl-ctrl-attrib { font-size: 9px !important; opacity: 0.5; }
-        .mapboxgl-ctrl-logo { opacity: 0.3; transform: scale(0.8); }
+        /* Mapbox overrides */
+        .mapboxgl-ctrl-attrib { font-size: 9px !important; opacity: 0.4; }
+        .mapboxgl-ctrl-logo { opacity: 0.25; transform: scale(0.75); transform-origin: bottom right; }
       `}</style>
 
       <div className="regions-map-wrap">
-        {/* Map canvas */}
-        <div
-          ref={containerRef}
-          className={`regions-map-canvas${loaded ? ' loaded' : ''}`}
-        />
+        <div ref={containerRef} className={`regions-map-canvas${loaded ? ' loaded' : ''}`} />
 
-        {/* Loading state */}
         {!error && (
           <div className={`regions-map-loading${loaded ? ' regions-map-loading--done' : ''}`}>
-            <span className="regions-map-loading__text">Loading map</span>
+            <span className="regions-map-loading__text">Loading</span>
           </div>
         )}
 
-        {/* Error state — fallback to region list */}
         {error && (
-          <div className="regions-map-error">
-            <span className="t-label">Browse by Region</span>
-            <div style={{ display: 'flex', gap: 'var(--sp-4)', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '1rem', background: '#eeecea' }}>
+            <span className="regions-map-hint" style={{ position: 'static' }}>Browse by region</span>
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center', padding: '0 1rem' }}>
               {REGION_POINTS.map(r => (
-                <Link key={r.slug} href={`/regions/${r.slug}`} className="btn btn--ghost">
+                <Link key={r.slug} href={`/regions/${r.slug}`} style={{ fontFamily: 'var(--font-ui)', fontSize: '0.6875rem', letterSpacing: '0.08em', textTransform: 'uppercase', border: '1px solid #dedcd7', padding: '0.5rem 1rem', color: '#080808', transition: 'all 200ms' }}>
                   {r.name}
                 </Link>
               ))}
@@ -354,30 +407,23 @@ export default function RegionsMap() {
           </div>
         )}
 
-        {/* Info panel */}
+        {/* Region info panel */}
         <div className={`regions-map-panel${!active ? ' regions-map-panel--hidden' : ''}`}>
           {active && (
             <>
-              <button
-                className="regions-map-panel__close"
-                onClick={() => setActive(null)}
-                aria-label="Close"
-              >
-                ✕
-              </button>
-              <span className="t-label regions-map-panel__label">Region</span>
+              <button className="regions-map-panel__close" onClick={() => setActive(null)} aria-label="Close">✕</button>
+              <span className="regions-map-panel__label">Region</span>
               <h3 className="regions-map-panel__name">{active.name}</h3>
               <p className="regions-map-panel__overview">{active.overview}</p>
-              <Link href={`/regions/${active.slug}`} className="btn btn--outline" style={{ width: '100%', justifyContent: 'center' }}>
+              <Link href={`/regions/${active.slug}`} className="regions-map-panel__link">
                 Explore {active.name} →
               </Link>
             </>
           )}
         </div>
 
-        {/* Hint */}
         <div className={`regions-map-hint${active ? ' regions-map-hint--hidden' : ''}`}>
-          Select a region
+          Click a marker
         </div>
       </div>
     </>

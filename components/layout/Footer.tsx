@@ -82,10 +82,92 @@ export default function Footer() {
           color: var(--grey-600);
           letter-spacing: 0.04em;
         }
+
+        /* ── First sight — early access block ───────────────── */
+        .footer__firstsight {
+          padding: var(--sp-12) 0;
+          border-bottom: var(--border);
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: var(--sp-16);
+          align-items: center;
+        }
+        @media (max-width: 768px) { .footer__firstsight { grid-template-columns: 1fr; gap: var(--sp-6); } }
+        .footer__firstsight-text {}
+        .footer__firstsight-title {
+          font-family: var(--font-display);
+          font-size: 1.5rem;
+          font-weight: 300;
+          letter-spacing: -0.02em;
+          color: var(--black);
+          margin-bottom: var(--sp-2);
+        }
+        .footer__firstsight-body {
+          font-family: var(--font-body);
+          font-size: 0.9375rem;
+          line-height: 1.6;
+          color: var(--grey-600);
+          max-width: 44ch;
+        }
+        .footer__firstsight-form {
+          display: flex;
+          gap: 0;
+          border-bottom: 1px solid var(--grey-800);
+          align-items: center;
+        }
+        .footer__firstsight-input {
+          flex: 1;
+          font-family: var(--font-body);
+          font-size: 1rem;
+          color: var(--black);
+          background: transparent;
+          border: none;
+          outline: none;
+          padding: var(--sp-4) 0;
+        }
+        .footer__firstsight-input::placeholder { color: var(--grey-200); }
+        .footer__firstsight-btn {
+          font-family: var(--font-ui);
+          font-size: 0.5625rem;
+          font-weight: 500;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--black);
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          padding: var(--sp-4) 0 var(--sp-4) var(--sp-6);
+          transition: opacity var(--t);
+          white-space: nowrap;
+        }
+        .footer__firstsight-btn:hover { opacity: 0.5; }
+        .footer__firstsight-note {
+          font-family: var(--font-ui);
+          font-size: 0.5rem;
+          letter-spacing: 0.06em;
+          color: var(--grey-400);
+          margin-top: var(--sp-3);
+          display: block;
+        }
       `}</style>
 
       <footer className="footer">
         <div className="container">
+          {/* First sight — early access */}
+          <div className="footer__firstsight">
+            <div className="footer__firstsight-text">
+              <p className="footer__firstsight-title">First sight</p>
+              <p className="footer__firstsight-body">New pieces are shared with the gallery list before they appear on the site. One of a kind means first come, first considered.</p>
+            </div>
+            <div>
+              <form className="footer__firstsight-form" action="/api/subscribe" method="POST">
+                <input type="email" name="email" className="footer__firstsight-input" placeholder="your@email.com" required />
+                <button type="submit" className="footer__firstsight-btn">Join →</button>
+              </form>
+              <span className="footer__firstsight-note">No newsletter. Only new arrivals, before they're listed.</span>
+            </div>
+          </div>
+
           <div className="footer__grid">
             <div className="footer__col-brand">
               <div className="footer__wordmark"><TanitMark size={28} color="currentColor" /><span className="footer__wordmark-text">Tilwen</span></div>
@@ -106,6 +188,7 @@ export default function Footer() {
               <span className="footer__col-title">About</span>
               <div className="footer__links">
                 <Link href="/about" className="footer__link">Methodology</Link>
+                <Link href="/contact" className="footer__link">Send us a note</Link>
                 <Link href="/inquire" className="footer__link">Inquire</Link>
                 <Link href="/inquire#trade" className="footer__link">Trade Programme</Link>
               </div>

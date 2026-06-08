@@ -220,7 +220,7 @@ export default function Nav() {
                   {label}
                 </Link>
               ))}
-              <Link href="/inquire" className="nav__inquire">Inquire</Link>
+              <button className="nav__inquire" onClick={() => {/* mega menu — coming */}}>Shop</button>
             </div>
             {/* Cart */}
             <CartButton />
@@ -240,7 +240,7 @@ export default function Nav() {
           {links.map(({ href, label }) => (
             <Link key={href} href={href} className="nav__mobile-link">{label}</Link>
           ))}
-          <Link href="/inquire" className="nav__mobile-inquire">Inquire</Link>
+          <Link href="/gallery" className="nav__mobile-inquire">Shop</Link>
         </div>
       )}
     </>

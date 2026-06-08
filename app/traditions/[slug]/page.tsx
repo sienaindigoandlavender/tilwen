@@ -1,8 +1,10 @@
 import { notFound } from 'next/navigation'
+import { faqJsonLd, breadcrumbJsonLd } from '@/lib/seo'
 import Link from 'next/link'
 import { rugTypes, getRugTypeBySlug } from '@/data/rug-types'
 import { glossary } from '@/data/glossary'
 import { regions } from '@/data/regions'
+import { motifs } from '@/data/motifs'
 
 export async function generateStaticParams() {
   return rugTypes.map(t => ({ slug: t.slug }))
@@ -11,7 +13,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const type = getRugTypeBySlug(params.slug)
   if (!type) return {}
-  return { title: `${type.name} — Rug Tradition`, description: type.short_definition }
+  return {
+    title: `${type.name} Rugs — Moroccan Amazigh Rug Tradition`,
+    description: `${type.short_definition} Origin, technique, palette, buying intelligence, and cultural context.`,
+    alternates: { canonical: `https://www.tilwen.com/traditions/${type.slug}` },
+    openGraph: { title: `${type.name} Rugs`, description: type.short_definition, url: `https://www.tilwen.com/traditions/${type.slug}` },
+  }
 }
 
 export default function TraditionPage({ params }: { params: { slug: string } }) {
@@ -26,11 +33,40 @@ export default function TraditionPage({ params }: { params: { slug: string } }) 
     .map(s => regions.find(r => r.slug === s))
     .filter(Boolean)
 
+  // Motifs commonly associated with this rug type
+  const TRADITION_MOTIFS: Record<string, string[]> = {
+    'beni-ourain':  ['lozenge', 'diamond-grid'],
+    'beni-mguild':  ['lozenge', 'diamond-grid'],
+    'beni-mrirt':   ['lozenge', 'diamond-grid'],
+    'azilal':       ['lozenge', 'asymmetry'],
+    'zemmour':      ['lozenge', 'diamond-grid', 'stripe-field'],
+    'boujad':       ['lozenge', 'asymmetry'],
+    'zanafi':       ['stripe-field'],
+    'taznakht':     ['stripe-field'],
+    'boucherouitte':[],
+  }
+  const relatedMotifs = (TRADITION_MOTIFS[type.slug] || [])
+    .map(s => motifs.find(m => m.slug === s))
+    .filter(Boolean)
+
   const renderBody = (text: string) =>
     text.split('\n\n').map((p, i) => <p key={i} style={{ marginBottom: '1.4em' }}>{p}</p>)
 
+  const faqLd = faqJsonLd([
+    { question: `What is a ${type.name} rug?`, answer: `${type.short_definition} ${type.buying_notes}` },
+    { question: `Where do ${type.name} rugs come from?`, answer: type.origin },
+    { question: `What technique is used in ${type.name} rugs?`, answer: type.technique },
+    ...(type.commercial_warning ? [{ question: `How do I identify an authentic ${type.name} rug?`, answer: type.commercial_warning }] : []),
+  ])
+  const breadcrumbLd = breadcrumbJsonLd([
+    { name: 'Traditions', url: 'https://www.tilwen.com/traditions' },
+    { name: type.name, url: `https://www.tilwen.com/traditions/${type.slug}` },
+  ])
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <style>{`
         .tp { padding-bottom: var(--sp-32); }
         .tp-header { padding: var(--sp-16) 0 var(--sp-8); border-bottom: var(--border); }
@@ -144,6 +180,17 @@ export default function TraditionPage({ params }: { params: { slug: string } }) 
                     <Link key={r.slug} href={`/regions/${r.slug}`} className="tp-link-item">
                       <span className="tp-link-name">{r.name}</span>
                       <span className="tp-link-type">Region</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+              {relatedMotifs.length > 0 && (
+                <div className="tp-sidebar-block">
+                  <span className="tp-sidebar-label">Motifs</span>
+                  {relatedMotifs.map(m => m && (
+                    <Link key={m.slug} href={`/motifs/${m.slug}`} className="tp-link-item">
+                      <span className="tp-link-name">{m.name}</span>
+                      <span className="tp-link-type">Motif</span>
                     </Link>
                   ))}
                 </div>

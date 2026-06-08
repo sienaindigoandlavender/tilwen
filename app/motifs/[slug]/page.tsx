@@ -5,6 +5,7 @@ import { motifs, getMotifBySlug } from '@/data/motifs'
 import { rugs } from '@/data/rugs'
 import { glossary } from '@/data/glossary'
 import { essays } from '@/data/essays'
+import { rugTypes } from '@/data/rug-types'
 import { regions } from '@/data/regions'
 import RugCard from '@/components/gallery/RugCard'
 
@@ -16,8 +17,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const motif = getMotifBySlug(params.slug)
   if (!motif) return {}
   return {
-    title: `${motif.name} — Motif`,
-    description: motif.summary,
+    title: `${motif.name} — Amazigh Weaving Motif`,
+    description: `${motif.summary} Learn the symbolic reading, regional variants, and cultural context of the ${motif.name} motif in Amazigh textile tradition.`,
+    alternates: { canonical: `https://www.tilwen.com/motifs/${motif.slug}` },
+    openGraph: { title: `${motif.name} — Amazigh Weaving Motif`, description: motif.summary, url: `https://www.tilwen.com/motifs/${motif.slug}` },
   }
 }
 
@@ -45,6 +48,18 @@ export default function MotifPage({ params }: { params: { slug: string } }) {
   const regionSlugs = Array.from(new Set(motifRugs.map(r => r.region_slug)))
   const relatedRegions = regionSlugs
     .map(s => regions.find(r => r.slug === s))
+    .filter(Boolean)
+
+  // Rug traditions associated with this motif
+  const MOTIF_TRADITIONS: Record<string, string[]> = {
+    'lozenge':      ['beni-ourain', 'beni-mguild', 'beni-mrirt', 'azilal', 'zemmour', 'boujad'],
+    'diamond-grid': ['beni-ourain', 'beni-mguild', 'beni-mrirt', 'zemmour'],
+    'stripe-field': ['zanafi', 'taznakht'],
+    'broken-comb':  ['azilal', 'boujad'],
+    'asymmetry':    ['azilal', 'boucherouitte'],
+  }
+  const relatedTraditions = (MOTIF_TRADITIONS[motif.slug] || [])
+    .map(s => rugTypes.find(t => t.slug === s))
     .filter(Boolean)
 
   const renderReading = (text: string) =>
@@ -428,6 +443,18 @@ export default function MotifPage({ params }: { params: { slug: string } }) {
                 </div>
               )}
 
+              {/* Traditions */}
+              {relatedTraditions.length > 0 && (
+                <div className="mp-sidebar-block">
+                  <span className="mp-sidebar-label">Rug Traditions</span>
+                  {relatedTraditions.map(t => t && (
+                    <Link key={t.slug} href={`/traditions/${t.slug}`} className="mp-link-item">
+                      <span className="mp-link-name">{t.name}</span>
+                      <span className="mp-link-type">Tradition</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
               {/* Regions */}
               {relatedRegions.length > 0 && (
                 <div className="mp-sidebar-block">

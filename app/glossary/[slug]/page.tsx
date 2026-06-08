@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { glossaryTermJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo'
 import Link from 'next/link'
 import { glossary, getGlossaryBySlug, CATEGORY_LABELS } from '@/data/glossary'
 import { rugs } from '@/data/rugs'
@@ -14,8 +15,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const entry = getGlossaryBySlug(params.slug)
   if (!entry) return {}
   return {
-    title: `${entry.term} — Glossary`,
-    description: entry.short_definition,
+    title: `${entry.term} — Moroccan Rug Glossary`,
+    description: `${entry.short_definition} Definition, cultural context, and buying relevance from the Tilwen glossary of Moroccan and Amazigh rug terminology.`,
+    alternates: { canonical: `https://www.tilwen.com/glossary/${entry.slug}` },
+    openGraph: { title: `${entry.term} — Definition`, description: entry.short_definition, url: `https://www.tilwen.com/glossary/${entry.slug}` },
   }
 }
 
@@ -73,8 +76,21 @@ export default function GlossaryEntryPage({ params }: { params: { slug: string }
     })
   }
 
+  const termLd = glossaryTermJsonLd(entry)
+  const faqLd = faqJsonLd([
+    { question: `What is ${entry.term}?`, answer: `${entry.short_definition} ${entry.why_it_matters}` },
+    { question: `Why does ${entry.term} matter when buying a Moroccan rug?`, answer: entry.why_it_matters },
+  ])
+  const breadcrumbLd = breadcrumbJsonLd([
+    { name: 'Glossary', url: 'https://www.tilwen.com/glossary' },
+    { name: entry.term, url: `https://www.tilwen.com/glossary/${entry.slug}` },
+  ])
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(termLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <style>{`
         .ge-page { padding-bottom: var(--sp-32); }
 

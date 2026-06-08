@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { regions, getRegionBySlug } from '@/data/regions'
 import { rugs } from '@/data/rugs'
+import { rugTypes } from '@/data/rug-types'
 import RugCard from '@/components/gallery/RugCard'
 
 export async function generateStaticParams() {
@@ -11,7 +12,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const region = getRegionBySlug(params.slug)
   if (!region) return {}
-  return { title: `${region.name} — Region` }
+  return {
+    title: `${region.name} — Moroccan Weaving Region`,
+    description: `${region.overview.slice(0, 155)}...`,
+    alternates: { canonical: `https://www.tilwen.com/regions/${region.slug}` },
+    openGraph: { title: `${region.name} — Moroccan Weaving Region`, description: region.overview.slice(0, 155), url: `https://www.tilwen.com/regions/${region.slug}` },
+  }
 }
 
 export default function RegionPage({ params }: { params: { slug: string } }) {
@@ -19,6 +25,18 @@ export default function RegionPage({ params }: { params: { slug: string } }) {
   if (!region) notFound()
 
   const regionRugs = rugs.filter(r => r.region_slug === region.slug)
+
+  // Rug traditions associated with this region
+  const REGION_TRADITIONS: Record<string, string[]> = {
+    'high-atlas':   ['azilal'],
+    'middle-atlas': ['beni-ourain', 'beni-mguild', 'beni-mrirt', 'zemmour'],
+    'anti-atlas':   ['taznakht', 'zanafi'],
+    'haouz-plain':  ['boujad', 'boucherouitte'],
+    'saharan':      ['zanafi', 'taznakht'],
+  }
+  const regionTraditions = (REGION_TRADITIONS[region.slug] || [])
+    .map(s => rugTypes.find(t => t.slug === s))
+    .filter(Boolean)
 
   return (
     <>
@@ -83,6 +101,20 @@ export default function RegionPage({ params }: { params: { slug: string } }) {
               </div>
             )}
           </div>
+
+          {/* Traditions from this region */}
+          {regionTraditions.length > 0 && (
+            <div style={{ padding: 'var(--sp-12) 0', borderTop: 'var(--border)', marginTop: 'var(--sp-8)' }}>
+              <span className="t-label" style={{ display: 'block', marginBottom: 'var(--sp-6)' }}>Rug Traditions from this Region</span>
+              <div style={{ display: 'flex', gap: 'var(--sp-4)', flexWrap: 'wrap' }}>
+                {regionTraditions.map(t => t && (
+                  <Link key={t.slug} href={`/traditions/${t.slug}`} style={{ fontFamily: 'var(--font-ui)', fontSize: '0.625rem', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', border: 'var(--border)', padding: '0.4rem 0.875rem', color: 'var(--black)', transition: 'all var(--t)', textDecoration: 'none', display: 'inline-block' }}>
+                    {t.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>

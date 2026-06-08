@@ -3,8 +3,10 @@ import Image from 'next/image'
 import { essays } from '@/data/essays'
 
 export const metadata = {
-  title: 'Journal',
-  description: 'A body of writing on Moroccan and Amazigh material culture, natural dye traditions, symbolic grammar, and the life of objects.',
+  title: 'Journal — Moroccan & Amazigh Material Culture',
+  description: 'Essays on Moroccan and Amazigh material culture — natural dye traditions, symbolic grammar, weaving techniques, and the life of objects in space.',
+  alternates: { canonical: 'https://www.tilwen.com/journal' },
+  openGraph: { title: 'Journal — Moroccan & Amazigh Material Culture', description: 'Essays on Moroccan and Amazigh material culture.', url: 'https://www.tilwen.com/journal' },
 }
 
 export default function JournalPage() {

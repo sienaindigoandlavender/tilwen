@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { rugProductJsonLd, breadcrumbJsonLd } from '@/lib/seo'
 import Image from 'next/image'
 import Link from 'next/link'
 import { rugs, getRugBySlug, getRelatedRugs } from '@/data/rugs'
@@ -11,7 +12,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const rug = getRugBySlug(params.slug)
   if (!rug) return {}
-  return { title: `${rug.given_name} — ${rug.cultural_name}` }
+  return {
+    title: `${rug.given_name} — ${rug.cultural_name}`,
+    description: `${rug.cultural_name} from the ${rug.region}. ${rug.technique}. One of a kind, fully documented. Available from Tilwen.`,
+    alternates: { canonical: `https://www.tilwen.com/gallery/${rug.slug}` },
+    openGraph: { title: `${rug.given_name} — ${rug.cultural_name}`, description: `${rug.cultural_name} from the ${rug.region}.`, url: `https://www.tilwen.com/gallery/${rug.slug}`, images: rug.images[0] ? [{ url: rug.images[0], alt: `${rug.given_name} — ${rug.cultural_name}` }] : [] },
+  }
 }
 
 export default function RugPage({ params }: { params: { slug: string } }) {
@@ -21,8 +27,16 @@ export default function RugPage({ params }: { params: { slug: string } }) {
   const related = getRelatedRugs(rug)
   const hero = rug.images[0] || 'https://images.unsplash.com/photo-1600166898405-da9535204843?w=1400&q=80'
 
+  const productLd = rugProductJsonLd(rug)
+  const breadcrumbLd = breadcrumbJsonLd([
+    { name: 'Gallery', url: 'https://www.tilwen.com/gallery' },
+    { name: `${rug.given_name} — ${rug.cultural_name}`, url: `https://www.tilwen.com/gallery/${rug.slug}` },
+  ])
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <style>{`
         .rp { padding-bottom: var(--sp-32); }
 

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { essayArticleJsonLd, breadcrumbJsonLd } from '@/lib/seo'
 import Image from 'next/image'
 import Link from 'next/link'
 import { essays, getEssayBySlug } from '@/data/essays'
@@ -16,7 +17,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: essay.title,
     description: essay.excerpt,
-    openGraph: { title: essay.title, description: essay.excerpt, images: essay.cover_image ? [essay.cover_image] : [] },
+    alternates: { canonical: `https://www.tilwen.com/journal/${essay.slug}` },
+    openGraph: { title: essay.title, description: essay.excerpt, type: 'article', url: `https://www.tilwen.com/journal/${essay.slug}`, images: essay.cover_image ? [{ url: essay.cover_image, alt: essay.title }] : [] },
   }
 }
 

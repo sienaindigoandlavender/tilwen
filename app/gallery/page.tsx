@@ -3,7 +3,12 @@ import Image from 'next/image'
 import { rugs } from '@/data/rugs'
 import type { Rug } from '@/types'
 
-export const metadata = { title: 'Gallery' }
+export const metadata = {
+  title: 'Gallery — Moroccan & Amazigh Rugs',
+  description: 'Browse the Tilwen gallery of Moroccan and Amazigh rugs — vintage kilims, Beni Ourain, Azilal, Zanafi, and more. Each piece is one of a kind, fully documented.',
+  alternates: { canonical: 'https://www.tilwen.com/gallery' },
+  openGraph: { title: 'Gallery — Moroccan & Amazigh Rugs', description: 'One-of-a-kind Moroccan and Amazigh rugs, fully documented.', url: 'https://www.tilwen.com/gallery' },
+}
 
 const FILTERS = [
   { label: 'All', value: '' },

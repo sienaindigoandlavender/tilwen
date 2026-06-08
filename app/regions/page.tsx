@@ -6,7 +6,12 @@ import { rugs } from '@/data/rugs'
 
 const RegionsMap = dynamic(() => import('@/components/gallery/RegionsMap'), { ssr: false })
 
-export const metadata = { title: 'Regions' }
+export const metadata = {
+  title: 'Weaving Regions — Morocco',
+  description: 'The weaving regions of Morocco — High Atlas, Middle Atlas, Anti-Atlas, Haouz Plain, and Saharan. Each region produces a distinct visual language.',
+  alternates: { canonical: 'https://www.tilwen.com/regions' },
+  openGraph: { title: 'Weaving Regions — Morocco', description: 'Each region of Morocco produces a distinct visual language.', url: 'https://www.tilwen.com/regions' },
+}
 
 export default function RegionsPage() {
   return (

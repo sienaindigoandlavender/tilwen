@@ -197,6 +197,67 @@ The material structure of boucherouitte is different from wool pile. The fabric 
     language_note: `Boucherouitte (French transliteration, most common internationally), boucherouite, boucheruite, bouchrouite. From Moroccan Arabic bu chourit (بو شريط), roughly "from torn cloth" or "from shredded fabric."`,
   },
 
+  {
+    slug: 'zayan',
+    name: 'Zayan',
+    short_definition: 'A pile-knotted rug tradition from the Zayan confederation of the western Middle Atlas — bold geometric compositions in warm ochres, deep reds, and dark wool, from a community that resisted colonial intervention longer than almost any other in Morocco.',
+    origin: 'Zayan confederation, western Middle Atlas, Khénifra region, Morocco',
+    technique: 'Pile-knotted; medium to high pile on wool foundation',
+    palette: 'Warm ochres, deep reds, dark brown-black, and ivory — a palette with more warmth than the cooler Middle Atlas traditions, reflecting the lower altitude and different dye sources of the western Atlas',
+    description: `The Zayan confederation occupies the western Middle Atlas around Khénifra — the same mountain range as the Beni M'Guild and Zemmour, but a distinct community with a distinct history and a distinct visual language. The Zayan were among the last Amazigh communities to resist French colonial control, holding out until 1921 under the leadership of Moha ou Hammou Zayani. That history is not decorative background. It is the context in which these rugs were made — by a community that maintained its own terms of existence against sustained external pressure, and whose material culture reflects that self-possession.
+
+The compositions are bold and direct. Large-scale geometric fields — lozenges, stepped diamonds, chevron arrangements — worked in warm ochres, deep madder reds, and dark wool against ivory grounds. Less compositionally dense than Zemmour work, less chromatically varied than Beni M'Guild, the Zayan tradition has a graphic authority that comes from confidence rather than elaboration. These are not rugs that negotiate with the room. They establish their presence and hold it.
+
+Protective symbolism runs through the Zayan tradition as it does through all Middle Atlas pile weaving. The lozenge is not a geometric choice — it is a mark with a function, placed where it needs to be placed, in the number it needs to appear. The compositions that look most spare are often the most intentional. The space around the symbol is part of the symbol.
+
+Natural dyes dominate the older pieces — walnut and pomegranate for the warm brown-blacks, madder for the reds, saffron for the ochre accents. The transition to synthetic dyes occurred in the mid-twentieth century as it did throughout the region, and the quality differential between natural and synthetic dye examples in this tradition is significant.`,
+    buying_notes: `Zayan attribution is more reliable than Beni Ourain attribution — lower name recognition means lower commercial incentive to misattribute. The specific palette and compositional vocabulary of genuine Zayan work is distinct enough that experienced eyes can identify it, and the Khénifra region provenance is traceable through the market channels that feed it. Ask about wool quality and dye history as with any Middle Atlas pile rug.`,
+    region_slugs: ['middle-atlas'],
+    glossary_term_slugs: ['pile-knotted', 'natural-dye', 'wool', 'tribal-attribution', 'protective-motif'],
+    language_note: `Zayan (French/English transliteration), Zaiane, Izayan (Tamazight). The confederation takes its name from the Zayan people, not from a geographic feature. The town of Khénifra is the administrative centre of their traditional territory.`,
+  },
+
+  {
+    slug: 'taznakht',
+    name: 'Taznakht',
+    short_definition: 'Flatweave rugs from the Taznakht market town in the Draa valley — not a tribal attribution but a production and trading hub where weavers from across the southern Atlas have brought their work to the weekly souk for generations.',
+    origin: 'Taznakht, Draa valley, Ouarzazate province, southern Morocco',
+    technique: 'Weft-faced flatweave kilim; some supplementary weft examples; occasional mixed-technique pieces',
+    palette: 'Ochre, rust, deep terracotta, warm brown, ivory, and occasional indigo — the palette of the southern Atlas foothills at altitude, drawn directly from the landscape and its natural dye sources',
+    description: `Taznakht is not a tribe. It is a market — the weekly souk in a small town in the Draa valley, at the junction of routes connecting Ouarzazate, the Anti-Atlas, and the High Atlas foothills. For generations, weavers from the surrounding communities have brought their flatweaves here to sell. The town has become synonymous with the production it aggregates, which means a Taznakht rug is a geographic attribution rather than a tribal one — it tells you where the piece entered the market, not necessarily who made it or which specific community's visual vocabulary it carries.
+
+This is more honest than many attributions in the Moroccan rug trade, not less. The Taznakht market is a real and traceable production node. Pieces acquired there have a shorter provenance chain than pieces that have passed through Marrakech export channels, and they arrive in their original, unprocessed state — unwashed, untrimmed, the wool and dyes as the weaver left them.
+
+The flatweaves associated with Taznakht are predominantly Zanafi stripe compositions — horizontal bands of ochre, rust, terracotta, and ivory that are the natural output of the horizontal loom and the natural dye palette of the southern Atlas. But the broader Taznakht production encompasses mixed-technique flatweaves, transitional pieces, and work that draws on multiple regional influences. What unites them is the palette and the construction quality — well-spun wool, evenly beaten weft, clean colour transitions that reflect a weaving culture with depth and discipline.
+
+The cooperative network around Taznakht is among the most organised in Morocco. Multiple formal cooperatives operate in and around the town, which means weavers have structured access to materials and markets. This is a meaningful economic context — different from the purely informal domestic production of some other Amazigh weaving traditions, and worth understanding when thinking about where the piece came from and who made it.`,
+    buying_notes: `Taznakht is one of the few places in Morocco where primary market sourcing is genuinely accessible to a buyer with language skills and market knowledge. The weekly souk is the first point of sale for many pieces — before the Marrakech export markup, before the washing and trimming that export channels typically apply. Pieces acquired at the Taznakht souk are as close to source as the market allows.`,
+    region_slugs: ['saharan'],
+    glossary_term_slugs: ['taznakhte', 'zanafi', 'flatweave', 'kilim', 'cooperative', 'natural-dye', 'provenance', 'primary-market'],
+    language_note: `Taznakht (most common commercial spelling), Taznaght (closer to Tamazight pronunciation), Taznakhte. The name refers to the town and administrative centre. Not a tribal designation.`,
+  },
+
+  {
+    slug: 'talsint',
+    name: 'Talsint',
+    short_definition: 'A pile-knotted rug tradition from the eastern High Atlas near the Algerian border — one of the most geographically isolated weaving traditions in Morocco, with a visual character shaped by that isolation.',
+    origin: 'Talsint region, eastern High Atlas, Figuig province, Morocco',
+    technique: 'Pile-knotted; medium pile on wool foundation',
+    palette: 'Deep reds, dark browns, and ivory — a palette of strong contrast and limited range, reflecting the austerity of the eastern Atlas landscape and the distance from urban dye markets',
+    description: `Talsint sits in the eastern High Atlas near the Algerian border, in one of the most geographically remote weaving regions in Morocco. The nearest large city is Figuig, itself a desert oasis town that functions more as a border crossing than a commercial centre. This distance from the main trade routes — from Marrakech, from Fes, from the export channels that shaped the Beni Ourain and Azilal markets — is the defining fact about the Talsint tradition. No outside eye shaped it. No export demand modified it. The weavers made what they made for themselves, within a community whose isolation preserved a visual vocabulary that development and commerce have eroded almost everywhere else.
+
+The result is a pile-knotted tradition of striking graphic directness. Large-scale geometric compositions — bold lozenges, stepped diamond fields, strong horizontal banding — worked in deep reds, dark browns, and ivory with a confidence that comes from a tradition answering to no external standard. The scale of the motifs is larger than in the finer Middle Atlas traditions, the compositions less dense, the effect more immediate. These are rugs that announce themselves.
+
+The protective symbolic content is present and serious. The lozenge forms that dominate Talsint compositions are not decorative choices — they are the same marks that appear across the Amazigh world wherever weavers have placed protective symbols in objects meant to inhabit domestic space. In Talsint work, their scale and placement carry a particular authority: large enough to be unambiguous, positioned with the deliberateness of a mark that is meant to work.
+
+Natural dyes characterise the older pieces — the deep reds from madder, the dark browns from walnut and iron-mordanted tannins, the ivory from undyed local wool. The relative isolation of the region meant that synthetic dyes arrived later here than in more accessible weaving communities, and genuine pre-synthetic Talsint pieces are materially distinctive.`,
+    buying_notes: `Talsint pieces are rare in the international market precisely because the geographic isolation that shaped the tradition also limits its export. What does circulate is more likely to be authentic than many better-known types — there is no commercial infrastructure for producing Talsint-style knockoffs because there is no significant commercial demand for Talsint specifically. This will not remain true indefinitely. Collectors who understand the tradition are beginning to pay attention.`,
+    region_slugs: ['saharan'],
+    glossary_term_slugs: ['pile-knotted', 'natural-dye', 'wool', 'tribal-attribution', 'protective-motif', 'vintage'],
+    language_note: `Talsint (French/English transliteration). The name refers to the town and surrounding region in Figuig province. The weaving tradition is sometimes grouped under broader eastern High Atlas or eastern Morocco categories in commercial contexts.`,
+  },
+
+
 ]
 
 export function getRugTypeBySlug(slug: string): RugType | undefined {

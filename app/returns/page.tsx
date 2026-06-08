@@ -1,58 +1,68 @@
-import Link from 'next/link'
-
-export const metadata = { title: 'Returns' }
+export const metadata = {
+  title: 'Returns & Final Sale Policy',
+  description: 'All pieces at Tilwen are one of a kind. All sales are final.',
+}
 
 export default function ReturnsPage() {
   return (
     <>
       <style>{`
-        .info-page { padding-bottom: var(--sp-32); }
-        .info-header { padding: var(--sp-16) 0 var(--sp-8); border-bottom: var(--border); }
-        .info-body { padding: var(--sp-12) 0; max-width: 800px; }
-        .info-section { padding: var(--sp-8) 0; border-top: var(--border); }
-        .info-section-title { margin-bottom: var(--sp-6); }
+        .returns-page { padding-bottom: var(--sp-32); }
+        .returns-header { padding: var(--sp-16) 0 var(--sp-8); border-bottom: var(--border); }
+        .returns-body { padding: var(--sp-12) 0; max-width: 640px; }
+        .returns-body h2 {
+          font-family: var(--font-display);
+          font-size: 1.375rem;
+          font-weight: 400;
+          letter-spacing: -0.015em;
+          margin: var(--sp-8) 0 var(--sp-4);
+          color: var(--black);
+        }
+        .returns-body h2:first-child { margin-top: 0; }
+        .returns-body p {
+          font-family: var(--font-body);
+          font-size: 1rem;
+          line-height: 1.75;
+          color: var(--grey-600);
+          margin-bottom: var(--sp-4);
+        }
+        .returns-body p strong { color: var(--black); font-weight: 500; }
+        .returns-note {
+          padding: var(--sp-6);
+          border-left: 3px solid var(--black);
+          background: var(--grey-100);
+          margin: var(--sp-8) 0;
+        }
+        .returns-note p { margin-bottom: 0; color: var(--black); }
       `}</style>
 
-      <div className="info-page">
-        <div className="info-header">
+      <div className="returns-page">
+        <div className="returns-header">
           <div className="container">
-            <p className="t-label fade-up" style={{ marginBottom: 'var(--sp-2)' }}>Information</p>
-            <h1 className="t-display fade-up-1">Returns</h1>
+            <p className="t-label fade-up" style={{ marginBottom: 'var(--sp-2)' }}>Policy</p>
+            <h1 className="t-display fade-up-1">Returns & Final Sale</h1>
           </div>
         </div>
 
         <div className="container">
-          <div className="info-body">
-            <div className="info-section">
-              <p className="t-label info-section-title">Return Policy</p>
-              <div className="prose">
-                <p>Returns are accepted within 14 days of confirmed delivery. The piece must be returned in the same condition as received — unaltered, undamaged, rolled as shipped. Return shipping costs are the responsibility of the buyer, and the piece must be insured at its full value for transit.</p>
-                <p>To initiate a return, contact us at <a href="mailto:hello@tilwen.com">hello@tilwen.com</a> within 14 days of delivery with your order reference and the reason for return. We will confirm return instructions within 24 hours.</p>
-                <p>Refunds are issued within 5 business days of confirmed receipt of the returned piece in its original condition. Refunds are to the original payment method only.</p>
-              </div>
+          <div className="returns-body">
+            <div className="returns-note">
+              <p><strong>All sales at Tilwen are final.</strong> Every piece is one of a kind. When it leaves, it is gone — and it cannot be returned to the gallery.</p>
             </div>
 
-            <div className="info-section">
-              <p className="t-label info-section-title">Condition on Arrival</p>
-              <div className="prose">
-                <p>Every piece is photographed before packing and those images are sent to the buyer before dispatch. If a piece arrives damaged in transit, contact us immediately with photographs of the damage and the packaging. We will initiate an insurance claim on your behalf and, where possible, arrange a replacement or full refund.</p>
-                <p>Condition is described in full on every piece page. If a piece arrives materially different from its description, contact us and we will arrange a full refund including return shipping at our cost. This situation is rare; we take our condition descriptions seriously.</p>
-              </div>
-            </div>
+            <h2>Why we do not accept returns</h2>
+            <p>Each piece in the gallery is a unique vintage or one-of-a-kind object, fully documented and described with the specificity that allows you to make an informed decision before purchasing. The symbolic reading, the spatial notes, the condition description, the photographs — these exist so that you know exactly what you are acquiring. We do not sell objects you need to hold in your hands to understand.</p>
+            <p>One-of-a-kind means that a returned piece cannot be resold as new. It re-enters a market where its provenance has now included an additional transfer, which changes what it is. We do not accept that trade.</p>
 
-            <div className="info-section">
-              <p className="t-label info-section-title">Non-Returnable Circumstances</p>
-              <div className="prose">
-                <p>Pieces that have been altered, cut, cleaned, or damaged after delivery are not eligible for return. Custom sourcing projects — pieces sourced specifically for a buyer against a brief — are non-returnable unless they arrive materially different from the agreed description.</p>
-              </div>
-            </div>
+            <h2>What this means for you</h2>
+            <p>Read the piece description in full before purchasing. If you have questions about condition, dimensions, specific details visible in the photographs, or anything else — <a href="/contact" style={{ borderBottom: '1px solid var(--grey-200)' }}>contact us</a> before you buy. We respond within 24 hours.</p>
+            <p>If you are uncertain whether a piece suits your space, we are happy to discuss its spatial character, palette behaviour, and room requirements in detail. That conversation costs nothing and exists to prevent regret.</p>
 
-            <div className="info-section">
-              <p className="t-label info-section-title">Questions</p>
-              <div className="prose">
-                <p>If you have any questions about the return process before purchasing, please <Link href="/inquire">contact us</Link>. We prefer that buyers feel fully confident before committing to a purchase.</p>
-              </div>
-            </div>
+            <h2>Damaged in transit</h2>
+            <p>If a piece arrives damaged as a result of transit — not a condition issue that was present and documented before shipping, but damage caused by the shipping process — contact us within 48 hours of receipt with photographs. We will assess and resolve the situation. This is the one exception to the final sale policy, and it applies only to transit damage, not to condition as described.</p>
+
+            <h2>Before you purchase</h2>
+            <p>We ship worldwide. Shipping costs are confirmed at the time of inquiry or purchase. Pieces are professionally packed and insured for transit. Every piece leaves Marrakech in the condition described in its listing.</p>
           </div>
         </div>
       </div>

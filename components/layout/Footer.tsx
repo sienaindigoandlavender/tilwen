@@ -190,6 +190,7 @@ export default function Footer() {
               <div className="footer__links">
                 <Link href="/about" className="footer__link">Methodology</Link>
                 <Link href="/contact" className="footer__link">Send us a note</Link>
+                <Link href="/faq" className="footer__link">FAQ</Link>
                 <Link href="/inquire" className="footer__link">Inquire</Link>
                 <Link href="/inquire#trade" className="footer__link">Trade Programme</Link>
               </div>

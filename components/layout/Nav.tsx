@@ -201,29 +201,6 @@ export default function Nav() {
           font-weight: 600;
           letter-spacing: 0;
         }
-
-        /* Currency switcher — placeholder, wires to Shopify Markets later */
-        .nav__currency {
-          font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          font-weight: 500;
-          letter-spacing: 0.08em;
-          color: var(--grey-600);
-          border: var(--border);
-          height: 26px;
-          padding: 0 0.625rem;
-          display: flex;
-          align-items: center;
-          gap: 0.3rem;
-          cursor: pointer;
-          background: transparent;
-          margin-left: var(--sp-4);
-          transition: all var(--t);
-          appearance: none;
-          -webkit-appearance: none;
-        }
-        .nav__currency:hover { border-color: var(--black); color: var(--black); }
-        @media (max-width: 480px) { .nav__currency { display: none; } }
       `}</style>
 
       <nav className={`nav${scrolled ? ' nav--scrolled' : ''}`}>
@@ -247,13 +224,6 @@ export default function Nav() {
             </div>
             {/* Cart */}
             <CartButton />
-            {/* Currency switcher — placeholder for Shopify Markets integration */}
-            <select className="nav__currency" aria-label="Select currency" defaultValue="EUR">
-              <option value="EUR">EUR €</option>
-              <option value="USD">USD $</option>
-              <option value="GBP">GBP £</option>
-              <option value="CAD">CAD $</option>
-            </select>
             <button
               className={`nav__burger${open ? ' nav__burger--open' : ''}`}
               onClick={() => setOpen(!open)}

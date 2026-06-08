@@ -207,7 +207,7 @@ export default function Nav() {
         <div className="nav__inner">
           <div className="nav__left">
             <Link href="/" className="nav__logo"><TanitMark size={22} color="currentColor" /><span className="nav__logo-wordmark">Tilwen</span></Link>
-            <span className="nav__tagline">Each piece is one of a kind. When it is gone, it is gone.</span>
+            <span className="nav__tagline">The magic is woven in.</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div className="nav__links">

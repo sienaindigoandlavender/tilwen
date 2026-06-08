@@ -12,7 +12,7 @@ const BASE = 'https://www.tilwen.com'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),
   title: {
-    default: 'Tilwen — Moroccan & Amazigh Rugs',
+    default: 'Tilwen — The magic is woven in',
     template: '%s — Tilwen',
   },
   description: DEFAULT_DESCRIPTION,
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     locale: 'en_GB',
     url: BASE,
     siteName: 'Tilwen',
-    title: 'Tilwen — Moroccan & Amazigh Rugs',
+    title: 'Tilwen — The magic is woven in',
     description: DEFAULT_DESCRIPTION,
-    images: [{ url: `${BASE}/og-default.jpg`, width: 1200, height: 630, alt: 'Tilwen — Moroccan & Amazigh Rugs' }],
+    images: [{ url: `${BASE}/og-default.jpg`, width: 1200, height: 630, alt: 'Tilwen — The magic is woven in' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tilwen — Moroccan & Amazigh Rugs',
+    title: 'Tilwen — The magic is woven in',
     description: DEFAULT_DESCRIPTION,
     images: [`${BASE}/og-default.jpg`],
   },

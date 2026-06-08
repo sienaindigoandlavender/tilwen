@@ -2,129 +2,186 @@ import Link from 'next/link'
 
 export const metadata = {
   title: 'About',
-  description: 'Our methodology, sourcing standards, and the five-criteria publishing gate.',
+  description: 'Before Islam. Before everything that came after and tried to rename it. Tilwen is where those objects are.',
+  alternates: { canonical: 'https://www.tilwen.com/about' },
 }
 
 export default function AboutPage() {
   return (
     <>
       <style>{`
-        .about-header { padding: var(--sp-16) 0 var(--sp-8); border-bottom: var(--border); }
+        .about-page { padding-bottom: var(--sp-32); }
+        .about-header { padding: var(--sp-16) 0 var(--sp-12); border-bottom: var(--border); }
         .about-body {
-          display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16);
-          padding: var(--sp-12) 0;
-        }
-        @media (max-width: 768px) { .about-body { grid-template-columns: 1fr; } }
-        .about-section { padding: var(--sp-8) 0; border-top: var(--border); }
-        .about-section-title { margin-bottom: var(--sp-6); }
-        .about-criteria {
-          margin-top: var(--sp-6); display: flex; flex-direction: column; gap: 0;
-        }
-        .about-criterion {
-          display: grid; grid-template-columns: 32px 1fr;
-          padding: var(--sp-4) 0; border-bottom: var(--border); gap: var(--sp-4);
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: var(--sp-24);
+          padding: var(--sp-16) 0;
           align-items: start;
         }
-        .about-criterion:last-child { border-bottom: none; }
-        .about-criterion__num {
-          font-family: var(--font-ui); font-size: 0.625rem; font-weight: 500;
-          letter-spacing: 0.1em; color: var(--grey-600); padding-top: 0.25rem;
-        }
-        .about-criterion__text {
-          font-family: var(--font-body); font-size: 0.9375rem; line-height: 1.6;
+        @media (max-width: 900px) { .about-body { grid-template-columns: 1fr; gap: var(--sp-12); } }
+        .about-text {
+          font-family: var(--font-body);
+          font-size: 1.125rem;
+          line-height: 1.85;
           color: var(--black);
         }
-        .about-statement {
-          font-family: var(--font-display); font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-          font-weight: 300; letter-spacing: -0.02em; line-height: 1.2;
-          color: var(--black); padding: var(--sp-16) 0; border-top: var(--border);
-          max-width: 60ch;
+        .about-text p { margin-bottom: 1.5em; }
+        .about-text p:last-child { margin-bottom: 0; }
+        .about-aside {
+          padding-top: 0.25rem;
+        }
+        .about-aside-block {
+          padding: var(--sp-6) 0;
+          border-bottom: var(--border);
+        }
+        .about-aside-block:first-child { padding-top: 0; }
+        .about-aside-block:last-child { border-bottom: none; }
+        .about-aside-label {
+          font-family: var(--font-ui);
+          font-size: 0.5rem;
+          font-weight: 600;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--grey-400);
+          display: block;
+          margin-bottom: var(--sp-3);
+        }
+        .about-aside-text {
+          font-family: var(--font-body);
+          font-size: 0.9375rem;
+          line-height: 1.7;
+          color: var(--grey-600);
+        }
+        .about-aside-link {
+          display: inline-block;
+          margin-top: var(--sp-3);
+          font-family: var(--font-ui);
+          font-size: 0.5625rem;
+          font-weight: 500;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: var(--black);
+          border-bottom: 1px solid var(--grey-200);
+          padding-bottom: 1px;
+          transition: border-color var(--t);
+        }
+        .about-aside-link:hover { border-bottom-color: var(--black); }
+
+        /* Standards */
+        .about-standards {
+          padding: var(--sp-16) 0;
+          border-top: var(--border);
+        }
+        .about-standards__grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: var(--sp-8);
+          margin-top: var(--sp-8);
+        }
+        @media (max-width: 768px) { .about-standards__grid { grid-template-columns: 1fr; } }
+        .about-standard {
+          padding: var(--sp-6) 0;
+          border-top: var(--border);
+        }
+        .about-standard__num {
+          font-family: var(--font-display);
+          font-size: 2.5rem;
+          font-weight: 300;
+          letter-spacing: -0.04em;
+          color: var(--grey-200);
+          line-height: 1;
+          margin-bottom: var(--sp-3);
+        }
+        .about-standard__title {
+          font-family: var(--font-ui);
+          font-size: 0.5625rem;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: var(--black);
+          margin-bottom: var(--sp-3);
+          display: block;
+        }
+        .about-standard__text {
+          font-family: var(--font-body);
+          font-size: 0.9375rem;
+          line-height: 1.65;
+          color: var(--grey-600);
         }
       `}</style>
 
-      <div className="about-header">
+      <div className="about-page">
+        <div className="about-header">
+          <div className="container">
+            <p className="t-label fade-up" style={{ marginBottom: 'var(--sp-2)' }}>The Gallery</p>
+            <h1 className="t-hero fade-up-1" style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)' }}>About Tilwen</h1>
+          </div>
+        </div>
+
         <div className="container">
-          <p className="t-label fade-up" style={{ marginBottom: 'var(--sp-2)' }}>About</p>
-          <h1 className="t-display fade-up-1">Methodology</h1>
-          <p className="t-body fade-up-2" style={{ marginTop: 'var(--sp-6)', maxWidth: '60ch', color: 'var(--grey-600)' }}>
-            Tilwen is a shoppable ethnographic gallery. Every rug that appears here has been documented against a five-criteria standard before it goes live.
-          </p>
-        </div>
-      </div>
+          <div className="about-body">
+            <div className="about-text">
+              <p>Before Islam. Before everything that came after and tried to rename it. The lozenge on a High Atlas kilim is a protective mark — placed by a woman who understood that beauty and protection are the same gesture. The broken comb on a border is a deliberate incompleteness — because perfection invites envy, and envy has weight. The eye form is not a decoration. It looks back.</p>
 
-      <div className="container">
-        <div className="about-body">
-          <div>
-            <div className="about-section">
-              <p className="t-label about-section-title">What This Is</p>
-              <div className="prose">
-                <p>Tilwen is not a marketplace, a craft tourism site, or a digitised museum. It is a gallery with a point of view, a scholar's rigour, a merchant's clarity, and a curator's warmth.</p>
-                <p>Each rug is treated as having three distinct existences. As an <em>object</em>, it has provenance, material, age, maker-community, and symbolic grammar. As a <em>knowledge node</em>, it connects outward to motifs, regions, techniques, and cultural histories. As a <em>spatial actor</em>, it has presence, scale, palette behaviour, and atmosphere in a room.</p>
-                <p>The commercial proposition is inseparable from the cultural intelligence. You cannot buy well here without first understanding what you are buying.</p>
-              </div>
+              <p>These objects were made to do something. Not to cover floors, though they do that too. They were made to hold the line between the interior of a life and whatever pressed against it from outside. The Amazigh symbolic vocabulary that runs through this weaving tradition is pre-Islamic, pre-Christian, pre-everything that arrived later and tried to absorb or explain or suppress it. It persisted in wool because wool goes everywhere a family goes, and because the women who made it understood that the marks had to travel with the people they protected.</p>
+
+              <p>Tilwen exists because these objects deserve to be understood for what they are. Not as ethnic textiles. Not as investment pieces. Not as interior design solutions. As objects that carried meaning before any of us arrived and will carry it after.</p>
+
+              <p>Every piece in the gallery is documented to the standard that understanding requires: the symbolic reading specific to this piece, the spatial character, the provenance as far as the evidence reaches, the condition described without flattery. The five-criteria publishing standard is not a marketing claim. A piece that cannot meet it does not appear here.</p>
+
+              <p>The gallery is based in Marrakech. The pieces come from the communities that made them — the High Atlas, the Middle Atlas, the Anti-Atlas, the Saharan south. Sourcing is direct where possible and honest about what direct means where it isn't.</p>
             </div>
 
-            <div className="about-section">
-              <p className="t-label about-section-title">The Publishing Gate</p>
-              <p className="t-body-sm" style={{ color: 'var(--grey-600)', marginBottom: 'var(--sp-4)' }}>
-                Every rug that goes live must meet all five criteria. A piece with four of five is not 80% ready — it is not ready.
-              </p>
-              <div className="about-criteria">
-                {[
-                  'Complete specifications — no blank fields; "Not determined" where genuinely unknown rather than omitted',
-                  'A symbolic reading specific to this rug — not copy-pasted from a type description, written for the specific composition in front of us',
-                  'A spatial behaviour section — atmosphere, room affinities, requirements, and what it doesn\'t suit — written for this specific piece',
-                  'Minimum four images — hero, detail, reverse, and scale reference',
-                  'At least two motif cross-links and one region cross-link',
-                ].map((c, i) => (
-                  <div key={i} className="about-criterion">
-                    <span className="about-criterion__num">0{i + 1}</span>
-                    <p className="about-criterion__text">{c}</p>
-                  </div>
-                ))}
+            <aside className="about-aside">
+              <div className="about-aside-block">
+                <span className="about-aside-label">The Name</span>
+                <p className="about-aside-text">Tilwen is a Tamazight word. It refers to the colours that appear in the sky at the moment between sunset and dark — the brief, plural light that exists before night takes over. It is the register this gallery works in: old things seen clearly, before the darkness of forgetting.</p>
               </div>
-            </div>
+
+              <div className="about-aside-block">
+                <span className="about-aside-label">The Standard</span>
+                <p className="about-aside-text">Every piece published meets five criteria: complete specifications, a symbolic reading specific to this piece, a spatial behaviour section written for this object, minimum four images, and at least two motif cross-links. A piece that cannot meet all five does not appear.</p>
+                <Link href="/glossary" className="about-aside-link">Explore the Glossary →</Link>
+              </div>
+
+              <div className="about-aside-block">
+                <span className="about-aside-label">The Mark</span>
+                <p className="about-aside-text">The Tilwen logomark is Tanit — the Phoenician-Amazigh goddess whose symbol appears on thousands of Punic votive stelae across North Africa. Her form persists in Amazigh jewellery, tattoo, and textile borders. The squared body references the diagonal logic of kilim weaving. She is not a logo. She is the oldest protective mark in this tradition.</p>
+                <Link href="/glossary/tanit" className="about-aside-link">Tanit in the Glossary →</Link>
+              </div>
+
+              <div className="about-aside-block">
+                <span className="about-aside-label">Contact</span>
+                <p className="about-aside-text">hello@tilwen.com<br />Marrakech, Morocco</p>
+                <Link href="/contact" className="about-aside-link">Send a note →</Link>
+              </div>
+            </aside>
           </div>
 
-          <div>
-            <div className="about-section">
-              <p className="t-label about-section-title">Sourcing</p>
-              <div className="prose">
-                <p>All pieces are sourced directly — from families, from markets, from collectors, from the primary and secondary trade in Morocco. We do not work with intermediaries who cannot tell us where a piece came from.</p>
-                <p>We do not restore, overdye, or chemically wash pieces to optimise them for current aesthetics. The condition you read in the specification is the condition the piece arrives in. Imperfections are documented, not concealed.</p>
-              </div>
-            </div>
-
-            <div className="about-section">
-              <p className="t-label about-section-title">The Inventory</p>
-              <div className="prose">
-                <p>The gallery is intentionally small. We would rather have twenty fully documented pieces than two hundred pieces with thin documentation. The curation is not just of the objects — it is of the knowledge attached to them.</p>
-                <p>Each piece is one of a kind. When it is sold, it cannot be replicated or restocked. If you are interested in a specific piece, inquire promptly.</p>
-              </div>
-            </div>
-
-            <div className="about-section">
-              <p className="t-label about-section-title">Navigation</p>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--sp-2)', marginTop: 'var(--sp-2)' }}>
-                {[
-                  { href: '/gallery', label: 'Browse the Gallery' },
-                  { href: '/motifs', label: 'Explore Motifs & Symbols' },
-                  { href: '/regions', label: 'Browse by Region' },
-                  { href: '/journal', label: 'Read the Journal' },
-                  { href: '/inquire', label: 'Make an Inquiry' },
-                ].map(({ href, label }) => (
-                  <Link key={href} href={href} className="btn btn--ghost" style={{ justifyContent: 'flex-start', gap: 'var(--sp-4)' }}>
-                    {label} →
-                  </Link>
-                ))}
-              </div>
+          {/* Publishing standards */}
+          <div className="about-standards">
+            <span className="t-label">The Five Criteria</span>
+            <p className="t-body" style={{ marginTop: 'var(--sp-4)', color: 'var(--grey-600)', maxWidth: '56ch' }}>
+              Every piece that appears in the gallery has met all five. Not four. Not four and a half. A piece that cannot meet all five is not ready.
+            </p>
+            <div className="about-standards__grid">
+              {[
+                { n: '01', title: 'Complete Specifications', text: 'No blank fields. Not determined where genuinely unknown. Transparency on gaps builds trust; omitting fields implies concealment.' },
+                { n: '02', title: 'Symbolic Reading', text: 'Specific to this piece. Not a generic paragraph about Amazigh culture that could appear on any page. What these motifs mean, in this composition, from this community.' },
+                { n: '03', title: 'Spatial Behaviour', text: 'How this specific rug behaves in a room. Its atmosphere, its room affinities, what it requires to succeed, and — honestly — what it does not suit.' },
+                { n: '04', title: 'Four Images', text: 'Hero, detail, reverse, scale reference. The scale reference is unambiguous — not an aspirational interior shot, but a clear sense of proportion.' },
+                { n: '05', title: 'Cross-Links', text: 'At least two motif cross-links and one region cross-link. Every piece is a node in the knowledge system, not an isolated product page.' },
+              ].map(s => (
+                <div key={s.n} className="about-standard">
+                  <div className="about-standard__num">{s.n}</div>
+                  <span className="about-standard__title">{s.title}</span>
+                  <p className="about-standard__text">{s.text}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-
-        <p className="about-statement">
-          "The rugs are not decoration. They are objects with their own intelligence — cultural, spatial, material — and buying one well requires understanding what you are acquiring."
-        </p>
       </div>
     </>
   )

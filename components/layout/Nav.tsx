@@ -8,6 +8,7 @@ const links = [
   { href: '/gallery', label: 'Gallery' },
   { href: '/motifs', label: 'Motifs' },
   { href: '/regions', label: 'Regions' },
+  { href: '/traditions', label: 'Traditions' },
   { href: '/journal', label: 'Journal' },
   { href: '/about', label: 'About' },
 ]

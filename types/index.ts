@@ -105,3 +105,18 @@ export interface GlossaryEntry {
   related_essay_slugs: string[]
   category: GlossaryCategory
 }
+
+export interface RugType {
+  slug: string
+  name: string
+  short_definition: string
+  origin: string
+  technique: string
+  palette: string
+  description: string
+  buying_notes: string
+  commercial_warning?: string
+  region_slugs: string[]
+  glossary_term_slugs: string[]
+  language_note?: string
+}

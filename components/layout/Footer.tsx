@@ -178,6 +178,7 @@ export default function Footer() {
               <span className="footer__col-title">Gallery</span>
               <div className="footer__links">
                 <Link href="/gallery" className="footer__link">All Rugs</Link>
+                <Link href="/traditions" className="footer__link">Traditions</Link>
                 <Link href="/motifs" className="footer__link">Motifs</Link>
                 <Link href="/regions" className="footer__link">Regions</Link>
                 <Link href="/journal" className="footer__link">Journal</Link>

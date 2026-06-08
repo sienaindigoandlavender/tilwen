@@ -4,6 +4,7 @@ import './globals.css'
 import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
 import { organisationJsonLd, websiteJsonLd, DEFAULT_DESCRIPTION } from '@/lib/seo'
+import { CartProvider } from '@/lib/cart-context'
 
 const GA_ID = 'G-RSJ2F7NVQ3'
 const BASE = 'https://www.tilwen.com'
@@ -78,9 +79,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         `}</Script>
       </head>
       <body>
-        <Nav />
-        <main style={{ paddingTop: '56px' }}>{children}</main>
-        <Footer />
+        <CartProvider>
+          <Nav />
+          <main style={{ paddingTop: '56px' }}>{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   )

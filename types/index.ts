@@ -41,6 +41,9 @@ export interface Rug {
   related_rug_slugs: string[]
   related_rug_labels: string[]
   images: string[]
+  // Shopify — populated when products are created in Shopify admin
+  shopify_product_id?: string   // e.g. "gid://shopify/Product/123456789"
+  shopify_variant_id?: string   // e.g. "gid://shopify/ProductVariant/987654321"
 }
 
 export interface Region {

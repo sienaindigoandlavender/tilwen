@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import TanitMark from '@/components/TanitMark'
+import { useCart } from '@/lib/cart-context'
 
 const links = [
   { href: '/gallery', label: 'Gallery' },
@@ -12,6 +13,20 @@ const links = [
   { href: '/journal', label: 'Journal' },
   { href: '/about', label: 'About' },
 ]
+
+function CartButton() {
+  const { itemCount, openCart } = useCart()
+  return (
+    <button className="nav__cart" onClick={openCart} aria-label={`Cart — ${itemCount} item${itemCount !== 1 ? 's' : ''}`}>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M2 2h1.5l2 7h5l1.5-4.5H5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+        <circle cx="7" cy="12.5" r="0.8" fill="currentColor"/>
+        <circle cx="10.5" cy="12.5" r="0.8" fill="currentColor"/>
+      </svg>
+      {itemCount > 0 && <span className="nav__cart-count">{itemCount}</span>}
+    </button>
+  )
+}
 
 export default function Nav() {
   const pathname = usePathname()
@@ -154,6 +169,39 @@ export default function Nav() {
           width: 100%;
         }
 
+        /* Cart icon */
+        .nav__cart {
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          font-family: var(--font-ui);
+          font-size: 0.5625rem;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          color: var(--black);
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+          margin-left: var(--sp-2);
+          transition: opacity var(--t);
+          height: 26px;
+        }
+        .nav__cart:hover { opacity: 0.6; }
+        .nav__cart-count {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 16px;
+          height: 16px;
+          background: var(--black);
+          color: var(--white);
+          border-radius: 50%;
+          font-size: 0.4375rem;
+          font-weight: 600;
+          letter-spacing: 0;
+        }
+
         /* Currency switcher — placeholder, wires to Shopify Markets later */
         .nav__currency {
           font-family: var(--font-ui);
@@ -197,6 +245,8 @@ export default function Nav() {
               ))}
               <Link href="/inquire" className="nav__inquire">Inquire</Link>
             </div>
+            {/* Cart */}
+            <CartButton />
             {/* Currency switcher — placeholder for Shopify Markets integration */}
             <select className="nav__currency" aria-label="Select currency" defaultValue="EUR">
               <option value="EUR">EUR €</option>

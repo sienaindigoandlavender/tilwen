@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { rugProductJsonLd, breadcrumbJsonLd } from '@/lib/seo'
+import AddToCartButton from '@/components/gallery/AddToCartButton'
 import Image from 'next/image'
 import Link from 'next/link'
 import { rugs, getRugBySlug, getRelatedRugs } from '@/data/rugs'
@@ -337,9 +338,13 @@ export default function RugPage({ params }: { params: { slug: string } }) {
                 <p className="rp-acq__note">{rug.acquisition_note}</p>
                 {rug.availability_status === 'available' && (
                   <div className="rp-acq__cta">
-                    <Link href={`/inquire?piece=${rug.slug}&name=${encodeURIComponent(rug.given_name)}`} className="btn btn--primary" style={{ width: '100%' }}>
-                      Inquire about this piece
-                    </Link>
+                    {rug.shopify_variant_id ? (
+                      <AddToCartButton variantId={rug.shopify_variant_id} name={rug.given_name} />
+                    ) : (
+                      <Link href={`/inquire?piece=${rug.slug}&name=${encodeURIComponent(rug.given_name)}`} className="btn btn--primary" style={{ width: '100%' }}>
+                        Inquire about this piece
+                      </Link>
+                    )}
                   </div>
                 )}
                 {rug.availability_status === 'reserved' && (

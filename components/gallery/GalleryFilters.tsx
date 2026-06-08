@@ -1,8 +1,7 @@
 'use client'
 import { useState, useMemo, useCallback } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
 import type { Rug } from '@/types'
+import RugCardHover from '@/components/gallery/RugCardHover'
 
 // ── Palette colour map ───────────────────────────────────────────────────────
 const PALETTE: Record<string, { hex: string; label: string }> = {
@@ -469,53 +468,9 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
           {filtered.length === 0 && (
             <p className="gf-empty">No pieces match the current filters.</p>
           )}
-          {filtered.map((rug, i) => {
-            const hero = rug.images[0]
-            const ref = `(${String(i).padStart(3, '0')})`
-            const swatches = (rug.palette_tags || [])
-              .slice(0, 4)
-              .map(tag => PALETTE[tag])
-              .filter(Boolean)
-
-            return (
-              <Link key={rug.slug} href={`/gallery/${rug.slug}`} className="gf-item">
-                <div className="gf-item__img">
-                  {hero && (
-                    <Image
-                      src={hero}
-                      alt={`${rug.given_name} — ${rug.cultural_name}`}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      sizes="(max-width:480px) 50vw, (max-width:768px) 33vw, (max-width:1100px) 25vw, 17vw"
-                    />
-                  )}
-                  <span className={`gf-item__avail gf-item__avail--${rug.availability_status}`} />
-                </div>
-                <div className="gf-item__body">
-                  <span className="gf-item__ref">{ref}</span>
-                  <span className="gf-item__name">{rug.given_name}</span>
-                  <p className="gf-item__meta">
-                    {rug.length_cm} × {rug.width_cm} cm · €{rug.price.toLocaleString()}
-                  </p>
-                  {swatches.length > 0 && (
-                    <div className="gf-item__swatches">
-                      {swatches.map(({ hex, label }) => {
-                        const isLight = ['#F5F1E8', '#EDE8D8', '#C8B890'].includes(hex)
-                        return (
-                          <span
-                            key={label}
-                            className={`gf-item__swatch${isLight ? ' gf-item__swatch--light' : ''}`}
-                            style={{ background: hex }}
-                            title={label}
-                          />
-                        )
-                      })}
-                    </div>
-                  )}
-                </div>
-              </Link>
-            )
-          })}
+          {filtered.map((rug, i) => (
+            <RugCardHover key={rug.slug} rug={rug} index={i} />
+          ))}
         </div>
       </div>
     </>

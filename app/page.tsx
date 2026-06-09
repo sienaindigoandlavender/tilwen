@@ -16,7 +16,6 @@ export default function HomePage() {
   return (
     <>
       <style>{`
-        /* ── Opening statement ───────────────────────────────── */
         .hp-threshold {
           padding: var(--sp-24) 0 var(--sp-16);
           border-bottom: var(--border);
@@ -78,239 +77,161 @@ export default function HomePage() {
           transition: gap var(--t);
         }
         .hp-threshold__link:hover { gap: var(--sp-4); }
-        .hp-threshold__link::after {
-          content: '→';
-          font-size: 0.75rem;
-        }
+        .hp-threshold__link::after { content: '→'; font-size: 0.75rem; }
 
-        /* ── Motif band ──────────────────────────────────────── */
-        .hp-motifs {
-          border-bottom: var(--border);
-          overflow: hidden;
-        }
-        .hp-motifs__inner {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-        }
+        .hp-motifs { border-bottom: var(--border); overflow: hidden; }
+        .hp-motifs__inner { display: grid; grid-template-columns: repeat(3, 1fr); }
         @media (max-width: 640px) { .hp-motifs__inner { grid-template-columns: 1fr; } }
         .hp-motif {
-          display: block;
-          text-decoration: none;
-          color: inherit;
-          border-right: var(--border);
-          padding: var(--sp-8);
-          transition: background var(--t);
-          position: relative;
-          overflow: hidden;
+          display: block; text-decoration: none; color: inherit;
+          border-right: var(--border); padding: var(--sp-8);
+          transition: background var(--t); overflow: hidden;
         }
         .hp-motif:last-child { border-right: none; }
         .hp-motif:hover { background: var(--grey-100); }
         .hp-motif__img {
-          aspect-ratio: 4/3;
-          position: relative;
-          overflow: hidden;
-          background: var(--grey-100);
-          margin-bottom: var(--sp-4);
+          aspect-ratio: 4/3; position: relative;
+          overflow: hidden; background: var(--grey-100); margin-bottom: var(--sp-4);
         }
         .hp-motif__img img { transition: transform 700ms var(--ease); }
         .hp-motif:hover .hp-motif__img img { transform: scale(1.04); }
         .hp-motif__label {
-          font-family: var(--font-ui);
-          font-size: 0.5rem;
-          font-weight: 500;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: var(--grey-400);
-          display: block;
-          margin-bottom: var(--sp-2);
+          font-family: var(--font-ui); font-size: 0.5rem; font-weight: 500;
+          letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-400);
+          display: block; margin-bottom: var(--sp-2);
         }
         .hp-motif__name {
-          font-family: var(--font-display);
-          font-size: 1.5rem;
-          font-weight: 300;
-          letter-spacing: -0.02em;
-          color: var(--black);
-          display: block;
-          margin-bottom: var(--sp-2);
+          font-family: var(--font-display); font-size: 1.5rem; font-weight: 300;
+          letter-spacing: -0.02em; color: var(--black); display: block; margin-bottom: var(--sp-2);
         }
         .hp-motif__summary {
-          font-family: var(--font-body);
-          font-size: 0.875rem;
-          line-height: 1.6;
-          color: var(--grey-600);
-          font-style: italic;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
+          font-family: var(--font-body); font-size: 0.875rem; line-height: 1.6;
+          color: var(--grey-600); font-style: italic;
+          display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
 
-        /* ── Essay feature ───────────────────────────────────── */
-        .hp-essay {
-          border-bottom: var(--border);
-        }
-        .hp-essay__inner {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          min-height: 480px;
-        }
-        @media (max-width: 900px) {
-          .hp-essay__inner { grid-template-columns: 1fr; min-height: auto; }
-        }
+        .hp-essay { border-bottom: var(--border); }
+        .hp-essay__inner { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
+        @media (max-width: 900px) { .hp-essay__inner { grid-template-columns: 1fr; min-height: auto; } }
         .hp-essay__content {
-          padding: var(--sp-12);
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          border-right: var(--border);
+          padding: var(--sp-12); display: flex; flex-direction: column;
+          justify-content: space-between; border-right: var(--border);
         }
-        @media (max-width: 900px) {
-          .hp-essay__content { border-right: none; border-bottom: var(--border); padding: var(--sp-8) 0; }
-        }
+        @media (max-width: 900px) { .hp-essay__content { border-right: none; border-bottom: var(--border); padding: var(--sp-8) 0; } }
         .hp-essay__label {
-          font-family: var(--font-ui);
-          font-size: 0.5rem;
-          font-weight: 500;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: var(--grey-400);
-          display: block;
-          margin-bottom: var(--sp-6);
+          font-family: var(--font-ui); font-size: 0.5rem; font-weight: 500;
+          letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-400);
+          display: block; margin-bottom: var(--sp-6);
         }
         .hp-essay__title {
-          font-family: var(--font-display);
-          font-size: clamp(2rem, 3.5vw, 3.5rem);
-          font-weight: 300;
-          letter-spacing: -0.03em;
-          line-height: 0.95;
-          color: var(--black);
-          margin-bottom: var(--sp-6);
+          font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3.5rem);
+          font-weight: 300; letter-spacing: -0.03em; line-height: 0.95;
+          color: var(--black); margin-bottom: var(--sp-6);
         }
         .hp-essay__excerpt {
-          font-family: var(--font-body);
-          font-size: 1rem;
-          line-height: 1.75;
-          color: var(--grey-600);
-          flex: 1;
-          margin-bottom: var(--sp-8);
-          max-width: 44ch;
+          font-family: var(--font-body); font-size: 1rem; line-height: 1.75;
+          color: var(--grey-600); flex: 1; margin-bottom: var(--sp-8); max-width: 44ch;
         }
         .hp-essay__read {
-          font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          font-weight: 500;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: var(--black);
-          border-bottom: 1px solid var(--black);
-          padding-bottom: 1px;
-          align-self: flex-start;
-          transition: opacity var(--t);
+          font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 500;
+          letter-spacing: 0.12em; text-transform: uppercase; color: var(--black);
+          border-bottom: 1px solid var(--black); padding-bottom: 1px;
+          align-self: flex-start; transition: opacity var(--t);
         }
         .hp-essay:hover .hp-essay__read { opacity: 0.5; }
         .hp-essay__img {
-          position: relative;
-          overflow: hidden;
-          background: var(--grey-100);
-          min-height: 360px;
+          position: relative; overflow: hidden; background: var(--grey-100); min-height: 360px;
         }
         .hp-essay__img img { transition: transform 800ms var(--ease); }
         .hp-essay:hover .hp-essay__img img { transform: scale(1.025); }
 
-        /* ── Objects section ─────────────────────────────────── */
         .hp-objects { padding: var(--sp-16) 0 var(--sp-24); }
         .hp-objects__header {
-          display: flex;
-          align-items: baseline;
-          justify-content: space-between;
-          margin-bottom: var(--sp-8);
-          padding-bottom: var(--sp-6);
-          border-bottom: var(--border);
+          display: flex; align-items: baseline; justify-content: space-between;
+          margin-bottom: var(--sp-8); padding-bottom: var(--sp-6); border-bottom: var(--border);
         }
         .hp-objects__title {
-          font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          font-weight: 500;
-          letter-spacing: 0.14em;
-          text-transform: uppercase;
-          color: var(--black);
+          font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 500;
+          letter-spacing: 0.14em; text-transform: uppercase; color: var(--black);
         }
         .hp-objects__all {
-          font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          font-weight: 500;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          color: var(--grey-400);
-          border-bottom: 1px solid var(--grey-200);
-          padding-bottom: 1px;
-          transition: all var(--t);
+          font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 500;
+          letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-400);
+          border-bottom: 1px solid var(--grey-200); padding-bottom: 1px; transition: all var(--t);
         }
         .hp-objects__all:hover { color: var(--black); border-bottom-color: var(--black); }
         .hp-objects__grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: var(--sp-8) var(--sp-4);
+          display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-8) var(--sp-4);
         }
         @media (max-width: 900px) { .hp-objects__grid { grid-template-columns: repeat(2, 1fr); } }
 
-        /* ── Map section ─────────────────────────────────────── */
         .hp-map { border-top: var(--border); }
         .hp-map__header {
-          padding: var(--sp-8) 0 var(--sp-4);
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
+          padding: var(--sp-8) 0 var(--sp-4); display: flex;
+          justify-content: space-between; align-items: baseline;
         }
         .hp-map__hint {
-          font-family: var(--font-body);
-          font-size: 0.875rem;
-          font-style: italic;
-          color: var(--grey-400);
+          font-family: var(--font-body); font-size: 0.875rem;
+          font-style: italic; color: var(--grey-400);
         }
         @media (max-width: 600px) { .hp-map__hint { display: none; } }
 
-        /* ── Fire line ───────────────────────────────────────── */
-        .hp-fire {
+        .hp-close {
           padding: var(--sp-24) 0;
           border-top: var(--border);
-          text-align: center;
         }
-        .hp-fire__text {
+        .hp-close__inner {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: var(--sp-16);
+          align-items: end;
+        }
+        @media (max-width: 768px) { .hp-close__inner { grid-template-columns: 1fr; gap: var(--sp-8); } }
+        .hp-close__statement {
           font-family: var(--font-display);
-          font-size: clamp(1.5rem, 3vw, 2.5rem);
+          font-size: clamp(1.5rem, 2.5vw, 2.25rem);
           font-weight: 300;
-          letter-spacing: -0.02em;
-          line-height: 1.3;
+          letter-spacing: -0.025em;
+          line-height: 1.25;
           color: var(--black);
-          max-width: 32ch;
-          margin: 0 auto var(--sp-8);
         }
-        .hp-fire__text em {
+        .hp-close__statement em {
           font-style: italic;
           color: var(--grey-400);
         }
-        .hp-fire__links {
+        .hp-close__links {
           display: flex;
-          justify-content: center;
-          gap: var(--sp-8);
-          flex-wrap: wrap;
+          flex-direction: column;
+          gap: var(--sp-2);
+          padding-bottom: 0.25rem;
         }
-        .hp-fire__link {
-          font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          font-weight: 500;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
+        .hp-close__link {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          padding: var(--sp-3) 0;
+          border-bottom: var(--border);
+          text-decoration: none;
+          color: inherit;
+          transition: padding-left var(--t);
+        }
+        .hp-close__link:hover { padding-left: var(--sp-2); }
+        .hp-close__link-name {
+          font-family: var(--font-display);
+          font-size: 1.125rem;
+          font-weight: 400;
           color: var(--black);
-          border-bottom: 1px solid var(--black);
-          padding-bottom: 1px;
-          transition: opacity var(--t);
+          letter-spacing: -0.01em;
         }
-        .hp-fire__link:hover { opacity: 0.5; }
+        .hp-close__link-desc {
+          font-family: var(--font-body);
+          font-size: 0.8125rem;
+          font-style: italic;
+          color: var(--grey-400);
+        }
       `}</style>
 
-      {/* ── Opening statement — the threshold ── */}
+      {/* Opening */}
       <div className="hp-threshold">
         <div className="container">
           <div className="hp-threshold__inner">
@@ -333,7 +254,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ── Three motifs — the knowledge entry ── */}
+      {/* Three motifs */}
       <div className="hp-motifs">
         <div className="hp-motifs__inner">
           {featuredMotifs.map(motif => (
@@ -351,7 +272,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ── Essay feature — the fire ── */}
+      {/* Essay */}
       {featuredEssay && (
         <div className="hp-essay">
           <div className="container">
@@ -376,7 +297,7 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* ── The objects ── */}
+      {/* Objects */}
       <div className="container">
         <div className="hp-objects">
           <div className="hp-objects__header">
@@ -391,7 +312,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ── Regions map ── */}
+      {/* Map */}
       <div className="hp-map">
         <div className="container">
           <div className="hp-map__header">
@@ -402,21 +323,35 @@ export default function HomePage() {
         <RegionsMap />
       </div>
 
-      {/* ── Fire line — the invitation ── */}
+      {/* Closing — the door left open */}
       <div className="container">
-        <div className="hp-fire">
-          <p className="hp-fire__text">
-            Long before you decide to own one, <em>you come for the story.</em>
-          </p>
-          <div className="hp-fire__links">
-            <Link href="/traditions" className="hp-fire__link">The traditions</Link>
-            <Link href="/glossary" className="hp-fire__link">The glossary</Link>
-            <Link href="/motifs" className="hp-fire__link">The symbols</Link>
-            <Link href="/journal" className="hp-fire__link">The journal</Link>
+        <div className="hp-close">
+          <div className="hp-close__inner">
+            <p className="hp-close__statement">
+              She put something in the border.<br />
+              <em>Nobody told her to.</em>
+            </p>
+            <div className="hp-close__links">
+              <Link href="/traditions" className="hp-close__link">
+                <span className="hp-close__link-name">The traditions</span>
+                <span className="hp-close__link-desc">Beni Ourain, Zemmour, Talsint</span>
+              </Link>
+              <Link href="/motifs" className="hp-close__link">
+                <span className="hp-close__link-name">The symbols</span>
+                <span className="hp-close__link-desc">What the marks mean</span>
+              </Link>
+              <Link href="/glossary" className="hp-close__link">
+                <span className="hp-close__link-name">The glossary</span>
+                <span className="hp-close__link-desc">Every term, defined honestly</span>
+              </Link>
+              <Link href="/journal" className="hp-close__link">
+                <span className="hp-close__link-name">The journal</span>
+                <span className="hp-close__link-desc">Essays that don't flatter</span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
-
     </>
   )
 }

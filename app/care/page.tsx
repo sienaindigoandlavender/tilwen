@@ -1,109 +1,80 @@
-import Link from 'next/link'
-
-export const metadata = { title: 'Care & Shipping' }
+export const metadata = {
+  title: 'Care & Shipping',
+  description: 'How to care for a Moroccan or Amazigh rug. How we ship.',
+}
 
 export default function CarePage() {
   return (
     <>
       <style>{`
-        .info-page { padding-bottom: var(--sp-32); }
-        .info-header { padding: var(--sp-16) 0 var(--sp-8); border-bottom: var(--border); }
-        .info-body { padding: var(--sp-12) 0; }
-        .info-grid {
-          display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-16);
+        .care-page { padding-bottom: var(--sp-32); }
+        .care-header { padding: var(--sp-16) 0 var(--sp-8); border-bottom: var(--border); }
+        .care-body {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: var(--sp-24);
+          padding: var(--sp-12) 0;
+          align-items: start;
         }
-        @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; } }
-        .info-section { padding: var(--sp-8) 0; border-top: var(--border); }
-        .info-section-title { margin-bottom: var(--sp-6); }
-        .info-section .prose p { max-width: none; }
-        .info-list { margin-top: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-2); }
-        .info-list-item {
-          display: grid; grid-template-columns: 160px 1fr; gap: var(--sp-4);
-          padding: var(--sp-2) 0; border-bottom: var(--border);
-        }
-        .info-list-item:last-child { border-bottom: none; }
-        .info-list-item dt { font-family: var(--font-ui); font-size: 0.75rem; color: var(--grey-600); }
-        .info-list-item dd { font-family: var(--font-body); font-size: 0.9375rem; color: var(--grey-800); }
+        @media (max-width: 768px) { .care-body { grid-template-columns: 1fr; } }
+        .care-section h2 { font-family: var(--font-display); font-size: 1.375rem; font-weight: 400; letter-spacing: -0.015em; margin: 0 0 var(--sp-6); color: var(--black); }
+        .care-section p { font-family: var(--font-body); font-size: 1rem; line-height: 1.75; color: var(--grey-600); margin-bottom: var(--sp-4); }
+        .care-section p:last-child { margin-bottom: 0; }
+        .care-section h3 { font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--black); margin: var(--sp-8) 0 var(--sp-3); }
+        .care-section h3:first-of-type { margin-top: 0; }
       `}</style>
 
-      <div className="info-page">
-        <div className="info-header">
+      <div className="care-page">
+        <div className="care-header">
           <div className="container">
-            <p className="t-label fade-up" style={{ marginBottom: 'var(--sp-2)' }}>Information</p>
-            <h1 className="t-display fade-up-1">Care &amp; Shipping</h1>
+            <p className="t-label fade-up" style={{ marginBottom: 'var(--sp-2)' }}>Care & Shipping</p>
+            <h1 className="t-display fade-up-1">Looking after it</h1>
           </div>
         </div>
 
         <div className="container">
-          <div className="info-body">
-            <div className="info-grid">
-              <div>
-                <div className="info-section">
-                  <p className="t-label info-section-title">Shipping</p>
-                  <div className="prose">
-                    <p>We ship worldwide. All pieces are professionally packed by a specialist textile shipper, with full photographic documentation before dispatch.</p>
-                    <p>Shipping costs are confirmed at inquiry — they depend on destination, rug size and weight, and the carrier appropriate for the value of the piece. We do not add a margin to shipping costs; you pay what we pay.</p>
-                    <p>Insurance is included in all shipments at the full declared value of the piece. All customs and import duties are the responsibility of the buyer and are not included in the piece price.</p>
-                  </div>
-                  <dl className="info-list" style={{ marginTop: 'var(--sp-6)' }}>
-                    <div className="info-list-item">
-                      <dt>Europe</dt>
-                      <dd>3–7 business days</dd>
-                    </div>
-                    <div className="info-list-item">
-                      <dt>United Kingdom</dt>
-                      <dd>3–5 business days</dd>
-                    </div>
-                    <div className="info-list-item">
-                      <dt>North America</dt>
-                      <dd>5–10 business days</dd>
-                    </div>
-                    <div className="info-list-item">
-                      <dt>Rest of world</dt>
-                      <dd>7–14 business days</dd>
-                    </div>
-                    <div className="info-list-item">
-                      <dt>Carrier</dt>
-                      <dd>DHL, FedEx, or specialist art shipper depending on piece</dd>
-                    </div>
-                  </dl>
-                </div>
+          <div className="care-body">
+            <div className="care-section">
+              <h2>Flatweave kilims</h2>
 
-                <div className="info-section">
-                  <p className="t-label info-section-title">Packaging</p>
-                  <div className="prose">
-                    <p>All rugs are rolled on an acid-free tube, wrapped in acid-free tissue, and then in a protective outer wrap. They are shipped in a rigid tube or crate depending on size. All packaging materials are conservation-grade.</p>
-                    <p>We photograph the rug before packing and send these images to the buyer before dispatch. If the piece arrives damaged, these pre-dispatch photographs form the basis of any insurance claim.</p>
-                  </div>
-                </div>
-              </div>
+              <h3>Daily</h3>
+              <p>Vacuum on low suction, suction side only. No beater bar. In the direction of the weft — lengthways. Shake outdoors occasionally. These are tough textiles made to be lived on.</p>
 
-              <div>
-                <div className="info-section">
-                  <p className="t-label info-section-title">Care — Flatweave Kilim</p>
-                  <div className="prose">
-                    <p>Flatweave kilims do not have pile and are generally more forgiving than pile rugs in daily use. Regular rotation (every 6–12 months) distributes wear evenly. Do not fold — always roll for storage.</p>
-                    <p>For cleaning: vacuum gently with suction only, no beater bar, no rotary brush. For larger spills, blot immediately with a clean white cloth — do not rub. Professional cleaning every 3–5 years is recommended; always use a specialist with experience in natural-dye textiles. Do not steam clean or wet-wash at home.</p>
-                    <p>Natural dyes in vintage pieces can be sensitive to sunlight. Avoid direct prolonged exposure to strong south or west light, particularly for pieces with indigo.</p>
-                  </div>
-                </div>
+              <h3>Spills</h3>
+              <p>Blot immediately with a clean cloth, working from the outside edge toward the centre. Never rub — rubbing spreads the stain and works it into the weave. Cold water for most spills. No harsh detergent.</p>
 
-                <div className="info-section">
-                  <p className="t-label info-section-title">Care — Pile-Knotted</p>
-                  <div className="prose">
-                    <p>Pile rugs require more attention than flatweaves. Use a rug pad underneath to prevent slipping and protect the foundation. Rotate every 6–12 months. Do not permanently compress the pile under heavy furniture — use furniture cups or pads.</p>
-                    <p>Vacuum regularly on the pile side with low suction — never against the pile direction. Beat gently outdoors rather than machine-beating. For vintage pile rugs with natural dyes, consult a specialist before any cleaning.</p>
-                    <p>If the pile sheds initially — common in undyed wool pieces — this will diminish with use and is not a defect.</p>
-                  </div>
-                </div>
+              <h3>Deep cleaning</h3>
+              <p>Take it to a specialist with experience in natural-dye flatweaves. Not a standard carpet cleaner — their processes are calibrated for synthetic pile, not Amazigh wool. Do not wet-clean at home.</p>
 
-                <div className="info-section">
-                  <p className="t-label info-section-title">Storage</p>
-                  <div className="prose">
-                    <p>Always roll, never fold. Store in a cool, dry, well-ventilated space away from direct light. Protect from moths with natural repellents (cedar, lavender) rather than chemical treatments, which can damage natural fibres. Check periodically.</p>
-                  </div>
-                </div>
-              </div>
+              <h3>Storage</h3>
+              <p>Roll lengthways, never fold. Folding creates permanent creases in vintage textiles. Store in a cool, dry space. Check periodically for moths — natural wool in dark, undisturbed conditions is vulnerable.</p>
+
+              <h3>Underfoot</h3>
+              <p>A thin rubber mesh gripper on hard floors. It prevents migration, protects the floor, and extends the rug's working life. Natural rubber is preferable to PVC.</p>
+            </div>
+
+            <div className="care-section">
+              <h2>Pile rugs</h2>
+
+              <h3>Daily</h3>
+              <p>Vacuum in the direction of the pile — with the nap, not against it. Rotate 180° every six to twelve months to distribute wear and sun exposure. New pile rugs shed for the first few months. This is normal and stops.</p>
+
+              <h3>Sunlight</h3>
+              <p>Keep out of sustained direct sunlight. Natural dyes — madder, indigo, saffron — are relatively stable, but prolonged UV exposure shifts any dye over time. Rotate to even exposure rather than leaving one side in permanent light.</p>
+
+              <h3>Deep cleaning</h3>
+              <p>Specialist hand-wash only. Not machine wash. Not steam clean. The chemicals and mechanical action of commercial cleaning processes strip lanolin, flatten pile, and alter the character of the piece. Once lanolin is gone, it does not come back.</p>
+
+              <h3>Storage</h3>
+              <p>Same as flatweave: roll, never fold. Wrap in breathable cloth — not plastic. Check for moths. Pheromone moth traps in storage areas are worthwhile insurance.</p>
+
+              <h3>Underfoot</h3>
+              <p>A felt-and-rubber combination pad. The felt cushions the pile and protects the floor; the rubber anchors it. Do not use a pad that is larger than the rug — the exposed edges catch and curl.</p>
+
+              <h2 style={{ marginTop: 'var(--sp-12)' }}>Shipping</h2>
+              <p>Every piece ships from Marrakech, rolled and wrapped in acid-free tissue, packed in rigid tubes or custom boxes depending on size. Professionally packed and insured for the full declared value.</p>
+              <p>Flatweaves and lighter pile rugs ship via DHL or FedEx Express. Larger or more fragile pieces go through specialist art and textile freight. We confirm the method and cost before shipping.</p>
+              <p>We provide tracking for every shipment and notify you when the piece leaves Marrakech. Typical transit times: 5–10 business days to Europe, 7–14 to North America.</p>
             </div>
           </div>
         </div>

@@ -157,7 +157,7 @@ export default function Footer() {
           <div className="footer__firstsight">
             <div className="footer__firstsight-text">
               <p className="footer__firstsight-title">First sight</p>
-              <p className="footer__firstsight-body">Each piece exists once. When it goes, it is gone. The people who find them first are the ones who asked to be told.</p>
+              <p className="footer__firstsight-body">New pieces arrive without announcement. Some go the same week. The list is the only way to be there when they do.</p>
             </div>
             <div>
               <form className="footer__firstsight-form" action="/api/subscribe" method="POST">

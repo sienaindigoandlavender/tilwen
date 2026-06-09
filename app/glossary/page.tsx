@@ -172,7 +172,7 @@ export default function GlossaryPage() {
           <h1 className="t-display fade-up-1">Glossary</h1>
           <div className="gl-header__intro">
             <p className="gl-header__desc fade-up-2">
-              A reference guide to the terminology of Moroccan and Amazigh rugs.
+              The carpet merchant uses these words to sell. We use them to explain. The difference is in what gets said when the sale is not the point.
               Technique, material, cultural context, condition, and provenance — defined with precision and connected to the pieces in the gallery.
             </p>
             <div className="fade-up-3">

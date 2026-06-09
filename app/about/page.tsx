@@ -136,7 +136,7 @@ export default function AboutPage() {
             <aside className="about-aside">
               <div className="about-aside-block">
                 <span className="about-aside-label">The Name</span>
-                <p className="about-aside-text">Tilwen is a Tamazight word. It refers to the colours that appear in the sky at the moment between sunset and dark — the brief, plural light that exists before night takes over. It is the register this gallery works in: old things seen clearly, before the darkness of forgetting.</p>
+                <p className="about-aside-text">Tilwen is a Tamazight word for the colours that appear in the sky between sunset and full dark — the brief, plural light before night. It is the hour when the High Atlas turns amber. It is also the hour when the marks on a kilim, seen in that light, stop being decorative.</p>
               </div>
 
               <div className="about-aside-block">

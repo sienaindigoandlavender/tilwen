@@ -173,7 +173,7 @@ export default function GlossaryPage() {
           <div className="gl-header__intro">
             <p className="gl-header__desc fade-up-2">
               The carpet merchant uses these words to sell. We use them to explain. The difference is in what gets said when the sale is not the point.
-              Technique, material, cultural context, condition, and provenance — defined with precision and connected to the pieces in the gallery.
+              Technique, material, cultural context, condition, and provenance. Defined with precision and connected to the pieces in the gallery.
             </p>
             <div className="fade-up-3">
               <p className="t-label" style={{ marginBottom: 'var(--sp-4)' }}>Browse by category</p>

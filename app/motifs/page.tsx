@@ -145,7 +145,7 @@ export default function MotifsPage() {
       <div className="mo-statement">
         <div className="container" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 'var(--sp-12)', flexWrap: 'wrap' }}>
           <p className="mo-statement__text">
-            The marks were not decorative. A lozenge placed in the border of a domestic textile was a protective act. The broken comb was deliberate incompleteness — because perfection invites envy, and the women who wove these objects understood that envy has weight.
+            The marks were not decorative. A lozenge placed in the border of a domestic textile was a protective act. The broken comb was deliberate incompleteness, because perfection invites envy, and the women who wove these objects understood that envy has weight.
           </p>
           <span className="mo-statement__note">Readings are grounded in scholarship. Contested meanings are noted.</span>
         </div>

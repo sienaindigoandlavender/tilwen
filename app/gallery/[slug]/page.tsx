@@ -270,7 +270,7 @@ export default function RugPage({ params }: { params: { slug: string } }) {
                     <tr><td>Age</td><td>{rug.age_period} <Link href="/glossary/vintage" className="rp-motif-link" style={{fontSize:'0.625rem',marginLeft:'0.5rem'}}>→ vintage</Link></td></tr>
                     <tr><td>Dimensions</td><td>{rug.length_cm} × {rug.width_cm} cm</td></tr>
                     <tr><td>Pile</td><td><Link href="/glossary/pile-height" className="rp-motif-link">{rug.pile_height}</Link></td></tr>
-                    <tr><td>Condition</td><td><Link href="/glossary/condition-grades" className="rp-motif-link">{rug.condition}</Link> — {rug.condition_notes}</td></tr>
+                    <tr><td>Condition</td><td><Link href="/glossary/condition-grades" className="rp-motif-link">{rug.condition}</Link>. {rug.condition_notes}</td></tr>
                     <tr><td>Dyes</td><td><Link href={`/glossary/${rug.dye_type.toLowerCase().startsWith('natural') ? 'natural-dye' : 'synthetic-dye'}`} className="rp-motif-link">{rug.dye_type}</Link></td></tr>
                   </tbody>
                 </table>

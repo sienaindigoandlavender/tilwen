@@ -230,7 +230,7 @@ export default function JournalPage() {
 
           <div className="jl-statement">
             <p className="jl-statement__text">
-              Not a feed. Each essay is a permanent object — written to be read once carefully, not scanned for updates. The archive accumulates; it does not flow.
+              Not a feed. Each essay is a permanent object, written to be read once carefully, not scanned for updates. The archive accumulates; it does not flow.
             </p>
           </div>
         </div>

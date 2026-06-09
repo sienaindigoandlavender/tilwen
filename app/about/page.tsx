@@ -122,7 +122,7 @@ export default function AboutPage() {
         <div className="container">
           <div className="about-body">
             <div className="about-text">
-              <p>Before Islam. Before everything that came after and tried to rename it. The lozenge on a High Atlas kilim is a protective mark — placed by a woman who understood that beauty and protection are the same gesture. The broken comb on a border is a deliberate incompleteness — because perfection invites envy, and envy has weight. The eye form is not a decoration. It looks back.</p>
+              <p>Before Islam. Before everything that came after and tried to rename it. The lozenge on a High Atlas kilim is a protective mark, placed by a woman who understood that beauty and protection are the same gesture. The broken comb on a border is a deliberate incompleteness, because perfection invites envy, and envy has weight. The eye form is not a decoration. It looks back.</p>
 
               <p>These objects were made to do something. Not to cover floors, though they do that too. They were made to hold the line between the interior of a life and whatever pressed against it from outside. The Amazigh symbolic vocabulary that runs through this weaving tradition is pre-Islamic, pre-Christian, pre-everything that arrived later and tried to absorb or explain or suppress it. It persisted in wool because wool goes everywhere a family goes, and because the women who made it understood that the marks had to travel with the people they protected.</p>
 
@@ -130,13 +130,13 @@ export default function AboutPage() {
 
               <p>Every piece in the gallery is documented to the standard that understanding requires: the symbolic reading specific to this piece, the spatial character, the provenance as far as the evidence reaches, the condition described without flattery. The five-criteria publishing standard is not a marketing claim. A piece that cannot meet it does not appear here.</p>
 
-              <p>The gallery is based in Marrakech. The pieces come from the communities that made them — the High Atlas, the Middle Atlas, the Anti-Atlas, the Saharan south. Sourcing is direct where possible and honest about what direct means where it isn't.</p>
+              <p>The gallery is based in Marrakech. The pieces come from the communities that made them: the High Atlas, the Middle Atlas, the Anti-Atlas, the Saharan south. Sourcing is direct where possible and honest about what direct means where it isn't.</p>
             </div>
 
             <aside className="about-aside">
               <div className="about-aside-block">
                 <span className="about-aside-label">The Name</span>
-                <p className="about-aside-text">Tilwen is a Tamazight word for the colours that appear in the sky between sunset and full dark — the brief, plural light before night. It is the hour when the High Atlas turns amber. It is also the hour when the marks on a kilim, seen in that light, stop being decorative.</p>
+                <p className="about-aside-text">Tilwen is a Tamazight word for the colours that appear in the sky between sunset and full dark. The brief, plural light before night. It is the hour when the High Atlas turns amber. It is also the hour when the marks on a kilim, seen in that light, stop being decorative.</p>
               </div>
 
               <div className="about-aside-block">
@@ -147,7 +147,7 @@ export default function AboutPage() {
 
               <div className="about-aside-block">
                 <span className="about-aside-label">The Mark</span>
-                <p className="about-aside-text">The Tilwen logomark is Tanit — the Phoenician-Amazigh goddess whose symbol appears on thousands of Punic votive stelae across North Africa. Her form persists in Amazigh jewellery, tattoo, and textile borders. The squared body references the diagonal logic of kilim weaving. She is not a logo. She is the oldest protective mark in this tradition.</p>
+                <p className="about-aside-text">The Tilwen logomark is Tanit, the Phoenician-Amazigh goddess whose symbol appears on thousands of Punic votive stelae across North Africa. Her form persists in Amazigh jewellery, tattoo, and textile borders. The squared body references the diagonal logic of kilim weaving. She is not a logo. She is the oldest protective mark in this tradition.</p>
                 <Link href="/glossary/tanit" className="about-aside-link">Tanit in the Glossary →</Link>
               </div>
 
@@ -169,8 +169,8 @@ export default function AboutPage() {
               {[
                 { n: '01', title: 'Complete Specifications', text: 'No blank fields. Not determined where genuinely unknown. Transparency on gaps builds trust; omitting fields implies concealment.' },
                 { n: '02', title: 'Symbolic Reading', text: 'Specific to this piece. Not a generic paragraph about Amazigh culture that could appear on any page. What these motifs mean, in this composition, from this community.' },
-                { n: '03', title: 'Spatial Behaviour', text: 'How this specific rug behaves in a room. Its atmosphere, its room affinities, what it requires to succeed, and — honestly — what it does not suit.' },
-                { n: '04', title: 'Four Images', text: 'Hero, detail, reverse, scale reference. The scale reference is unambiguous — not an aspirational interior shot, but a clear sense of proportion.' },
+                { n: '03', title: 'Spatial Behaviour', text: 'How this specific rug behaves in a room. Its atmosphere, its room affinities, what it requires to succeed, and what it does not suit.' },
+                { n: '04', title: 'Four Images', text: 'Hero, detail, reverse, scale reference. The scale reference is unambiguous. Not an aspirational interior shot, but a clear sense of proportion.' },
                 { n: '05', title: 'Cross-Links', text: 'At least two motif cross-links and one region cross-link. Every piece is a node in the knowledge system, not an isolated product page.' },
               ].map(s => (
                 <div key={s.n} className="about-standard">

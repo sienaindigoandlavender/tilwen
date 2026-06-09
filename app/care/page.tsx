@@ -38,16 +38,16 @@ export default function CarePage() {
               <h2>Flatweave kilims</h2>
 
               <h3>Daily</h3>
-              <p>Vacuum on low suction, suction side only. No beater bar. In the direction of the weft — lengthways. Shake outdoors occasionally. These are tough textiles made to be lived on.</p>
+              <p>Vacuum on low suction, suction side only. No beater bar. In the direction of the weft. Lengthways. Shake outdoors occasionally. These are tough textiles made to be lived on.</p>
 
               <h3>Spills</h3>
-              <p>Blot immediately with a clean cloth, working from the outside edge toward the centre. Never rub — rubbing spreads the stain and works it into the weave. Cold water for most spills. No harsh detergent.</p>
+              <p>Blot immediately with a clean cloth, working from the outside edge toward the centre. Never rub. Rubbing spreads the stain and works it into the weave. Cold water for most spills. No harsh detergent.</p>
 
               <h3>Deep cleaning</h3>
-              <p>Take it to a specialist with experience in natural-dye flatweaves. Not a standard carpet cleaner — their processes are calibrated for synthetic pile, not Amazigh wool. Do not wet-clean at home.</p>
+              <p>Take it to a specialist with experience in natural-dye flatweaves. Not a standard carpet cleaner. Their processes are calibrated for synthetic pile, not Amazigh wool. Do not wet-clean at home.</p>
 
               <h3>Storage</h3>
-              <p>Roll lengthways, never fold. Folding creates permanent creases in vintage textiles. Store in a cool, dry space. Check periodically for moths — natural wool in dark, undisturbed conditions is vulnerable.</p>
+              <p>Roll lengthways, never fold. Folding creates permanent creases in vintage textiles. Store in a cool, dry space. Check periodically for moths. Natural wool in dark, undisturbed conditions is vulnerable.</p>
 
               <h3>Underfoot</h3>
               <p>A thin rubber mesh gripper on hard floors. It prevents migration, protects the floor, and extends the rug's working life. Natural rubber is preferable to PVC.</p>
@@ -57,19 +57,19 @@ export default function CarePage() {
               <h2>Pile rugs</h2>
 
               <h3>Daily</h3>
-              <p>Vacuum in the direction of the pile — with the nap, not against it. Rotate 180° every six to twelve months to distribute wear and sun exposure. New pile rugs shed for the first few months. This is normal and stops.</p>
+              <p>Vacuum in the direction of the pile, with the nap, not against it. Rotate 180° every six to twelve months to distribute wear and sun exposure. New pile rugs shed for the first few months and stop.</p>
 
               <h3>Sunlight</h3>
-              <p>Keep out of sustained direct sunlight. Natural dyes — madder, indigo, saffron — are relatively stable, but prolonged UV exposure shifts any dye over time. Rotate to even exposure rather than leaving one side in permanent light.</p>
+              <p>Keep out of sustained direct sunlight. Natural dyes, madder, indigo, saffron, are relatively stable, but prolonged UV exposure shifts any dye over time. Rotate to even exposure rather than leaving one side in permanent light.</p>
 
               <h3>Deep cleaning</h3>
               <p>Specialist hand-wash only. Not machine wash. Not steam clean. The chemicals and mechanical action of commercial cleaning processes strip lanolin, flatten pile, and alter the character of the piece. Once lanolin is gone, it does not come back.</p>
 
               <h3>Storage</h3>
-              <p>Same as flatweave: roll, never fold. Wrap in breathable cloth — not plastic. Check for moths. Pheromone moth traps in storage areas are worthwhile insurance.</p>
+              <p>Same as flatweave: roll, never fold. Wrap in breathable cloth, not plastic. Check for moths. Pheromone moth traps in storage areas are worthwhile insurance.</p>
 
               <h3>Underfoot</h3>
-              <p>A felt-and-rubber combination pad. The felt cushions the pile and protects the floor; the rubber anchors it. Do not use a pad that is larger than the rug — the exposed edges catch and curl.</p>
+              <p>A felt-and-rubber combination pad. The felt cushions the pile and protects the floor; the rubber anchors it. Do not use a pad larger than the rug. The exposed edges catch and curl.</p>
 
               <h2 style={{ marginTop: 'var(--sp-12)' }}>Shipping</h2>
               <p>Every piece ships from Marrakech, rolled and wrapped in acid-free tissue, packed in rigid tubes or custom boxes depending on size. Professionally packed and insured for the full declared value.</p>

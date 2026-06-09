@@ -36,7 +36,7 @@ export default function PrivacyPage() {
             <div className="legal-section">
               <p className="t-label legal-section-title">What Data We Collect</p>
               <div className="prose">
-                <p>We collect personal data only when you provide it to us directly — through the inquiry form, by email, or in the course of a transaction. This data may include your name, email address, business name, delivery address, and the content of your inquiry or correspondence.</p>
+                <p>We collect personal data only when you provide it to us directly, through the inquiry form, by email, or in the course of a transaction. This data may include your name, email address, business name, delivery address, and the content of your inquiry or correspondence.</p>
                 <p>We do not use cookies for tracking or advertising. We do not use analytics tools that collect individual user data. We do not run retargeting or behavioural advertising campaigns.</p>
                 <p>Basic server logs are retained for security and performance purposes. These logs include IP addresses and page request information. They are not used to identify individuals and are deleted automatically after 30 days.</p>
               </div>

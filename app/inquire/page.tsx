@@ -86,7 +86,7 @@ export default function InquirePage() {
             </div>
             <div className="form-field">
               <label className="form-label" htmlFor="rug_reference">Piece Reference (optional)</label>
-              <input id="rug_reference" name="rug_reference" type="text" className="form-input" placeholder="e.g. Lucid — or leave blank" />
+              <input id="rug_reference" name="rug_reference" type="text" className="form-input" placeholder="e.g. Lucid, or leave blank" />
             </div>
             <div className="form-field">
               <label className="form-label" htmlFor="message">Message</label>
@@ -133,7 +133,7 @@ export default function InquirePage() {
             <div>
               <h2 className="t-display-sm" style={{ marginBottom: 'var(--sp-6)' }}>Custom Sourcing</h2>
               <div className="prose">
-                <p>If you are looking for a piece that is not currently in the gallery — a specific region, technique, scale, or palette — we can source it.</p>
+                <p>If you are looking for a piece that is not currently in the gallery, a specific region, technique, scale, or palette, we can source it.</p>
                 <p>Custom sourcing operates on a 4–12 week timeline depending on specificity. We will provide a brief before beginning, a clear pricing structure, and the same documentation standard as pieces in the gallery.</p>
                 <p>Use the inquiry form above and select Custom Sourcing Request. Include as much detail as you can about the piece you are looking for.</p>
               </div>

@@ -4,8 +4,8 @@ export const motifs: Motif[] = [
   {
     slug: 'lozenge',
     name: 'Lozenge',
-    summary: 'The foundational geometric unit of Amazigh visual culture — a diamond form that carries layered meanings across weaving, jewellery, tattoo, and architecture throughout North Africa.',
-    cultural_reading: `The lozenge carries layered meanings across Amazigh communities: protection, fertility, the eye that deflects harm, the body of a woman. Its ubiquity is not decorative repetition but symbolic density — the same form holds multiple meanings simultaneously, activated by context and composition. A field of interlocking lozenges is not a pattern; it is a sustained invocation.
+    summary: 'A diamond form that carries layered meanings across weaving, jewellery, tattoo, and architecture throughout North Africa. The foundational unit of Amazigh visual culture.',
+    cultural_reading: `The lozenge carries layered meanings across Amazigh communities: protection, fertility, the eye that deflects harm, the body of a woman. Its ubiquity is not decorative repetition but symbolic density. The same form holds multiple meanings simultaneously, activated by context and composition. A field of interlocking lozenges is not a pattern. A sustained invocation.
 
 The nested lozenge — a smaller form inside a larger one — is among the most common compositions in High Atlas weaving. It is associated specifically with Ait Benhaddou and surrounding communities, and its particular proportions can be used to identify a rug's origin with some precision. Where a standard lozenge grid is distributed evenly across many Amazigh traditions, the nested form with these exact proportions is a regional signature.
 
@@ -19,7 +19,7 @@ Lozenge compositions can be directional or non-directional. A rug with a strict 
   {
     slug: 'broken-comb',
     name: 'Broken Comb',
-    summary: 'A border or field motif consisting of a comb or rake form deliberately interrupted — one of the clearest expressions of the Amazigh principle that incompleteness protects.',
+    summary: 'A comb or rake form deliberately interrupted. One of the clearest expressions of the Amazigh principle that incompleteness protects.',
     cultural_reading: `The comb motif is associated with domesticity and protection in Amazigh weaving: the comb was a domestic tool and a protective amulet simultaneously. It appears in woven borders, jewellery, and tattoo traditions across the Maghreb. Its presence in a textile marks the domestic space as protected.
 
 The "broken" form — deliberately interrupted at one or more points — is read by scholars as an expression of protective incompleteness: the principle that a perfect object invites the evil eye, while an interrupted one does not. The break is not an error. It is a formal decision made by the weaver within a tradition that understands incompleteness as a protective strategy.
@@ -34,7 +34,7 @@ The broken comb appears most frequently in High Atlas and Anti-Atlas flatweave, 
   {
     slug: 'stepped-cross',
     name: 'Stepped Cross',
-    summary: 'A cross form built from steps rather than curves — one of the oldest continuous motifs in North African material culture, carrying cosmological and protective associations predating Islam.',
+    summary: 'A cross form built from steps rather than curves. Among the oldest continuous motifs in North African material culture.',
     cultural_reading: `The stepped cross appears across North Africa, sub-Saharan Africa, and pre-Islamic Mediterranean textiles. In Amazigh weaving, it carries cosmological resonance — the four directions, the cycle of seasons, the cardinal orientation of sacred space. It is among the oldest continuous motifs in the regional visual vocabulary, predating Islam and surviving alongside it for over a millennium.
 
 The stepped form — built from right-angle increments rather than diagonal lines — is the natural expression of the cross within a weft-faced flatweave structure. You cannot weave a true diagonal in a kilim without creating a stepped approximation of it; the stepped cross is therefore both a symbolic choice and a formal consequence of the technique. The two things are not in conflict. The technique has its own logic, and that logic aligns with a compositional decision that carries meaning.
@@ -49,7 +49,7 @@ In High Atlas compositions, the stepped cross often appears as a secondary eleme
   {
     slug: 'diamond-grid',
     name: 'Diamond Grid',
-    summary: 'An allover field of diamond forms touching at every corner — leaving no ground and activating the entire textile surface as a continuous protective structure.',
+    summary: 'An allover field of diamond forms touching at every corner. No ground. The entire surface activated.',
     cultural_reading: `The diamond grid, unlike the lozenge field, leaves no ground: every part of the textile surface is covered by the pattern. This structural decision — no ground, no rest — is associated with maximum protective density. The entire surface is activated. There is no neutral space.
 
 In High Atlas work, the diamond grid is often combined with interior elements: a cross, a smaller diamond, a dot. Each interior element adds a reading to the outer form. The complexity is intentional and cumulative — each compositional decision layers meaning onto the previous one. The diamond grid alone is protective; the diamond grid with stepped-cross interiors is protective at two scales simultaneously.
@@ -64,7 +64,7 @@ At a distance, the diamond grid reads as a uniform pattern. Close up, the interi
   {
     slug: 'stripe-field',
     name: 'Stripe Field',
-    summary: 'A composition organised by horizontal bands of colour — the natural unit of weft-faced flatweave, and in its most accomplished forms, a discipline of restraint that becomes its own content.',
+    summary: 'A composition organised by horizontal bands of colour. The natural unit of weft-faced flatweave. In its most accomplished forms, restraint becomes the content.',
     cultural_reading: `Stripe-field compositions are the structural default of weft-faced flatweave: each row of weft is a colour decision, and if those decisions change at regular intervals, the result is stripes. In this sense, the stripe field is the most honest possible expression of the kilim technique — it uses the structure's natural logic rather than imposing a pictorial programme onto it.
 
 This apparent simplicity conceals considerable complexity. The question for a stripe-field weaver is not whether to make stripes but how to manage the relationships between them: the sequence of colours, the width of each band, the variation within a single colour area, and the relationships between narrow and wide stripes. The best stripe-field pieces have the quality of pieces of music — the interest comes from the relationships between elements, not from the complexity of any single element.
@@ -79,7 +79,7 @@ The Zanafi tradition of the Taznakhte region produces the most accomplished stri
   {
     slug: 'eye-form',
     name: 'Eye Form',
-    summary: 'A concentric oval or pointed ellipse — one of the most direct expressions of the protective gaze in Amazigh textile symbolism.',
+    summary: 'A concentric oval or pointed ellipse. One of the most direct expressions of the protective gaze in Amazigh textile symbolism.',
     cultural_reading: `The eye form appears across Amazigh material culture as one of the primary protective symbols: the eye that watches, deflects harm, and returns the evil gaze to its source. In textile compositions, it appears both as an explicit form — a concentric oval with a central point or dot — and as an implied form within the interior of a lozenge or diamond.
 
 The relationship between the lozenge and the eye is intentional and consistent. In Amazigh symbolic vocabulary, the lozenge is frequently read as a stylised eye, and the two forms are compositionally interchangeable in some contexts. The pointed ellipse of a lozenge can be read as an eye viewed from the front; the nested lozenge can be read as an eye with a pupil.
@@ -93,14 +93,14 @@ Understanding the eye form alongside the lozenge reveals that many Amazigh woven
   {
     slug: 'asymmetry',
     name: 'Asymmetry',
-    summary: 'The deliberate introduction of imbalance into an otherwise regular composition — one of the most culturally specific and misunderstood formal decisions in Amazigh weaving.',
-    cultural_reading: `Asymmetry in Amazigh weaving is not error. It is a formal decision made within a tradition that understands incompleteness as a protective strategy — the same logic that produces the broken-comb and the open lozenge.
+    summary: 'The deliberate introduction of imbalance into an otherwise regular composition. The most misunderstood formal decision in Amazigh weaving.',
+    cultural_reading: `Asymmetry in Amazigh weaving is not error. It is a formal decision made within a tradition that understands incompleteness as a protective strategy. The same logic that produces the broken-comb and the open lozenge.
 
 The most common forms of deliberate asymmetry: a lozenge left open while all others are filled; a border that terminates before completing its full cycle; a repeat that skips one beat; a composition that mirrors almost perfectly except at one point. Each of these is a controlled deviation from a regular order, inserted by a weaver who knows exactly what she is doing.
 
 The cultural logic: a perfect object is envied. An envied object attracts the evil eye. The deliberate flaw creates an imperfection that protects the maker and owner from the consequences of producing something too beautiful. It is protective humility rendered in woven form.
 
-This has practical consequences for how we read vintage pieces. What looks like a mistake — a single reversed lozenge, an interrupted border, a composition that appears to have "gone wrong" at one point — may be the most intentional decision in the entire object. The flaw is not where the maker lost control; it is where she exercised it most precisely.
+This has practical consequences for how we read vintage pieces. What looks like a mistake — a single reversed lozenge, an interrupted border, a composition that appears to have "gone wrong" at one point — may be the most intentional decision in the entire object. The flaw is not where the maker lost control. It is where she exercised it most precisely.
 
 This also means that restoration of these "errors" — straightening the reversed lozenge, completing the interrupted border — destroys the meaning of the object. Well-meaning restoration that removes asymmetry is worse than no restoration, because it eliminates the cultural content along with the apparent imperfection.`,
     variant_forms: 'Single compositional break, isolated reversed element, incomplete border, uneven field balance, deliberate palette deviation.',
@@ -109,7 +109,7 @@ This also means that restoration of these "errors" — straightening the reverse
   {
     slug: 'border',
     name: 'Border',
-    summary: 'The framing element at the edge of a woven composition — not decorative in origin but protective and structural, defining the boundary between the domestic interior and what lies outside it.',
+    summary: 'The framing element at the edge of a woven composition. Not decorative in origin. It defines the boundary between the domestic interior and what lies outside it.',
     cultural_reading: `The border in Amazigh textile tradition is not decoration applied to a finished composition. It is a structural element with a protective function: it defines the boundary of the domestic space represented by the textile, and it contains the field composition within a protected perimeter.
 
 The logic is spatial and symbolic simultaneously. A rug placed in a domestic interior defines a portion of that space as distinct — elevated, protected, significant. The border reinforces this: it is the line between the interior of the composition and the exterior world. The motifs placed in the border — comb forms, eye forms, geometric interlocking patterns — are specifically protective in their register, stationed at the boundary precisely because that is where protection is most needed.

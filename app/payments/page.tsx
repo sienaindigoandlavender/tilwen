@@ -27,11 +27,11 @@ export default function PaymentsPage() {
         <div className="container">
           <div className="pay-body">
             <h2>Currency</h2>
-            <p>All prices are in EUR. PayPal handles currency conversion for buyers paying from non-EUR accounts — you pay in your local currency; we receive in EUR.</p>
+            <p>All prices are in EUR. PayPal handles currency conversion for buyers paying from non-EUR accounts. You pay in your local currency; we receive in EUR.</p>
 
             <h2>Methods</h2>
-            <p><strong>PayPal</strong> — available at checkout. You do not need a PayPal account to pay by card through PayPal's secure gateway.</p>
-            <p><strong>Major credit cards</strong> — Visa, Mastercard, American Express — through the secure checkout.</p>
+            <p><strong>PayPal</strong>: available at checkout. You do not need a PayPal account to pay by card through PayPal's secure gateway.</p>
+            <p><strong>Major credit cards</strong>: Visa, Mastercard, American Express, through the secure checkout.</p>
 
             <h2>Security</h2>
             <p>Payment is processed through Shopify's secure checkout and PayPal. Tilwen does not store card details. All transactions are encrypted.</p>

@@ -37,7 +37,7 @@ export default function TermsPage() {
             <div className="legal-section">
               <p className="t-label legal-section-title">Intellectual Property</p>
               <div className="prose">
-                <p>All content on this site — text, images, descriptions, curatorial writing — is the property of Tilwen unless otherwise stated. The ethnographic and cultural content is original research and editorial work. It may not be reproduced or used without permission.</p>
+                <p>All content on this site, text, images, descriptions, curatorial writing, is the property of Tilwen unless otherwise stated. The ethnographic and cultural content is original research and editorial work. It may not be reproduced or used without permission.</p>
                 <p>The rugs depicted are physical objects with their own cultural heritage. Photography and documentation of those objects belongs to Tilwen. Use of product images without permission is not permitted.</p>
               </div>
             </div>
@@ -53,7 +53,7 @@ export default function TermsPage() {
             <div className="legal-section">
               <p className="t-label legal-section-title">Purchase Terms</p>
               <div className="prose">
-                <p>The purchase process for all pieces is initiated via inquiry. A piece is not sold until a formal invoice has been issued, accepted, and paid. Listing a piece on the site does not constitute an offer to sell at a fixed price — prices are as listed but availability must be confirmed.</p>
+                <p>The purchase process for all pieces is initiated via inquiry. A piece is not sold until a formal invoice has been issued, accepted, and paid. Listing a piece on the site does not constitute an offer to sell at a fixed price. Prices are as listed but availability must be confirmed.</p>
                 <p>All sales are final subject to our returns policy. By proceeding with a purchase, you confirm that you have read the piece's full description and accept its condition as described.</p>
               </div>
             </div>

@@ -8,27 +8,27 @@ const FAQS = [
     questions: [
       {
         q: 'Are all pieces genuinely one of a kind?',
-        a: `Yes. Each piece is a unique vintage or antique object. There is no production run. There is no reorder. When it sells, it is gone — and the woman who made it, wherever she is now, made only this one.`,
+        a: `Yes. Each piece is a unique vintage or antique object. There is no production run. There is no reorder. When it sells, it is gone. The woman who made it, wherever she is now, made only this one.`,
       },
       {
         q: 'How do you source your pieces?',
-        a: `Directly, where possible. Some come from families in weaving communities selling pieces that lived in their homes for generations. Others come through trusted contacts in the southern and central Moroccan market who understand what we are looking for. We do not buy through Marrakech tourist channels or wholesale export operations. We are honest about what "direct" means and what it doesn't — the provenance on each piece states what is known and stops there.`,
+        a: `Directly, where possible. Some come from families in weaving communities selling pieces that lived in their homes for generations. Others come through trusted contacts in the southern and central Moroccan market who understand what we are looking for. We do not buy through Marrakech tourist channels or wholesale export operations. We are honest about what "direct" means and what it doesn't. The provenance on each piece states what is known and stops there.`,
       },
       {
         q: 'How do you know where a rug is from?',
-        a: `Sometimes exactly — a direct acquisition from the household that made it, with a clear account of its history. More often, it is a combination of visual analysis and market knowledge: the compositional vocabulary, the palette, the construction technique, where the piece was sourced and through whom. We say "acquired from a family in Ait Benhaddou" when that is what happened. We say "attributed to the High Atlas based on compositional characteristics" when that is what we mean. Both appear on this site, labelled for what they are.`,
+        a: `Sometimes exactly, a direct acquisition from the household that made it, with a clear account of its history. More often, it is a combination of visual analysis and market knowledge: the compositional vocabulary, the palette, the construction technique, where the piece was sourced and through whom. We say "acquired from a family in Ait Benhaddou" when that is what happened. We say "attributed to the High Atlas based on compositional characteristics" when that is what we mean. Both appear on this site, labelled for what they are.`,
       },
       {
         q: 'What does your condition grading mean?',
-        a: `Four grades. Excellent: no damage, no wear, no restoration — rare in genuine vintage pieces. Very Good: minor wear consistent with careful use, unrestored. Good: moderate wear, possibly minor historical restoration, some colour change. Fair: significant wear or restoration — the piece appears here because something in it outweighs its physical condition. Every grade comes with specific condition notes saying exactly what is there and where. We do not grade optimistically.`,
+        a: `Four grades. Excellent: no damage, no wear, no restoration. Rare in genuine vintage pieces. Very Good: minor wear consistent with careful use, unrestored. Good: moderate wear, possibly minor historical restoration, some colour change. Fair: significant wear or restoration. The piece appears here because something in it outweighs its physical condition. Every grade comes with specific condition notes saying exactly what is there and where. We do not grade optimistically.`,
       },
       {
         q: 'Have the pieces been washed or chemically treated?',
-        a: `No. We do not wash, chemically treat, overdye, or restore pieces before sale. Almost everything sold through Marrakech export channels has been through an industrial washing process that strips lanolin, evens colour, and makes rugs photograph better. The pieces here arrive in the condition they were in when we acquired them — which is the condition described in the listing.`,
+        a: `No. We do not wash, chemically treat, overdye, or restore pieces before sale. Almost everything sold through Marrakech export channels has been through an industrial washing process that strips lanolin, evens colour, and makes rugs photograph better. The pieces here arrive in the condition they were in when we acquired them. That is the condition described in the listing.`,
       },
       {
         q: 'What is the difference between natural and synthetic dye?',
-        a: `Natural dyes — madder, saffron, henna, walnut, indigo — age toward depth. Madder deepens toward garnet. Indigo shifts toward teal. The colours mellow rather than flatten. Synthetic dyes, which arrived in Morocco in the late nineteenth century and became dominant by the mid-twentieth, tend to fade uniformly over time. Both are honest materials. The distinction matters to the long-term character of the piece.`,
+        a: `Natural dyes, madder, saffron, henna, walnut, indigo, age toward depth. Madder deepens toward garnet. Indigo shifts toward teal. The colours mellow rather than flatten. Synthetic dyes, which arrived in Morocco in the late nineteenth century and became dominant by the mid-twentieth, tend to fade uniformly over time. Both are honest materials. The distinction matters to the long-term character of the piece.`,
       },
     ],
   },
@@ -37,11 +37,11 @@ const FAQS = [
     questions: [
       {
         q: 'Can I return a piece?',
-        a: `No. Every piece is described and photographed with enough specificity to make an informed decision. If you have questions before purchasing — about condition, dimensions, palette in different light — contact us. We respond within 24 hours. The one exception is transit damage: if a piece arrives damaged as a direct result of shipping, contact us within 48 hours with photographs.`,
+        a: `No. Every piece is described and photographed with enough specificity to make an informed decision. If you have questions before purchasing, about condition, dimensions, palette in different light, contact us. We respond within 24 hours. The one exception is transit damage: if a piece arrives damaged as a direct result of shipping, contact us within 48 hours with photographs.`,
       },
       {
         q: 'How do I know the piece will suit my space?',
-        a: `Every description includes a spatial character section specific to that piece — how it reads in a room, what it requires to succeed, what it doesn't suit. These are not copied from a template. If you are still uncertain, contact us before you buy. We will talk through your space, your light, your furniture, and the piece in question.`,
+        a: `Every description includes a spatial character section specific to that piece. How it reads in a room, what it requires to succeed, what it doesn't suit. These are not copied from a template. If you are still uncertain, contact us before you buy. We will talk through your space, your light, your furniture, and the piece in question.`,
       },
       {
         q: 'What payment methods do you accept?',
@@ -70,7 +70,7 @@ const FAQS = [
       },
       {
         q: 'How are the pieces packed?',
-        a: `Rolled — never folded. Wrapped in acid-free tissue, covered, packed in rigid tubes or custom boxes. Folding creates permanent creases in vintage textiles. We treat each piece as what it is: an irreplaceable object.`,
+        a: `Rolled, never folded. Wrapped in acid-free tissue, covered, packed in rigid tubes or custom boxes. Folding creates permanent creases in vintage textiles. We treat each piece as what it is: an irreplaceable object.`,
       },
     ],
   },
@@ -79,19 +79,19 @@ const FAQS = [
     questions: [
       {
         q: 'How do I clean a flatweave kilim?',
-        a: `Vacuum on low suction, suction side only, no beater bar, in the direction of the weft. Shake outdoors occasionally. Deep cleaning: take to a specialist with experience in natural-dye flatweaves — not a standard carpet cleaner. Do not wet-clean at home. Spills: blot immediately with a clean cloth, outside-in. Never rub.`,
+        a: `Vacuum on low suction, suction side only, no beater bar, in the direction of the weft. Shake outdoors occasionally. Deep cleaning: take to a specialist with experience in natural-dye flatweaves. Not a standard carpet cleaner. Do not wet-clean at home. Spills: blot immediately with a clean cloth, outside-in. Never rub.`,
       },
       {
         q: 'How do I care for a pile rug?',
-        a: `Vacuum in the direction of the pile. Rotate 180° every 6–12 months to distribute wear and sun exposure. Keep out of sustained direct sunlight. Deep cleaning: specialist hand-wash only. New pile rugs shed for the first few months. This is normal and stops.`,
+        a: `Vacuum in the direction of the pile. Rotate 180° every 6–12 months to distribute wear and sun exposure. Keep out of sustained direct sunlight. Deep cleaning: specialist hand-wash only. New pile rugs shed for the first few months and stop.`,
       },
       {
         q: 'Do I need a rug pad?',
-        a: `Yes, on hard floors. Thin rubber mesh gripper for flatweaves; felt-and-rubber combination for pile rugs. Natural rubber is preferable to PVC — some synthetic rubber pads bond to certain floor finishes over time. A pad prevents migration and extends the rug's life.`,
+        a: `Yes, on hard floors. Thin rubber mesh gripper for flatweaves; felt-and-rubber combination for pile rugs. Natural rubber is preferable to PVC. Some synthetic rubber pads bond to certain floor finishes over time. A pad prevents migration and extends the rug's life.`,
       },
       {
         q: 'How do I store a rug?',
-        a: `Roll lengthways, never fold. Store in a cool, dry place — not a damp basement, not a hot attic. Check periodically for moths, particularly in the first year. Natural wool in dark, undisturbed conditions is vulnerable. Movement and light are the best deterrents.`,
+        a: `Roll lengthways, never fold. Store in a cool, dry place, not a damp basement, not a hot attic. Check periodically for moths, particularly in the first year. Natural wool in dark, undisturbed conditions is vulnerable. Movement and light are the best deterrents.`,
       },
     ],
   },
@@ -108,7 +108,7 @@ const FAQS = [
       },
       {
         q: 'Can you source a specific type of piece?',
-        a: `Sometimes. If you are looking for a specific tradition, size, palette, or condition standard not currently in the gallery, contact us with the brief. We acquire pieces continuously and will reach out when something matching your criteria comes in. We do not promise availability on commission — we are not a made-to-order operation.`,
+        a: `Sometimes. If you are looking for a specific tradition, size, palette, or condition standard not currently in the gallery, contact us with the brief. We acquire pieces continuously and will reach out when something matching your criteria comes in. We do not promise availability on commission. We are not a made-to-order operation.`,
       },
     ],
   },

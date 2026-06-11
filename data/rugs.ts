@@ -1,5 +1,27 @@
 import type { Rug } from '@/types'
 
+/**
+ * ROLE OF THIS FILE (since the Shopify connection, June 2026):
+ *
+ * The live gallery is the Shopify catalogue (lib/rug-source.ts). Entries here
+ * serve two purposes:
+ *
+ * 1. EDITORIAL OVERLAY — an entry whose `shopify_product_id`,
+ *    `shopify_variant_id`, or `slug` (matching the Shopify handle) corresponds
+ *    to a live product enriches it: given name, symbolic reading, spatial
+ *    notes, provenance, selection voice, motif links. Local editorial fields
+ *    take effect wherever the Shopify metafield is empty.
+ *
+ * 2. DEV FALLBACK — when Shopify env vars are absent (local development),
+ *    these entries render as the gallery. They are never shown in production
+ *    once Shopify is connected, unless they match a live product.
+ *
+ * To write the scholarship for a live rug: add an entry with
+ * `slug: '<shopify-handle>'` and fill the editorial fields. Commerce fields
+ * (price, images, availability) are ignored for matched entries — Shopify owns
+ * those.
+ */
+
 export const rugs: Rug[] = [
   {
     id: '1',

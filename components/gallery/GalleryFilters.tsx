@@ -1,30 +1,8 @@
 'use client'
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import type { Rug } from '@/types'
 import RugCardHover from '@/components/gallery/RugCardHover'
-
-// ── Palette colour map ───────────────────────────────────────────────────────
-const PALETTE: Record<string, { hex: string; label: string }> = {
-  ivory:       { hex: '#F5F1E8', label: 'Ivory' },
-  cream:       { hex: '#EDE8D8', label: 'Cream' },
-  ochre:       { hex: '#C8932A', label: 'Ochre' },
-  saffron:     { hex: '#E8A020', label: 'Saffron' },
-  terracotta:  { hex: '#C4522A', label: 'Terracotta' },
-  rust:        { hex: '#A83420', label: 'Rust' },
-  red:         { hex: '#9B1C1C', label: 'Red' },
-  orange:      { hex: '#D4621A', label: 'Orange' },
-  brown:       { hex: '#6B3D1E', label: 'Brown' },
-  walnut:      { hex: '#4A2C0A', label: 'Walnut' },
-  indigo:      { hex: '#2A3A6B', label: 'Indigo' },
-  blue:        { hex: '#3A5A8A', label: 'Blue' },
-  charcoal:    { hex: '#3A3832', label: 'Charcoal' },
-  black:       { hex: '#1A1816', label: 'Black' },
-  grey:        { hex: '#8A8680', label: 'Grey' },
-  sage:        { hex: '#6B7A5A', label: 'Sage' },
-  green:       { hex: '#3A5A2A', label: 'Green' },
-  sand:        { hex: '#C8B890', label: 'Sand' },
-  pink:        { hex: '#D4708A', label: 'Pink' },
-}
+import { PALETTE } from '@/lib/palette'
 
 // ── Size classifier ──────────────────────────────────────────────────────────
 function getSize(rug: Rug): string {
@@ -37,9 +15,10 @@ function getSize(rug: Rug): string {
 }
 
 // ── Filter definitions ───────────────────────────────────────────────────────
-type FilterGroup = 'technique' | 'region' | 'size' | 'palette' | 'dye' | 'age'
+type FilterGroup = 'tradition' | 'technique' | 'region' | 'size' | 'palette' | 'dye' | 'age'
 
 interface ActiveFilters {
+  tradition: string[]
   technique: string[]
   region: string[]
   size: string[]
@@ -49,8 +28,10 @@ interface ActiveFilters {
 }
 
 const EMPTY_FILTERS: ActiveFilters = {
-  technique: [], region: [], size: [], palette: [], dye: [], age: [],
+  tradition: [], technique: [], region: [], size: [], palette: [], dye: [], age: [],
 }
+
+const FILTER_PARAM_KEYS: FilterGroup[] = ['tradition', 'technique', 'region', 'size', 'palette', 'dye', 'age']
 
 const TECHNIQUE_OPTIONS = [
   { value: 'flatweave-kilim', label: 'Flatweave' },
@@ -86,11 +67,56 @@ const AGE_OPTIONS = [
 // ── Main component ───────────────────────────────────────────────────────────
 export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
   const [filters, setFilters] = useState<ActiveFilters>(EMPTY_FILTERS)
+  const [newOnly, setNewOnly] = useState(false)
+  const [hydratedFromUrl, setHydratedFromUrl] = useState(false)
+
+  // Read filters from the URL once on mount — powers the SHOP mega menu links
+  // (/gallery?tradition=beni-ourain) and shareable filtered views.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const next: ActiveFilters = { ...EMPTY_FILTERS }
+    let any = false
+    for (const key of FILTER_PARAM_KEYS) {
+      const raw = params.get(key)
+      if (raw) {
+        next[key] = raw.split(',').map(v => v.trim()).filter(Boolean)
+        any = true
+      }
+    }
+    if (any) setFilters(next)
+    if (params.get('new')) setNewOnly(true)
+    setHydratedFromUrl(true)
+  }, [])
+
+  // Keep the URL in sync so filtered views are shareable
+  useEffect(() => {
+    if (!hydratedFromUrl) return
+    const params = new URLSearchParams()
+    for (const key of FILTER_PARAM_KEYS) {
+      if (filters[key].length) params.set(key, filters[key].join(','))
+    }
+    if (newOnly) params.set('new', '1')
+    const qs = params.toString()
+    window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname)
+  }, [filters, newOnly, hydratedFromUrl])
 
   // Derive available palette colours from actual rug data
   const availablePalette = useMemo(() => {
     const used = new Set(rugs.flatMap(r => r.palette_tags || []))
     return Object.entries(PALETTE).filter(([key]) => used.has(key))
+  }, [rugs])
+
+  // Derive tradition options from live inventory
+  const traditionOptions = useMemo(() => {
+    const m = new Map<string, { label: string; count: number }>()
+    for (const r of rugs) {
+      if (!r.type_slug) continue
+      const cur = m.get(r.type_slug)
+      m.set(r.type_slug, { label: r.type_name || r.type_slug, count: (cur?.count || 0) + 1 })
+    }
+    return Array.from(m.entries())
+      .map(([value, v]) => ({ value, label: v.label, count: v.count }))
+      .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
   }, [rugs])
 
   const toggle = useCallback((group: FilterGroup, value: string) => {
@@ -103,13 +129,15 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
     })
   }, [])
 
-  const clearAll = useCallback(() => setFilters(EMPTY_FILTERS), [])
+  const clearAll = useCallback(() => { setFilters(EMPTY_FILTERS); setNewOnly(false) }, [])
 
-  const hasFilters = Object.values(filters).some(arr => arr.length > 0)
+  const hasFilters = Object.values(filters).some(arr => arr.length > 0) || newOnly
 
-  // Filter logic
+  // Filter logic — rugs arrive newest-first from the data layer
   const filtered = useMemo(() => {
-    return rugs.filter(rug => {
+    const pool = newOnly ? rugs.slice(0, 12) : rugs
+    return pool.filter(rug => {
+      if (filters.tradition.length && !filters.tradition.includes(rug.type_slug || '')) return false
       if (filters.technique.length && !filters.technique.includes(rug.technique_slug)) return false
       if (filters.region.length && !filters.region.includes(rug.region_slug)) return false
       if (filters.size.length && !filters.size.includes(getSize(rug))) return false
@@ -130,7 +158,7 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
       }
       return true
     })
-  }, [rugs, filters])
+  }, [rugs, filters, newOnly])
 
   return (
     <>
@@ -138,7 +166,7 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
         /* ── Filter strip ─────────────────────────────────────── */
         .gf-strip {
           position: sticky;
-          top: 56px;
+          top: 84px;
           z-index: 50;
           background: var(--white);
           border-bottom: var(--border);
@@ -350,6 +378,37 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
       <div className="gf-strip">
         <div className="container">
           <div className="gf-strip__inner">
+
+            {/* New arrivals (set via SHOP menu) */}
+            {newOnly && (
+              <div className="gf-group">
+                <button
+                  className="gf-pill gf-pill--active"
+                  onClick={() => setNewOnly(false)}
+                  aria-pressed
+                  title="Showing the most recent pieces — click to show all"
+                >
+                  New arrivals ×
+                </button>
+              </div>
+            )}
+
+            {/* Tradition */}
+            {traditionOptions.length > 1 && (
+              <div className="gf-group">
+                <span className="gf-group-label">Tradition</span>
+                {traditionOptions.map(opt => (
+                  <button
+                    key={opt.value}
+                    className={`gf-pill${filters.tradition.includes(opt.value) ? ' gf-pill--active' : ''}`}
+                    onClick={() => toggle('tradition', opt.value)}
+                    aria-pressed={filters.tradition.includes(opt.value)}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            )}
 
             {/* Colour swatches */}
             {availablePalette.length > 0 && (

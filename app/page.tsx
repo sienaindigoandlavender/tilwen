@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { rugs } from '@/data/rugs'
+import { getAllRugsSafe } from '@/lib/rug-source'
 import { essays } from '@/data/essays'
 import { motifs } from '@/data/motifs'
 import dynamic from 'next/dynamic'
@@ -8,7 +8,10 @@ import RugCardHover from '@/components/gallery/RugCardHover'
 
 const RegionsMap = dynamic(() => import('@/components/gallery/RegionsMap'), { ssr: false })
 
-export default function HomePage() {
+export const revalidate = 600
+
+export default async function HomePage() {
+  const rugs = await getAllRugsSafe()
   const featured = rugs.filter(r => r.availability_status !== 'sold').slice(0, 4)
   const featuredEssay = essays[0]
   const featuredMotifs = motifs.slice(0, 3)

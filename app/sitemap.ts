@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { rugs } from '@/data/rugs'
+import { getAllRugsSafe } from '@/lib/rug-source'
 import { motifs } from '@/data/motifs'
 import { regions } from '@/data/regions'
 import { essays } from '@/data/essays'
@@ -8,7 +8,8 @@ import { rugTypes } from '@/data/rug-types'
 
 const BASE = 'https://www.tilwen.com'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const rugs = await getAllRugsSafe()
   const now = new Date()
 
   const statics: MetadataRoute.Sitemap = [

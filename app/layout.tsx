@@ -5,6 +5,7 @@ import Nav from '@/components/layout/Nav'
 import Footer from '@/components/layout/Footer'
 import { organisationJsonLd, websiteJsonLd, DEFAULT_DESCRIPTION } from '@/lib/seo'
 import { CartProvider } from '@/lib/cart-context'
+import { getShopMenuData } from '@/lib/rug-source'
 
 const GA_ID = 'G-RSJ2F7NVQ3'
 const BASE = 'https://www.tilwen.com'
@@ -56,7 +57,9 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  // Live inventory snapshot for the SHOP mega menu (ISR-cached, 10 min)
+  const shopMenu = await getShopMenuData().catch(() => null)
   return (
     <html lang="en">
       <head>
@@ -80,8 +83,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <CartProvider>
-          <Nav />
-          <main style={{ paddingTop: '56px' }}>{children}</main>
+          <Nav shopMenu={shopMenu} />
+          <main style={{ paddingTop: '84px' }}>{children}</main>
           <Footer />
         </CartProvider>
       </body>

@@ -28,16 +28,11 @@ import { rugs as localRugs } from '@/data/rugs'
 import { regions } from '@/data/regions'
 import { techniques } from '@/data/techniques'
 import { rugTypes } from '@/data/rug-types'
+import { PALETTE_KEYS } from '@/lib/palette'
 
 export const REVALIDATE_SECONDS = 600
 
 // ── Tag parsing ──────────────────────────────────────────────────────────────
-
-const PALETTE_KEYS = [
-  'ivory', 'cream', 'ochre', 'saffron', 'terracotta', 'rust', 'red', 'orange',
-  'brown', 'walnut', 'indigo', 'blue', 'charcoal', 'black', 'grey', 'sage',
-  'green', 'sand', 'pink',
-]
 
 // Shopify tag value → site technique slug (data/techniques.ts)
 const TECHNIQUE_TAG_TO_SLUG: Record<string, string> = {
@@ -218,6 +213,8 @@ function shopifyToRug(p: ShopifyProduct): Rug {
     description_html: p.descriptionHtml || undefined,
     reference: t.reference || undefined,
     age_class: ageClass || undefined,
+    type_slug: tags.typeSlug || undefined,
+    type_name: tags.typeSlug ? typeName(tags.typeSlug) : undefined,
   }
 }
 
@@ -275,4 +272,71 @@ export function getRelatedRugsFrom(rug: Rug, all: Rug[]): { rug: Rug; label: str
   ).map(r => ({ rug: r, label: 'Same technique, different register' }))
 
   return [...sameRegion, ...sameTechnique].slice(0, 3)
+}
+
+// ── SHOP mega menu data ──────────────────────────────────────────────────────
+
+export interface ShopMenuData {
+  totalCount: number
+  traditions: { slug: string; name: string; count: number }[]
+  regions: { slug: string; name: string; count: number }[]
+  palette: string[]
+  featured: {
+    slug: string
+    given_name: string
+    cultural_name: string
+    price: number
+    image: string
+  } | null
+}
+
+/** Computed from live inventory; only dimensions with stock appear. */
+export async function getShopMenuData(): Promise<ShopMenuData> {
+  const all = await getAllRugsSafe()
+  const live = all.filter(r => r.availability_status !== 'sold')
+
+  const traditionCounts = new Map<string, { name: string; count: number }>()
+  const regionCounts = new Map<string, { name: string; count: number }>()
+  const paletteSet = new Set<string>()
+
+  for (const r of live) {
+    if (r.type_slug) {
+      const cur = traditionCounts.get(r.type_slug)
+      traditionCounts.set(r.type_slug, {
+        name: r.type_name || prettify(r.type_slug),
+        count: (cur?.count || 0) + 1,
+      })
+    }
+    if (r.region_slug) {
+      const cur = regionCounts.get(r.region_slug)
+      regionCounts.set(r.region_slug, {
+        name: r.region || prettify(r.region_slug),
+        count: (cur?.count || 0) + 1,
+      })
+    }
+    for (const c of r.palette_tags || []) paletteSet.add(c)
+  }
+
+  const sortByCount = (
+    m: Map<string, { name: string; count: number }>
+  ) => Array.from(m.entries())
+    .map(([slug, v]) => ({ slug, name: v.name, count: v.count }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name))
+
+  // Newest available piece with an image — products arrive sorted by created desc
+  const f = live.find(r => r.images.length > 0)
+
+  return {
+    totalCount: live.length,
+    traditions: sortByCount(traditionCounts),
+    regions: sortByCount(regionCounts),
+    palette: Array.from(paletteSet),
+    featured: f ? {
+      slug: f.slug,
+      given_name: f.given_name,
+      cultural_name: f.cultural_name,
+      price: f.price,
+      image: f.images[0],
+    } : null,
+  }
 }

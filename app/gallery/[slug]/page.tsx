@@ -152,7 +152,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         .rp-motif-link:hover { color: var(--black); border-bottom-color: var(--black); }
 
         /* Right column — acquisition */
-        .rp-sidebar { position: sticky; top: 76px; }
+        .rp-sidebar { position: sticky; top: 104px; }
         .rp-acq {
           border: var(--border); padding: var(--sp-6);
         }

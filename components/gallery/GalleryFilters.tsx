@@ -120,10 +120,13 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
         if (filters.dye.includes('synthetic') && dye.includes('natural')) return false
       }
       if (filters.age.length) {
-        const year = parseInt(rug.age_period?.replace(/\D/g, '').slice(0, 4) || '0')
-        const isVintage = year > 0 && year < 1985
-        if (filters.age.includes('vintage') && !isVintage) return false
-        if (filters.age.includes('contemporary') && isVintage) return false
+        let cls = rug.age_class as string | undefined
+        if (cls === 'antique') cls = 'vintage'
+        if (!cls) {
+          const year = parseInt(rug.age_period?.replace(/\D/g, '').slice(0, 4) || '0')
+          cls = year > 0 && year < 1985 ? 'vintage' : 'contemporary'
+        }
+        if (!filters.age.includes(cls)) return false
       }
       return true
     })

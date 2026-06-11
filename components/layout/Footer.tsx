@@ -146,7 +146,7 @@ export default function Footer() {
           font-size: 0.5rem;
           letter-spacing: 0.06em;
           color: var(--grey-400);
-          margin-top: var(--sp-3);
+          margin-top: var(--sp-4);
           display: block;
         }
       `}</style>

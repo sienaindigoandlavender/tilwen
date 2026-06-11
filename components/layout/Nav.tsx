@@ -96,7 +96,7 @@ export default function Nav({ shopMenu }: { shopMenu?: ShopMenuData | null }) {
         @keyframes shopFade { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
         .shopmenu__inner {
           max-width: var(--max-w); margin: 0 auto;
-          padding: var(--sp-10) var(--sp-8) var(--sp-12);
+          padding: var(--sp-12) var(--sp-8) var(--sp-16);
           display: grid;
           grid-template-columns: 1fr 1fr 1fr 1.2fr;
           gap: var(--sp-12);
@@ -107,6 +107,8 @@ export default function Nav({ shopMenu }: { shopMenu?: ShopMenuData | null }) {
           letter-spacing: 0.14em; text-transform: uppercase;
           color: var(--grey-400);
           display: block; margin-bottom: var(--sp-4);
+          padding-bottom: var(--sp-2);
+          border-bottom: 1px solid var(--grey-100);
         }
         .shopmenu__link {
           display: flex; align-items: baseline; justify-content: space-between;
@@ -134,7 +136,7 @@ export default function Nav({ shopMenu }: { shopMenu?: ShopMenuData | null }) {
         .shopmenu__featured-img {
           display: block;
           position: relative; aspect-ratio: 4/3; overflow: hidden;
-          background: var(--grey-100); margin-bottom: var(--sp-3);
+          background: var(--grey-100); margin-bottom: var(--sp-4);
         }
         .shopmenu__featured-img img { object-fit: cover; transition: transform 600ms var(--ease); }
         .shopmenu__featured:hover .shopmenu__featured-img img { transform: scale(1.04); }
@@ -430,7 +432,9 @@ export default function Nav({ shopMenu }: { shopMenu?: ShopMenuData | null }) {
                     </span>
                     <span className="shopmenu__featured-name">{shopMenu.featured.given_name}</span>
                     <span className="shopmenu__featured-meta" style={{ display: 'block' }}>
-                      {shopMenu.featured.cultural_name} · €{shopMenu.featured.price.toLocaleString()}
+                      {shopMenu.featured.cultural_name !== shopMenu.featured.given_name
+                        ? `${shopMenu.featured.cultural_name} · `
+                        : ''}€{shopMenu.featured.price.toLocaleString()}
                     </span>
                   </Link>
                 )}

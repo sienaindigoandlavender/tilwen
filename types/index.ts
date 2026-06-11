@@ -48,6 +48,8 @@ export interface Rug {
   description_html?: string     // Museum-style description written in Shopify
   reference?: string            // e.g. "GLB-102660", parsed from the product title
   age_class?: 'vintage' | 'contemporary' | 'antique'  // from standalone age tags
+  type_slug?: string            // from type: tag, e.g. "beni-ourain"
+  type_name?: string            // display name from data/rug-types.ts
 }
 
 export interface Region {

@@ -44,6 +44,10 @@ export interface Rug {
   // Shopify — populated when products are created in Shopify admin
   shopify_product_id?: string   // e.g. "gid://shopify/Product/123456789"
   shopify_variant_id?: string   // e.g. "gid://shopify/ProductVariant/987654321"
+  // Derived from Shopify at fetch time (lib/rug-source.ts)
+  description_html?: string     // Museum-style description written in Shopify
+  reference?: string            // e.g. "GLB-102660", parsed from the product title
+  age_class?: 'vintage' | 'contemporary' | 'antique'  // from standalone age tags
 }
 
 export interface Region {

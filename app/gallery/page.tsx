@@ -1,5 +1,7 @@
-import { rugs } from '@/data/rugs'
+import { getAllRugsSafe } from '@/lib/rug-source'
 import GalleryFilters from '@/components/gallery/GalleryFilters'
+
+export const revalidate = 600
 
 export const metadata = {
   title: 'Gallery — Moroccan & Amazigh Rugs',
@@ -8,7 +10,8 @@ export const metadata = {
   openGraph: { title: 'Gallery — Moroccan & Amazigh Rugs', description: 'One-of-a-kind Moroccan and Amazigh rugs, fully documented.', url: 'https://www.tilwen.com/gallery' },
 }
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const rugs = await getAllRugsSafe()
   const available = rugs.filter(r => r.availability_status !== 'sold')
 
   return (
@@ -50,7 +53,15 @@ export default function GalleryPage() {
         </div>
       </div>
 
-      <GalleryFilters rugs={available} />
+      {available.length > 0 ? (
+        <GalleryFilters rugs={available} />
+      ) : (
+        <div className="container" style={{ padding: 'var(--sp-24) 0', textAlign: 'center' }}>
+          <p style={{ fontFamily: 'var(--font-body)', fontStyle: 'italic', fontSize: '1.0625rem', color: 'var(--grey-600)' }}>
+            New pieces are being documented. The gallery reopens shortly.
+          </p>
+        </div>
+      )}
     </>
   )
 }

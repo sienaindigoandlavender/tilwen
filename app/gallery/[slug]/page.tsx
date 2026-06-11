@@ -3,15 +3,19 @@ import { rugProductJsonLd, breadcrumbJsonLd } from '@/lib/seo'
 import AddToCartButton from '@/components/gallery/AddToCartButton'
 import Image from 'next/image'
 import Link from 'next/link'
-import { rugs, getRugBySlug, getRelatedRugs } from '@/data/rugs'
+import { getAllRugsSafe, getRugBySlugLive, getRelatedRugsFrom } from '@/lib/rug-source'
 import RugCard from '@/components/gallery/RugCard'
 
+export const revalidate = 600
+export const dynamicParams = true
+
 export async function generateStaticParams() {
+  const rugs = await getAllRugsSafe()
   return rugs.map(r => ({ slug: r.slug }))
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const rug = getRugBySlug(params.slug)
+  const rug = await getRugBySlugLive(params.slug).catch(() => undefined)
   if (!rug) return {}
   return {
     title: `${rug.given_name} — ${rug.cultural_name}`,
@@ -21,11 +25,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default function RugPage({ params }: { params: { slug: string } }) {
-  const rug = getRugBySlug(params.slug)
+export default async function RugPage({ params }: { params: { slug: string } }) {
+  const all = await getAllRugsSafe()
+  const rug = all.find(r => r.slug === params.slug)
   if (!rug) notFound()
 
-  const related = getRelatedRugs(rug)
+  const related = getRelatedRugsFrom(rug, all)
   const hero = rug.images[0] || 'https://images.unsplash.com/photo-1600166898405-da9535204843?w=1400&q=80'
 
   const productLd = rugProductJsonLd(rug)
@@ -208,11 +213,17 @@ export default function RugPage({ params }: { params: { slug: string } }) {
           <div className={`rp-images__hero${rug.images.length === 1 ? ' rp-images__hero--full' : ''}`}>
             <Image src={hero} alt={`${rug.given_name} — ${rug.cultural_name}`} fill style={{ objectFit: 'cover' }} priority sizes="(max-width:600px) 100vw, 50vw" />
           </div>
-          {rug.images[1] && (
-            <div className="rp-images__secondary">
-              <Image src={rug.images[1]} alt={`${rug.given_name} detail`} fill style={{ objectFit: 'cover' }} sizes="50vw" />
+          {rug.images.slice(1, 5).map((img, i) => (
+            <div key={i} className="rp-images__secondary">
+              <Image
+                src={img}
+                alt={`${rug.given_name} — ${['detail', 'reverse', 'scale reference', 'additional view'][i] || 'view'}`}
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="(max-width:600px) 100vw, 50vw"
+              />
             </div>
-          )}
+          ))}
         </div>
 
         {/* Identity */}
@@ -226,7 +237,7 @@ export default function RugPage({ params }: { params: { slug: string } }) {
                   <Link href={`/gallery?technique=${rug.technique_slug}`} className="rp-motif-link">{rug.technique}</Link>
                 </p>
                 <h1 className="rp-given" style={{ marginTop: 'var(--sp-2)' }}>{rug.given_name}</h1>
-                <p className="rp-cultural">{rug.cultural_name}</p>
+                <p className="rp-cultural">{rug.cultural_name}{rug.reference ? ` · ${rug.reference}` : ''}</p>
                 <div className="rp-tags">
                   {rug.atmosphere_tags.map(t => (
                     <span key={t} className="rp-tag">{t}</span>
@@ -250,69 +261,91 @@ export default function RugPage({ params }: { params: { slug: string } }) {
             {/* Left: content */}
             <div>
               {/* Provenance */}
-              <div className="rp-section">
-                <p className="rp-section-title">Provenance</p>
-                <p className="t-body">{rug.provenance_note}</p>
-                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.9375rem', fontStyle: 'italic', color: 'var(--grey-600)', marginTop: 'var(--sp-4)', lineHeight: 1.6 }}>
-                  {rug.selection_voice}
-                </p>
-              </div>
+              {(rug.provenance_note || rug.selection_voice) && (
+                <div className="rp-section">
+                  <p className="rp-section-title">Provenance</p>
+                  {rug.provenance_note && <p className="t-body">{rug.provenance_note}</p>}
+                  {rug.selection_voice && (
+                    <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.9375rem', fontStyle: 'italic', color: 'var(--grey-600)', marginTop: 'var(--sp-4)', lineHeight: 1.6 }}>
+                      {rug.selection_voice}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Specifications */}
               <div className="rp-section">
                 <p className="rp-section-title">Specifications</p>
                 <table className="rp-specs">
                   <tbody>
-                    <tr><td>Region</td><td><Link href={`/regions/${rug.region_slug}`} className="rp-motif-link">{rug.region}</Link></td></tr>
+                    <tr><td>Region</td><td>{rug.region_slug ? <Link href={`/regions/${rug.region_slug}`} className="rp-motif-link">{rug.region}</Link> : (rug.region || 'Not determined')}</td></tr>
                     <tr><td>Community</td><td>{rug.community_tribe || 'Not determined'}</td></tr>
-                    <tr><td>Material</td><td>{rug.material_primary}</td></tr>
-                    <tr><td>Technique</td><td><Link href={`/glossary/${rug.technique_slug === 'flatweave-kilim' ? 'kilim' : rug.technique_slug}`} className="rp-motif-link">{rug.technique}</Link></td></tr>
-                    <tr><td>Age</td><td>{rug.age_period} <Link href="/glossary/vintage" className="rp-motif-link" style={{fontSize:'0.625rem',marginLeft:'0.5rem'}}>→ vintage</Link></td></tr>
-                    <tr><td>Dimensions</td><td>{rug.length_cm} × {rug.width_cm} cm</td></tr>
+                    <tr><td>Material</td><td>{rug.material_primary || 'Wool — see description'}</td></tr>
+                    <tr><td>Technique</td><td>{rug.technique_slug ? <Link href={`/glossary/${rug.technique_slug === 'flatweave-kilim' ? 'kilim' : rug.technique_slug}`} className="rp-motif-link">{rug.technique}</Link> : (rug.technique || 'Not determined')}</td></tr>
+                    <tr><td>Age</td><td>{rug.age_period || 'Not determined'}{rug.age_class === 'vintage' && <Link href="/glossary/vintage" className="rp-motif-link" style={{fontSize:'0.625rem',marginLeft:'0.5rem'}}>→ vintage</Link>}</td></tr>
+                    <tr><td>Dimensions</td><td>{rug.length_cm > 0 ? `${rug.length_cm} × ${rug.width_cm} cm` : 'See description'}</td></tr>
                     <tr><td>Pile</td><td><Link href="/glossary/pile-height" className="rp-motif-link">{rug.pile_height}</Link></td></tr>
-                    <tr><td>Condition</td><td><Link href="/glossary/condition-grades" className="rp-motif-link">{rug.condition}</Link>. {rug.condition_notes}</td></tr>
-                    <tr><td>Dyes</td><td><Link href={`/glossary/${rug.dye_type.toLowerCase().startsWith('natural') ? 'natural-dye' : 'synthetic-dye'}`} className="rp-motif-link">{rug.dye_type}</Link></td></tr>
+                    <tr><td>Condition</td><td><Link href="/glossary/condition-grades" className="rp-motif-link">{rug.condition}</Link>{rug.condition_notes ? `. ${rug.condition_notes}` : ''}</td></tr>
+                    <tr><td>Dyes</td><td>{rug.dye_type ? <Link href={`/glossary/${rug.dye_type.toLowerCase().startsWith('natural') ? 'natural-dye' : 'synthetic-dye'}`} className="rp-motif-link">{rug.dye_type}</Link> : 'Not determined'}</td></tr>
                   </tbody>
                 </table>
               </div>
 
-              {/* Symbolic reading */}
-              <div className="rp-section">
-                <p className="rp-section-title">Symbolic Reading</p>
-                <div className="prose">
-                  {rug.symbolic_reading.split('\n\n').map((para, i) => (
-                    <p key={i}>{para}</p>
-                  ))}
+              {/* Symbolic reading — falls back to the museum description from Shopify */}
+              {rug.symbolic_reading ? (
+                <div className="rp-section">
+                  <p className="rp-section-title">Symbolic Reading</p>
+                  <div className="prose">
+                    {rug.symbolic_reading.split('\n\n').map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                  </div>
+                  {rug.motifs.length > 0 && (
+                    <div className="rp-motifs">
+                      {rug.motifs.map((m, i) => (
+                        <Link key={i} href={`/motifs/${rug.motif_slugs[i]}`} className="rp-motif-link">
+                          {m} →
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <div className="rp-motifs">
-                  {rug.motifs.map((m, i) => (
-                    <Link key={i} href={`/motifs/${rug.motif_slugs[i]}`} className="rp-motif-link">
-                      {m} →
-                    </Link>
-                  ))}
+              ) : rug.description_html ? (
+                <div className="rp-section">
+                  <p className="rp-section-title">The Piece</p>
+                  <div className="prose" dangerouslySetInnerHTML={{ __html: rug.description_html }} />
                 </div>
-              </div>
+              ) : null}
 
-              {/* Spatial */}
+              {/* Spatial — only when written */}
+              {(rug.spatial_atmosphere || rug.spatial_room_affinities || rug.spatial_requirements || rug.spatial_doesnt_suit) && (
               <div className="rp-section">
                 <p className="rp-section-title">How It Behaves in Space</p>
                 <div className="rp-spatial-grid">
+                  {rug.spatial_atmosphere && (
                   <div className="rp-spatial-item rp-spatial-item--full">
                     <span className="rp-spatial-item-label">Atmosphere</span>
                     <p>{rug.spatial_atmosphere}</p>
                   </div>
+                  )}
+                  {rug.spatial_room_affinities && (
                   <div className="rp-spatial-item">
                     <span className="rp-spatial-item-label">Room Affinities</span>
                     <p>{rug.spatial_room_affinities}</p>
                   </div>
+                  )}
+                  {rug.spatial_requirements && (
                   <div className="rp-spatial-item">
                     <span className="rp-spatial-item-label">Requirements</span>
                     <p>{rug.spatial_requirements}</p>
                   </div>
+                  )}
+                  {rug.spatial_doesnt_suit && (
                   <div className="rp-spatial-item rp-spatial-item--full rp-spatial-item--doesnt">
                     <span className="rp-spatial-item-label">Doesn't Suit</span>
                     <p>{rug.spatial_doesnt_suit}</p>
                   </div>
+                  )}
                   {rug.interior_archetypes && (
                     <div className="rp-spatial-item rp-spatial-item--full">
                       <span className="rp-spatial-item-label">Interior Archetypes</span>
@@ -321,6 +354,7 @@ export default function RugPage({ params }: { params: { slug: string } }) {
                   )}
                 </div>
               </div>
+              )}
             </div>
 
             {/* Right: acquisition */}
@@ -366,7 +400,7 @@ export default function RugPage({ params }: { params: { slug: string } }) {
                 </div>
                 <div className="rp-trust-row">
                   <span className="rp-trust-icon">—</span>
-                  <span className="rp-trust-text">Returns accepted within 14 days of delivery</span>
+                  <span className="rp-trust-text">All sales are final. Transit damage covered within 48 hours of receipt</span>
                 </div>
                 <div className="rp-trust-row">
                   <span className="rp-trust-icon">—</span>
@@ -386,11 +420,13 @@ export default function RugPage({ params }: { params: { slug: string } }) {
           <div className="rp-knowledge">
             <span className="t-label">Related Knowledge</span>
             <div className="rp-knowledge__grid">
+              {rug.region_slug && (
               <Link href={`/regions/${rug.region_slug}`} className="rp-knowledge-item">
                 <span className="t-label rp-knowledge-item__type">Region</span>
                 <p className="rp-knowledge-item__name">{rug.region}</p>
                 <p className="rp-knowledge-item__hint">Visual grammar, technique traditions, historical context →</p>
               </Link>
+              )}
               {rug.motifs.slice(0, 2).map((m, i) => (
                 <Link key={i} href={`/motifs/${rug.motif_slugs[i]}`} className="rp-knowledge-item">
                   <span className="t-label rp-knowledge-item__type">Motif</span>

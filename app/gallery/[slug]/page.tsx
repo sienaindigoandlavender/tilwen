@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { rugProductJsonLd, breadcrumbJsonLd } from '@/lib/seo'
 import AddToCartButton from '@/components/gallery/AddToCartButton'
 import ProductCarousel from '@/components/gallery/ProductCarousel'
+import ShareLink from '@/components/gallery/ShareLink'
 import Link from 'next/link'
 import { getAllRugsSafe, getRugBySlugLive, getRelatedRugsFrom } from '@/lib/rug-source'
 import RugCard from '@/components/gallery/RugCard'
@@ -273,9 +274,10 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                   <span className="rp-trust-icon">—</span>
                   <span className="rp-trust-text">Condition guaranteed as described</span>
                 </div>
-                <div style={{ marginTop: 'var(--sp-4)', display: 'flex', gap: 'var(--sp-4)' }}>
+                <div style={{ marginTop: 'var(--sp-4)', display: 'flex', gap: 'var(--sp-4)', flexWrap: 'wrap' }}>
                   <Link href="/care" className="t-ui-xs" style={{ color: 'var(--grey-600)', borderBottom: '1px solid var(--grey-200)' }}>Care & Shipping</Link>
                   <Link href="/returns" className="t-ui-xs" style={{ color: 'var(--grey-600)', borderBottom: '1px solid var(--grey-200)' }}>Returns</Link>
+                  <ShareLink title={`${rug.given_name} — Tilwen`} />
                 </div>
               </div>
             </div>

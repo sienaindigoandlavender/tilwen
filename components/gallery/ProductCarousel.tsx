@@ -79,14 +79,14 @@ export default function ProductCarousel({
         .pc__arrow--next { right: 4px; }
 
         .pc__bar {
-          display: flex; align-items: center; justify-content: space-between;
+          display: flex; align-items: flex-start; justify-content: space-between;
           gap: var(--sp-4);
           margin-top: var(--sp-3);
         }
-        .pc__thumbs { display: flex; gap: var(--sp-2); }
+        .pc__thumbs { display: flex; flex-wrap: wrap; gap: var(--sp-2); min-width: 0; }
         .pc__thumb {
           position: relative;
-          width: 56px; height: 56px;
+          width: 48px; height: 48px;
           background: #ffffff;
           border: 1px solid transparent;
           padding: 0; cursor: pointer;
@@ -102,6 +102,7 @@ export default function ProductCarousel({
           letter-spacing: 0.1em;
           color: var(--grey-400);
           white-space: nowrap;
+          padding-top: var(--sp-4);
         }
         @media (max-width: 600px) {
           .pc__thumb { width: 44px; height: 44px; }

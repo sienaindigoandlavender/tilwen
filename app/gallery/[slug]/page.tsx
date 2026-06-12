@@ -46,33 +46,35 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
       <style>{`
         .rp { padding-bottom: var(--sp-32); }
 
-        /* Images */
-        .rp-images {
+        /* ── Top: image stack left, sticky identity + acquisition right ── */
+        .rp-top {
           display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2px;
-          background: var(--grey-200);
-          margin-bottom: 0;
+          grid-template-columns: minmax(0, 1.1fr) minmax(340px, 0.9fr);
+          gap: var(--sp-12);
+          padding-top: var(--sp-8);
+          align-items: start;
         }
-        @media (max-width: 600px) { .rp-images { grid-template-columns: 1fr; } }
-        .rp-images__hero {
-          aspect-ratio: 3/4;
-          position: relative;
-          overflow: hidden;
-          background: var(--grey-100);
-        }
-        .rp-images__hero--full { grid-column: 1 / -1; aspect-ratio: 16/9; }
-        .rp-images__secondary { aspect-ratio: 3/4; position: relative; overflow: hidden; background: var(--grey-100); }
+        @media (max-width: 900px) { .rp-top { grid-template-columns: 1fr; gap: var(--sp-8); } }
 
-        /* Identity */
-        .rp-identity { padding: var(--sp-12) 0 var(--sp-8); border-bottom: var(--border); }
-        .rp-identity__inner {
-          display: grid; grid-template-columns: 1fr auto; gap: var(--sp-8); align-items: start;
+        .rp-gallery { display: flex; flex-direction: column; gap: var(--sp-2); }
+        .rp-frame {
+          position: relative;
+          aspect-ratio: 4/5;
+          background: var(--grey-100);
+          overflow: hidden;
         }
+        /* The full rug is always visible — no cropping. Gallery register. */
+        .rp-frame img { object-fit: contain; }
+
+        .rp-info { position: sticky; top: 104px; }
+        @media (max-width: 900px) { .rp-info { position: static; } }
+
+        .rp-identity { padding-bottom: var(--sp-6); border-bottom: var(--border); margin-bottom: var(--sp-6); }
         .rp-given {
           font-family: var(--font-display);
-          font-size: clamp(2.5rem, 5vw, 5rem);
-          font-weight: 300; letter-spacing: -0.025em; line-height: 0.95;
+          font-size: clamp(2rem, 3.2vw, 3.25rem);
+          font-weight: 300; letter-spacing: -0.02em; line-height: 1.02;
+          margin-top: var(--sp-2);
         }
         .rp-cultural {
           font-family: var(--font-body);
@@ -87,18 +89,12 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
           transition: all var(--t);
         }
         .rp-tag:hover { border-color: var(--black); color: var(--black); }
-        .rp-price-col { text-align: right; }
-        .rp-price {
-          font-family: var(--font-display);
-          font-size: 2rem; font-weight: 300; letter-spacing: -0.02em;
-        }
 
-        /* Two-column layout */
+        /* ── Below: the scholarship, one comfortable reading column ── */
         .rp-body {
-          display: grid; grid-template-columns: 1fr 380px; gap: var(--sp-16);
-          padding: var(--sp-12) 0; align-items: start;
+          max-width: 72ch;
+          padding: var(--sp-12) 0;
         }
-        @media (max-width: 960px) { .rp-body { grid-template-columns: 1fr; } }
 
         /* Left column sections */
         .rp-section { padding: var(--sp-8) 0; border-bottom: var(--border); }
@@ -152,7 +148,6 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         .rp-motif-link:hover { color: var(--black); border-bottom-color: var(--black); }
 
         /* Right column — acquisition */
-        .rp-sidebar { position: sticky; top: 104px; }
         .rp-acq {
           border: var(--border); padding: var(--sp-6);
         }
@@ -208,57 +203,109 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
       `}</style>
 
       <div className="rp">
-        {/* Image gallery */}
-        <div className="rp-images">
-          <div className={`rp-images__hero${rug.images.length === 1 ? ' rp-images__hero--full' : ''}`}>
-            <Image src={hero} alt={`${rug.given_name} — ${rug.cultural_name}`} fill style={{ objectFit: 'cover' }} priority sizes="(max-width:600px) 100vw, 50vw" />
-          </div>
-          {rug.images.slice(1, 5).map((img, i) => (
-            <div key={i} className="rp-images__secondary">
-              <Image
-                src={img}
-                alt={`${rug.given_name} — ${['detail', 'reverse', 'scale reference', 'additional view'][i] || 'view'}`}
-                fill
-                style={{ objectFit: 'cover' }}
-                sizes="(max-width:600px) 100vw, 50vw"
-              />
-            </div>
-          ))}
-        </div>
+        {/* ── Top: images left, sticky identity + acquisition right ── */}
+        <div className="container">
+          <div className="rp-top">
 
-        {/* Identity */}
-        <div className="rp-identity">
-          <div className="container">
-            <div className="rp-identity__inner">
-              <div>
-                <p className="t-label">
-                  <Link href={`/regions/${rug.region_slug}`} className="rp-motif-link">{rug.region}</Link>
-                  {' · '}
-                  <Link href={`/gallery?technique=${rug.technique_slug}`} className="rp-motif-link">{rug.technique}</Link>
-                </p>
-                <h1 className="rp-given" style={{ marginTop: 'var(--sp-2)' }}>{rug.given_name}</h1>
-                <p className="rp-cultural">{rug.cultural_name}{rug.reference ? ` · ${rug.reference}` : ''}</p>
-                <div className="rp-tags">
-                  {rug.atmosphere_tags.map(t => (
-                    <span key={t} className="rp-tag">{t}</span>
-                  ))}
+            {/* Image stack — every image, full rug visible, no cropping */}
+            <div className="rp-gallery">
+              <div className="rp-frame">
+                <Image src={hero} alt={`${rug.given_name} — ${rug.cultural_name}`} fill priority sizes="(max-width:900px) 100vw, 55vw" />
+              </div>
+              {rug.images.slice(1, 8).map((img, i) => (
+                <div key={i} className="rp-frame">
+                  <Image
+                    src={img}
+                    alt={`${rug.given_name} — ${['detail', 'reverse', 'scale reference'][i] || 'additional view'}`}
+                    fill
+                    sizes="(max-width:900px) 100vw, 55vw"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Sticky info column */}
+            <div className="rp-info">
+              <div className="rp-identity">
+                {(rug.region || rug.technique) && (
+                  <p className="t-label">
+                    {rug.region_slug ? <Link href={`/regions/${rug.region_slug}`} className="rp-motif-link">{rug.region}</Link> : rug.region}
+                    {rug.region && rug.technique ? ' · ' : ''}
+                    {rug.technique_slug ? <Link href={`/gallery?technique=${rug.technique_slug}`} className="rp-motif-link">{rug.technique}</Link> : rug.technique}
+                  </p>
+                )}
+                <h1 className="rp-given">{rug.given_name}</h1>
+                {rug.cultural_name !== rug.given_name && (
+                  <p className="rp-cultural">{rug.cultural_name}{rug.reference ? ` · ${rug.reference}` : ''}</p>
+                )}
+                {rug.atmosphere_tags.length > 0 && (
+                  <div className="rp-tags">
+                    {rug.atmosphere_tags.map(t => (
+                      <span key={t} className="rp-tag">{t}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="rp-acq">
+                <div className="rp-acq__status">
+                  <span className={`avail avail--${rug.availability_status}`}>
+                    {rug.availability_status === 'available' ? 'Available' : rug.availability_status === 'reserved' ? 'Reserved' : 'Sold'}
+                  </span>
+                </div>
+                <div className="rp-acq__price-row">
+                  <span className="rp-acq__price-main">€{rug.price.toLocaleString()}</span>
+                  {rug.length_cm > 0 && <span className="rp-acq__dims">{rug.length_cm} × {rug.width_cm} cm</span>}
+                </div>
+                <p className="rp-acq__note">{rug.acquisition_note}</p>
+                {rug.availability_status === 'available' && (
+                  <div className="rp-acq__cta">
+                    {rug.shopify_variant_id ? (
+                      <AddToCartButton variantId={rug.shopify_variant_id} name={rug.given_name} />
+                    ) : (
+                      <Link href={`/inquire?piece=${rug.slug}&name=${encodeURIComponent(rug.given_name)}`} className="btn btn--primary" style={{ width: '100%' }}>
+                        Inquire about this piece
+                      </Link>
+                    )}
+                  </div>
+                )}
+                {rug.availability_status === 'reserved' && (
+                  <div className="rp-acq__cta">
+                    <Link href="/inquire" className="btn btn--ghost" style={{ width: '100%' }}>
+                      Join waitlist
+                    </Link>
+                  </div>
+                )}
+              </div>
+              <div className="rp-trust">
+                <div className="rp-trust-row">
+                  <span className="rp-trust-icon">—</span>
+                  <span className="rp-trust-text">One of a kind. When it is gone, it is gone</span>
+                </div>
+                <div className="rp-trust-row">
+                  <span className="rp-trust-icon">—</span>
+                  <span className="rp-trust-text">Ships worldwide from Marrakech</span>
+                </div>
+                <div className="rp-trust-row">
+                  <span className="rp-trust-icon">—</span>
+                  <span className="rp-trust-text">All sales are final. Transit damage covered within 48 hours of receipt</span>
+                </div>
+                <div className="rp-trust-row">
+                  <span className="rp-trust-icon">—</span>
+                  <span className="rp-trust-text">Condition guaranteed as described</span>
+                </div>
+                <div style={{ marginTop: 'var(--sp-4)', display: 'flex', gap: 'var(--sp-4)' }}>
+                  <Link href="/care" className="t-ui-xs" style={{ color: 'var(--grey-600)', borderBottom: '1px solid var(--grey-200)' }}>Care & Shipping</Link>
+                  <Link href="/returns" className="t-ui-xs" style={{ color: 'var(--grey-600)', borderBottom: '1px solid var(--grey-200)' }}>Returns</Link>
                 </div>
               </div>
-              <div className="rp-price-col">
-                <p className="t-label">Price</p>
-                <p className="rp-price">€{rug.price.toLocaleString()}</p>
-                <span className={`avail avail--${rug.availability_status}`} style={{ marginTop: '0.5rem', display: 'flex', justifyContent: 'flex-end' }}>
-                  {rug.availability_status}
-                </span>
-              </div>
             </div>
+
           </div>
         </div>
 
-        {/* Body — two columns */}
+        {/* ── Below: the scholarship ── */}
         <div className="container">
           <div className="rp-body">
-            {/* Left: content */}
             <div>
               {/* Provenance */}
               {(rug.provenance_note || rug.selection_voice) && (
@@ -357,65 +404,11 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
               )}
             </div>
 
-            {/* Right: acquisition */}
-            <div className="rp-sidebar">
-              <div className="rp-acq">
-                <div className="rp-acq__status">
-                  <span className={`avail avail--${rug.availability_status}`}>
-                    {rug.availability_status === 'available' ? 'Available' : rug.availability_status === 'reserved' ? 'Reserved' : 'Sold'}
-                  </span>
-                </div>
-                <div className="rp-acq__price-row">
-                  <span className="rp-acq__price-main">€{rug.price.toLocaleString()}</span>
-                  <span className="rp-acq__dims">{rug.length_cm} × {rug.width_cm} cm</span>
-                </div>
-                <p className="rp-acq__note">{rug.acquisition_note}</p>
-                {rug.availability_status === 'available' && (
-                  <div className="rp-acq__cta">
-                    {rug.shopify_variant_id ? (
-                      <AddToCartButton variantId={rug.shopify_variant_id} name={rug.given_name} />
-                    ) : (
-                      <Link href={`/inquire?piece=${rug.slug}&name=${encodeURIComponent(rug.given_name)}`} className="btn btn--primary" style={{ width: '100%' }}>
-                        Inquire about this piece
-                      </Link>
-                    )}
-                  </div>
-                )}
-                {rug.availability_status === 'reserved' && (
-                  <div className="rp-acq__cta">
-                    <Link href="/inquire" className="btn btn--ghost" style={{ width: '100%' }}>
-                      Join waitlist
-                    </Link>
-                  </div>
-                )}
-              </div>
-              <div className="rp-trust">
-                <div className="rp-trust-row">
-                  <span className="rp-trust-icon">—</span>
-                  <span className="rp-trust-text">Fully documented against our five-criteria publishing standard</span>
-                </div>
-                <div className="rp-trust-row">
-                  <span className="rp-trust-icon">—</span>
-                  <span className="rp-trust-text">Ships worldwide. Costs confirmed at inquiry</span>
-                </div>
-                <div className="rp-trust-row">
-                  <span className="rp-trust-icon">—</span>
-                  <span className="rp-trust-text">All sales are final. Transit damage covered within 48 hours of receipt</span>
-                </div>
-                <div className="rp-trust-row">
-                  <span className="rp-trust-icon">—</span>
-                  <span className="rp-trust-text">Condition guaranteed as described</span>
-                </div>
-                <div style={{ marginTop: 'var(--sp-4)', display: 'flex', gap: 'var(--sp-4)' }}>
-                  <Link href="/care" className="t-ui-xs" style={{ color: 'var(--grey-600)', borderBottom: '1px solid var(--grey-200)' }}>Care & Shipping</Link>
-                  <Link href="/returns" className="t-ui-xs" style={{ color: 'var(--grey-600)', borderBottom: '1px solid var(--grey-200)' }}>Returns</Link>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
         {/* Related knowledge */}
+        {(rug.region_slug || rug.motifs.length > 0) && (
         <div className="container">
           <div className="rp-knowledge">
             <span className="t-label">Related Knowledge</span>
@@ -437,6 +430,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
             </div>
           </div>
         </div>
+        )}
 
         {/* Related rugs */}
         {related.length > 0 && (

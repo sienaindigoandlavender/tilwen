@@ -53,7 +53,7 @@ export default function ProductCarousel({
         .pc__frame {
           position: relative;
           aspect-ratio: 4/5;
-          background: var(--grey-100);
+          background: #ffffff;
           overflow: hidden;
         }
         .pc__slide {
@@ -87,7 +87,7 @@ export default function ProductCarousel({
         .pc__thumb {
           position: relative;
           width: 56px; height: 56px;
-          background: var(--grey-100);
+          background: #ffffff;
           border: 1px solid transparent;
           padding: 0; cursor: pointer;
           opacity: 0.55;

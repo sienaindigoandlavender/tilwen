@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { rugProductJsonLd, breadcrumbJsonLd } from '@/lib/seo'
 import AddToCartButton from '@/components/gallery/AddToCartButton'
-import Image from 'next/image'
+import ProductCarousel from '@/components/gallery/ProductCarousel'
 import Link from 'next/link'
 import { getAllRugsSafe, getRugBySlugLive, getRelatedRugsFrom } from '@/lib/rug-source'
 import RugCard from '@/components/gallery/RugCard'
@@ -55,16 +55,6 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
           align-items: start;
         }
         @media (max-width: 900px) { .rp-top { grid-template-columns: 1fr; gap: var(--sp-8); } }
-
-        .rp-gallery { display: flex; flex-direction: column; gap: var(--sp-2); }
-        .rp-frame {
-          position: relative;
-          aspect-ratio: 4/5;
-          background: var(--grey-100);
-          overflow: hidden;
-        }
-        /* The full rug is always visible — no cropping. Gallery register. */
-        .rp-frame img { object-fit: contain; }
 
         .rp-info { position: sticky; top: 104px; }
         @media (max-width: 900px) { .rp-info { position: static; } }
@@ -207,22 +197,12 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         <div className="container">
           <div className="rp-top">
 
-            {/* Image stack — every image, full rug visible, no cropping */}
-            <div className="rp-gallery">
-              <div className="rp-frame">
-                <Image src={hero} alt={`${rug.given_name} — ${rug.cultural_name}`} fill priority sizes="(max-width:900px) 100vw, 55vw" />
-              </div>
-              {rug.images.slice(1, 8).map((img, i) => (
-                <div key={i} className="rp-frame">
-                  <Image
-                    src={img}
-                    alt={`${rug.given_name} — ${['detail', 'reverse', 'scale reference'][i] || 'additional view'}`}
-                    fill
-                    sizes="(max-width:900px) 100vw, 55vw"
-                  />
-                </div>
-              ))}
-            </div>
+            {/* Image carousel — full rug always visible, no cropping */}
+            <ProductCarousel
+              images={rug.images.length ? rug.images : [hero]}
+              name={rug.given_name}
+              culturalName={rug.cultural_name}
+            />
 
             {/* Sticky info column */}
             <div className="rp-info">

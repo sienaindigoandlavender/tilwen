@@ -14,17 +14,16 @@ const links = [
   { href: '/regions', label: 'Regions' },
   { href: '/traditions', label: 'Traditions' },
   { href: '/journal', label: 'Journal' },
-  { href: '/about', label: 'About' },
 ]
 
 function CartButton() {
   const { itemCount, openCart } = useCart()
   return (
-    <button className="nav__cart" onClick={openCart} aria-label={`Cart — ${itemCount} item${itemCount !== 1 ? 's' : ''}`}>
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M2 2h1.5l2 7h5l1.5-4.5H5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="7" cy="12.5" r="0.8" fill="currentColor"/>
-        <circle cx="10.5" cy="12.5" r="0.8" fill="currentColor"/>
+    <button className="nav__cart" onClick={openCart} aria-label={`Bag — ${itemCount} item${itemCount !== 1 ? 's' : ''}`}>
+      {/* Minimal bag: thin-stroke body + handle, hairline weight */}
+      <svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M2.5 5.5h12v10.5a0.5 0.5 0 0 1-0.5 0.5H3a0.5 0.5 0 0 1-0.5-0.5V5.5Z" stroke="currentColor" strokeWidth="1"/>
+        <path d="M5.5 5.5V4.25a3 3 0 0 1 6 0V5.5" stroke="currentColor" strokeWidth="1"/>
       </svg>
       {itemCount > 0 && <span className="nav__cart-count">{itemCount}</span>}
     </button>
@@ -283,7 +282,7 @@ export default function Nav({ shopMenu }: { shopMenu?: ShopMenuData | null }) {
           border: none;
           cursor: pointer;
           padding: 0;
-          margin-left: var(--sp-2);
+          margin-left: var(--sp-6);
           transition: opacity var(--t);
           height: 26px;
         }

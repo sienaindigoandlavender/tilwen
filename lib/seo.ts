@@ -35,11 +35,10 @@ export const websiteJsonLd = {
   name: 'Tilwen',
   url: BASE_URL,
   description: DEFAULT_DESCRIPTION,
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${BASE_URL}/gallery?q={search_term_string}`,
-    'query-input': 'required name=search_term_string',
-  },
+  // SearchAction intentionally omitted: it must point at a working text-search
+  // endpoint, and the gallery currently filters by facet only (no ?q= search).
+  // Re-add once /gallery supports a text query, or Google may penalise the
+  // sitelinks searchbox for pointing at a dead endpoint.
 }
 
 export function rugProductJsonLd(rug: {
@@ -59,6 +58,9 @@ export function rugProductJsonLd(rug: {
       '@type': 'Offer',
       price: rug.price,
       priceCurrency: 'EUR',
+      // One-of-a-kind stock: keep the price valid a year out so Google doesn't
+      // flag a stale/expiring offer. Refreshed on every ISR rebuild.
+      priceValidUntil: new Date(Date.now() + 365 * 864e5).toISOString().slice(0, 10),
       availability: rug.availability_status === 'available'
         ? 'https://schema.org/InStock'
         : rug.availability_status === 'reserved'
@@ -66,6 +68,13 @@ export function rugProductJsonLd(rug: {
         : 'https://schema.org/SoldOut',
       url: `${BASE_URL}/gallery/${rug.slug}`,
       seller: { '@type': 'Organization', name: 'Tilwen' },
+      // Final sale — stated honestly so Merchant rich results don't warn on a
+      // missing return policy. Reflects /returns.
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'MA',
+        returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+      },
     },
     additionalProperty: [
       { '@type': 'PropertyValue', name: 'Technique', value: rug.technique },

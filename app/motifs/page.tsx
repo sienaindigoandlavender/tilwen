@@ -5,13 +5,13 @@ import { motifs } from '@/data/motifs'
 export const metadata = {
   title: 'Motifs & Symbols — Amazigh Weaving',
   description: 'The symbolic grammar of Amazigh weaving — lozenge, broken comb, diamond grid, and more. Cultural readings, variant forms, and the rugs that carry them.',
-  alternates: { canonical: 'https://www.tilwen.com/motifs' },
-  openGraph: { title: 'Motifs & Symbols — Amazigh Weaving', description: 'The symbolic grammar of Amazigh weaving.', url: 'https://www.tilwen.com/motifs' },
+  alternates: { canonical: 'https://tilwen.com/motifs' },
+  openGraph: { title: 'Motifs & Symbols — Amazigh Weaving', description: 'The symbolic grammar of Amazigh weaving.', url: 'https://tilwen.com/motifs' },
 }
 
 export default function MotifsPage() {
   return (
-    <>
+    <div className="magazine-surface">
       <style>{`
         .mo-top {
           padding: var(--sp-16) 0 var(--sp-8);
@@ -189,6 +189,6 @@ export default function MotifsPage() {
           })}
         </div>
       </div>
-    </>
+    </div>
   )
 }

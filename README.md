@@ -1,24 +1,43 @@
-# Tilwen — Revival-style filter dropdowns + page title
+# Tilwen — UX round: sort, density, type, hairline, genuineness
 
 ## FILES (replace in repo)
   components/gallery/GalleryFilters.tsx
-  app/gallery/page.tsx
+  components/gallery/RugCardHover.tsx
+  app/gallery/[slug]/page.tsx
 
-## WHAT CHANGED
-1. FILTERS ARE NOW DROPDOWNS (Revival's pattern). The bar is a calm row of
-   labelled words, each with a caret: Tradition ▾ · Colour ▾ · Shape ▾ ·
-   Pile ▾ · Weave ▾ · Dye ▾ · Age ▾. Options HIDE until you click the label.
-   - Opens on click, closes on outside-click or Escape.
-   - Active filters show a small count badge on the label.
-   - Each menu has "Clear [group]"; the bar has "Clear all".
-   - Colour opens a swatch grid INSIDE its dropdown (dots no longer clutter
-     the bar). Every group still inventory-derived, hides when <2 options,
-     shows per-option counts.
-   - "More filters" panel is gone — all filters are equal dropdowns now.
+## CHANGES
 
-2. TITLE: "Gallery" → "Moroccan & Amazigh Rugs", now an <h1> (was a span).
-   This is the buyer's / Google's word, not our internal label — and a proper
-   H1 is an SEO win. The redundant "124 pieces" header is removed (the filter
-   bar already shows the live count).
+1. SORT BY  (the real functional gap)
+   New "Sort ▾" dropdown on the right of the filter bar:
+   Newest first · Price low→high · Price high→low.
 
-All filtering logic, URL sync, and deep-links preserved.
+2. DENSITY TOGGLE  (3 / 4 per row)
+   Two grid icons on the right, like Revival. Lets the buyer choose larger
+   images (3) or more at once (4). Keyboard-operable + aria-labelled (real
+   accessibility, not just visual). Hidden on mobile, which stays responsive
+   (3 cols ≤1100px, 2 cols ≤768px).
+
+3. "TRADITION" → "TYPE"
+   The filter that already covered Boujad / Beni Ourain / Azilal is relabelled
+   "Type" — clearer to a buyer. (Data key unchanged; no second filter added,
+   since Type already IS the rug-type filter.)
+
+4. TOP HAIRLINE on the filter bar
+   The bar now sits between two hairlines (top + bottom), the detail that makes
+   Revival's bar look contained and resolved.
+
+5. GENUINENESS SIGNAL  (the real differentiator vs Revival)
+   Revival sells "Moroccan-style" rugs likely factory-woven (Pakistan/India),
+   without true provenance. Tilwen's are genuine. Now made LEGIBLE at the point
+   of decision — keyed only to data we actually have (age_class), so it's never
+   a false claim:
+   - CARD: a quiet line above the name — "Vintage · Morocco" or "Handwoven ·
+     Morocco".
+   - PRODUCT PAGE: an italic statement under the title — genuine vintage /
+     genuinely handwoven, not a reproduction, one of a kind, when gone it can't
+     be remade.
+
+## NOTE
+The genuineness copy is deliberately conservative (no invented provenance).
+When you write real provenance_note values per rug ("sourced from a family in
+the Middle Atlas..."), those will deepen it further on the product page.

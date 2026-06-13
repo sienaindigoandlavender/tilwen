@@ -1,37 +1,31 @@
-# Tilwen — product page restructured (the buy column)
+# Tilwen — product page: remove the messy spec table + "The Piece"
 
-## FILES (replace in repo)
+## FILE (replace in repo)
   app/gallery/[slug]/page.tsx
-  components/gallery/ShareLink.tsx
 
-## NEW ORDER of the right-hand column (top → bottom)
-  1. Type · Region  (small label)
-  2. Name
-  3. Cultural name + reference
-  4. DIMENSIONS  (cm + ft) — now directly under the title
-  5. PRICE — large, the visual anchor (was small, lost in the middle)
-  6. [per-rug paragraph]  — renders ONLY when provenance_note is written;
-     nothing shows until you write each one. This is the real selling point.
-  7. Add to Cart
-  8. Care & Shipping · Returns · Share this piece  — all three now identical small size
+## WHAT CHANGED
+1. REMOVED the big "Specifications" accordion — it was mostly "Not determined"
+   (Region, Community, Technique, Dyes), which looked broken and undermined the
+   genuineness pitch. (Also fixed the "Age: Vintage → VINTAGE" double-print bug
+   that lived in it.)
 
-## REMOVED (your calls)
-  - "AVAILABLE" badge — clutter; sold state shows on the price/button instead
-  - "One of a kind. When it is gone, it is gone" — rug-dealer slogan, cut
-  - The italic authenticity paragraph (redundant)
-  - The four trust lines (redundant)
-  - The 3 icons — removed for now; you'll replace with Midjourney/purchase icons later
+2. REMOVED "The Piece" accordion — it was the raw Shopify description and
+   repeated the SAME facts (dimensions, pile, age) already shown elsewhere.
+   Pure redundancy. The Shopify-description fallback is gone.
 
-## FIXED
-  - "Share this piece" was rendering big in the serif body font (it inherited
-    `font: inherit`). ShareLink now takes a className and matches its siblings
-    exactly — all three utility links are identical.
+3. KEPT a tiny clean spec line instead — just the 4 facts we reliably have:
+   Size · Pile · Age · Material. Quiet inline definition list, no blanks.
+   (Any fact that's missing simply doesn't render.)
 
-## WHEN YOU WRITE THE PARAGRAPHS
-  The slot reads `rug.provenance_note`. Fill that field (Shopify metafield
-  how.provenance_note, or data/rugs.ts) per rug and the paragraph appears under
-  the price. Until then the column is clean: name → dims → price → buy.
+## WHAT NOW SHOWS BELOW THE BUY COLUMN
+  - The tiny spec line (Size/Pile/Age/Material)
+  - Provenance        — only if written
+  - Symbolic Reading  — only if written (no Shopify fallback now)
+  - How It Behaves    — only if written
+  - Care & Acquisition (static)
+So today it's just the spec line + Care — clean and honest, no half-empty
+table, no duplicated description. The richer accordions appear as you write
+content per rug.
 
 ## NOTE
-  Dead CSS for the removed blocks (.rp-auth, .rp-glance, .rp-trust, etc.) is
-  left in the <style> block — harmless, can be swept later.
+Dead CSS for the old .rp-specs table is left in place — harmless.

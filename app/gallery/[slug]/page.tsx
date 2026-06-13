@@ -153,12 +153,18 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         }
         .rp-acq__dims { font-family: var(--font-ui); font-size: 0.75rem; color: var(--grey-800); }
         .rp-glance {
-          display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem;
-          margin-top: var(--sp-4);
-          font-family: var(--font-ui); font-size: 0.5625rem;
-          letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-600);
+          display: flex; flex-wrap: wrap; align-items: flex-start;
+          gap: var(--sp-6) var(--sp-8);
+          margin-top: var(--sp-6); padding-top: var(--sp-6);
+          border-top: var(--border);
         }
-        .rp-glance__sep { color: var(--grey-200); }
+        .rp-glance__item {
+          display: flex; flex-direction: column; align-items: flex-start; gap: 0.4rem;
+          font-family: var(--font-ui); font-size: 0.5625rem;
+          letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-800);
+          max-width: 5.5rem; line-height: 1.4;
+        }
+        .rp-glance__icon { width: 22px; height: 22px; color: var(--grey-600); }
         .rp-acq__note {
           font-family: var(--font-body); font-size: 0.875rem; line-height: 1.6;
           color: var(--grey-800); font-style: italic; margin: var(--sp-4) 0;
@@ -245,13 +251,31 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                   <span className="rp-acq__price-main">€{rug.price.toLocaleString()}</span>
                   {rug.length_cm > 0 && <span className="rp-acq__dims">{rug.length_cm} × {rug.width_cm} cm{rug.length_cm > 0 ? ` · ${(rug.length_cm / 30.48).toFixed(1)} × ${(rug.width_cm / 30.48).toFixed(1)} ft` : ''}</span>}
                 </div>
-                {/* At-a-glance strip — the instant questions, answered before scrolling */}
+                {/* At-a-glance reassurance — thin-line icons, Tilwen's visual language */}
                 <div className="rp-glance">
-                  <span className="rp-glance__item">One of a kind</span>
-                  <span className="rp-glance__sep" aria-hidden="true">·</span>
-                  <span className="rp-glance__item">{rug.material_primary || '100% wool'}</span>
-                  <span className="rp-glance__sep" aria-hidden="true">·</span>
-                  <span className="rp-glance__item">Ships from Marrakech</span>
+                  <span className="rp-glance__item">
+                    <svg className="rp-glance__icon" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                      <path d="M3 8.5l8-4 8 4-8 4-8-4Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
+                      <path d="M3 8.5v5l8 4 8-4v-5" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
+                      <path d="M11 12.5v5" stroke="currentColor" strokeWidth="1"/>
+                    </svg>
+                    One of a kind
+                  </span>
+                  <span className="rp-glance__item">
+                    <svg className="rp-glance__icon" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                      <path d="M11 4c-2.5 0-3.5 1.8-3.5 3.5 0 1.2-1 1.5-1.5 2.5-.6 1.2 0 2.6 1 3.2.5.3.5 1 .3 1.7-.3.9.3 1.9 1.4 2 .9.1 1.3.7 1.8 1.4.5-.7.9-1.3 1.8-1.4 1.1-.1 1.7-1.1 1.4-2-.2-.7-.2-1.4.3-1.7 1-.6 1.6-2 1-3.2-.5-1-1.5-1.3-1.5-2.5C14.5 5.8 13.5 4 11 4Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
+                    </svg>
+                    {rug.material_primary || '100% wool'}
+                  </span>
+                  <span className="rp-glance__item">
+                    <svg className="rp-glance__icon" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+                      <path d="M2 9h9v6H3.5L2 13.5V9Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
+                      <path d="M11 7h4.5l3.5 3.5V15H11V7Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
+                      <circle cx="6" cy="15.5" r="1.6" stroke="currentColor" strokeWidth="1"/>
+                      <circle cx="15" cy="15.5" r="1.6" stroke="currentColor" strokeWidth="1"/>
+                    </svg>
+                    Ships from Marrakech
+                  </span>
                 </div>
                 <p className="rp-acq__note">{rug.acquisition_note}</p>
                 {rug.availability_status === 'available' && (

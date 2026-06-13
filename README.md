@@ -1,37 +1,30 @@
-# Tilwen — product page: spec strip + accordions
+# Tilwen — sell-first nav + reassurance icons
 
-## FILES GO HERE (replace / add in your repo)
-  app/gallery/[slug]/page.tsx        (replace)
-  components/gallery/Accordion.tsx   (new)
+## FILES (replace in repo)
+  components/layout/Nav.tsx
+  app/layout.tsx
+  app/gallery/[slug]/page.tsx
 
-## WHAT CHANGED (Revival audit — the two ideas worth borrowing)
+## CHANGES
+1. MEGA MENU REMOVED. Shop is now a plain, prominent black button → /gallery.
+   (getShopMenuData stays in rug-source.ts, unused — revivable later.)
+   layout.tsx no longer fetches/passes shopMenu.
 
-1. AT-A-GLANCE SPEC STRIP
-   A quiet one-line row under the price in the sticky column:
-   "One of a kind · 100% wool · Ships from Marrakech"
-   Answers the instant questions before any scrolling. No clip-art icons
-   (your design rules) — clean text with hairline separators.
-   Also: price row + specs now show dimensions in cm AND ft.
+2. SEARCH BOX ADDED (top right, desktop + mobile). Submits to /gallery?q=...
+   The gallery currently ignores ?q= safely (no crash). WIRE THE ACTUAL SEARCH
+   NEXT ROUND — this is the box only, as agreed.
 
-2. ACCORDIONS (the real lesson from Revival's PDP)
-   The detail sections are now collapsible, keeping the page calm while
-   offering depth on demand — but filled with YOUR ethnographic content,
-   not Revival's generic marketing:
-     - Provenance
-     - Specifications        (open by default)
-     - Symbolic Reading / The Piece
-     - How It Behaves in Space
-     - Care & Acquisition    (new — static, natural-wool care + terms)
+3. TWO-GATE NAV. Primary nav = SELL gate: Search · Shop · Cart.
+   Learning pages (Traditions/Regions/Motifs/Journal) removed from top nav —
+   they remain in the FOOTER (already there) and in the mobile menu under
+   "Explore". They stay fully indexed; learners arrive via Google, not the nav.
 
-   Specifications opens by default so the concrete facts are always visible;
-   the rest reveal on click. Smooth grid-rows animation, +/- toggle sign.
+4. REASSURANCE ICONS on the product page at-a-glance strip:
+   One of a kind · [material] · Ships from Marrakech — drawn as thin-line,
+   single-weight SVGs in Tilwen's palette (NOT Revival's filled clip-art),
+   per your no-decorative-icons design rule.
 
-## DELIBERATELY NOT TAKEN FROM REVIVAL
-   - "View in Your Room" AR (Phase 4 at most)
-   - Customer reviews (premature for a gallery; a 1-of-1 can't accrue them)
-   - "Buy 2 Get 20% Off" banners (manufactured urgency — wrong for Tilwen)
-   - Lifestyle video block (sells a lifestyle, not the object)
-
-## NOTE
-The old .rp-section CSS is now unused but left in place (harmless). The
-"Care & Acquisition" copy is generic-but-true for natural wool; edit freely.
+## NEXT ROUND (noted, not built)
+- Wire /gallery?q= to actually filter (client-side over name/tradition/colour).
+- Essay/story block between product detail and footer (SEO + learner gate).
+- Wishlist deferred until the magic-link client portal exists.

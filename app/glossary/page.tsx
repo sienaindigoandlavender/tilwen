@@ -5,9 +5,9 @@ import type { GlossaryCategory } from '@/types'
 export const metadata = {
   title: 'Glossary — Moroccan & Amazigh Rug Terminology',
   description: 'Definitions of kilim, flatweave, pile-knotted, Beni Ourain, Amazigh, abrash, lanolin, natural dye, overdyeing, and more. A reference guide to Moroccan and Amazigh rug terminology.',
-  alternates: { canonical: 'https://www.tilwen.com/glossary' },
+  alternates: { canonical: 'https://tilwen.com/glossary' },
   keywords: ['kilim definition', 'Beni Ourain meaning', 'Amazigh rug glossary', 'flatweave rug terminology', 'natural dye rug', 'moroccan rug terms'],
-  openGraph: { title: 'Glossary — Moroccan & Amazigh Rug Terminology', description: 'A reference guide to Moroccan and Amazigh rug terminology.', url: 'https://www.tilwen.com/glossary' },
+  openGraph: { title: 'Glossary — Moroccan & Amazigh Rug Terminology', description: 'A reference guide to Moroccan and Amazigh rug terminology.', url: 'https://tilwen.com/glossary' },
 }
 
 const CATEGORIES: GlossaryCategory[] = ['technique', 'material', 'cultural', 'condition', 'provenance', 'spatial']
@@ -24,7 +24,7 @@ export default function GlossaryPage() {
   const letters = Object.keys(byLetter).sort()
 
   return (
-    <>
+    <div className="magazine-surface">
       <style>{`
         .gl-header {
           padding: var(--sp-16) 0 var(--sp-12);
@@ -222,6 +222,6 @@ export default function GlossaryPage() {
           ))}
         </div>
       </div>
-    </>
+    </div>
   )
 }

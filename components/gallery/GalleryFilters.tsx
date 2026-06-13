@@ -267,7 +267,7 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
       <style>{`
         .gf-strip {
           position: sticky; top: 84px; z-index: 50;
-          background: var(--white); border-bottom: var(--border);
+          background: #ffffff; border-bottom: var(--border);
         }
         .gf-strip__inner {
           display: flex; align-items: center; gap: 0;
@@ -331,7 +331,7 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
 
         /* Secondary panel */
         .gf-panel {
-          border-bottom: var(--border); background: var(--grey-100);
+          border-bottom: var(--border); background: #ffffff;
           animation: gfPanel 200ms ease;
         }
         @keyframes gfPanel { from { opacity: 0; } to { opacity: 1; } }
@@ -357,7 +357,7 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
         .gf-clear:hover { color: var(--black); }
 
         .gf-grid {
-          padding: var(--sp-12) 0 var(--sp-32);
+          padding: var(--sp-16) 0 var(--sp-32);
           display: grid; grid-template-columns: repeat(4, 1fr);
           gap: var(--sp-12) var(--sp-8);
           animation: gfFadeIn 220ms ease;

@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: essay.title,
     description: essay.excerpt,
-    alternates: { canonical: `https://www.tilwen.com/journal/${essay.slug}` },
-    openGraph: { title: essay.title, description: essay.excerpt, type: 'article', url: `https://www.tilwen.com/journal/${essay.slug}`, images: essay.cover_image ? [{ url: essay.cover_image, alt: essay.title }] : [] },
+    alternates: { canonical: `https://tilwen.com/journal/${essay.slug}` },
+    openGraph: { title: essay.title, description: essay.excerpt, type: 'article', url: `https://tilwen.com/journal/${essay.slug}`, images: essay.cover_image ? [{ url: essay.cover_image, alt: essay.title }] : [] },
   }
 }
 
@@ -256,7 +256,7 @@ export default function EssayPage({ params }: { params: { slug: string } }) {
         @media (max-width: 480px) { .ep-rugs-grid { grid-template-columns: 1fr; } }
       `}</style>
 
-      <article className="ep">
+      <article className="ep magazine-surface">
 
         {/* Full-bleed hero */}
         {essay.cover_image && (

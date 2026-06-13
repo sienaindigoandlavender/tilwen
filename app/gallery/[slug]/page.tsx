@@ -61,12 +61,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         .rp-info { position: sticky; top: 104px; }
         @media (max-width: 900px) { .rp-info { position: static; } }
 
-        .rp-identity { padding-bottom: var(--sp-6); border-bottom: var(--border); margin-bottom: var(--sp-6); }
-        .rp-auth {
-          margin-top: var(--sp-4);
-          font-family: var(--font-body); font-size: 0.9375rem; font-style: italic;
-          line-height: 1.6; color: var(--grey-600);
-        }
+        .rp-identity { padding-bottom: 0; border-bottom: none; margin-bottom: var(--sp-6); }
         .rp-given {
           font-family: var(--font-display);
           font-size: clamp(2rem, 3.2vw, 3.25rem);
@@ -78,14 +73,37 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
           font-size: 1.0625rem; font-style: italic;
           color: var(--grey-600); margin-top: var(--sp-2);
         }
-        .rp-tags { display: flex; gap: var(--sp-4); flex-wrap: wrap; margin-top: var(--sp-4); }
-        .rp-tag {
-          font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 500;
-          letter-spacing: 0.1em; text-transform: uppercase;
-          padding: 0.3rem 0; color: var(--grey-600);
-          transition: all var(--t);
+        /* Dimensions — right under the title */
+        .rp-dims {
+          font-family: var(--font-ui); font-size: 0.75rem; letter-spacing: 0.03em;
+          color: var(--grey-600); margin-top: var(--sp-3);
         }
-        .rp-tag:hover { border-color: var(--black); color: var(--black); }
+        /* Price — the anchor */
+        .rp-price {
+          font-family: var(--font-display);
+          font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+          font-weight: 400; letter-spacing: -0.01em; color: var(--black);
+          padding-bottom: var(--sp-6); border-bottom: var(--border);
+          margin-bottom: var(--sp-6);
+        }
+        .rp-price--sold { color: var(--grey-400); }
+        /* Per-rug paragraph — the selling point (filled by hand per rug) */
+        .rp-blurb {
+          font-family: var(--font-body); font-size: 1rem; line-height: 1.65;
+          color: var(--grey-800); margin-bottom: var(--sp-6);
+        }
+        /* Quiet utility links — all three identical */
+        .rp-links {
+          display: flex; gap: var(--sp-4); flex-wrap: wrap;
+          margin-top: var(--sp-6);
+        }
+        .rp-links__item {
+          font-family: var(--font-ui); font-size: 0.625rem; letter-spacing: 0.06em;
+          color: var(--grey-600); text-decoration: none;
+          border-bottom: 1px solid var(--grey-200); padding: 0;
+          background: none; cursor: pointer; transition: color var(--t);
+        }
+        .rp-links__item:hover { color: var(--black); }
 
         /* ── Below: the scholarship, one comfortable reading column ── */
         .rp-body {
@@ -238,97 +256,48 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                 {rug.cultural_name !== rug.given_name && (
                   <p className="rp-cultural">{rug.cultural_name}{rug.reference ? ` · ${rug.reference}` : ''}</p>
                 )}
-                <p className="rp-auth">
-                  {rug.age_class === 'vintage' || rug.age_class === 'antique'
-                    ? 'A genuine vintage piece, sourced in Morocco. Not a reproduction, not factory-woven — one of a kind, and once it is gone it cannot be remade.'
-                    : 'Genuinely handwoven in Morocco on a traditional loom. One of a kind — not factory-produced, and once it is gone it cannot be remade.'}
-                </p>
-                {rug.atmosphere_tags.length > 0 && (
-                  <div className="rp-tags">
-                    {rug.atmosphere_tags.map(t => (
-                      <span key={t} className="rp-tag">{t}</span>
-                    ))}
-                  </div>
+                {/* Dimensions — directly under the title, the first thing a buyer checks */}
+                {rug.length_cm > 0 && (
+                  <p className="rp-dims">{rug.length_cm} × {rug.width_cm} cm · {(rug.length_cm / 30.48).toFixed(1)} × {(rug.width_cm / 30.48).toFixed(1)} ft</p>
                 )}
               </div>
-              <div className="rp-acq">
-                <div className="rp-acq__status">
-                  <span className={`avail avail--${rug.availability_status}`}>
-                    {rug.availability_status === 'available' ? 'Available' : rug.availability_status === 'reserved' ? 'Reserved' : 'Sold'}
-                  </span>
-                </div>
-                <div className="rp-acq__price-row">
-                  <span className="rp-acq__price-main">€{rug.price.toLocaleString()}</span>
-                  {rug.length_cm > 0 && <span className="rp-acq__dims">{rug.length_cm} × {rug.width_cm} cm{rug.length_cm > 0 ? ` · ${(rug.length_cm / 30.48).toFixed(1)} × ${(rug.width_cm / 30.48).toFixed(1)} ft` : ''}</span>}
-                </div>
-                {/* At-a-glance reassurance — thin-line icons, Tilwen's visual language */}
-                <div className="rp-glance">
-                  <span className="rp-glance__item">
-                    <svg className="rp-glance__icon" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                      <path d="M3 8.5l8-4 8 4-8 4-8-4Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
-                      <path d="M3 8.5v5l8 4 8-4v-5" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
-                      <path d="M11 12.5v5" stroke="currentColor" strokeWidth="1"/>
-                    </svg>
-                    One of a kind
-                  </span>
-                  <span className="rp-glance__item">
-                    <svg className="rp-glance__icon" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                      <path d="M11 4c-2.5 0-3.5 1.8-3.5 3.5 0 1.2-1 1.5-1.5 2.5-.6 1.2 0 2.6 1 3.2.5.3.5 1 .3 1.7-.3.9.3 1.9 1.4 2 .9.1 1.3.7 1.8 1.4.5-.7.9-1.3 1.8-1.4 1.1-.1 1.7-1.1 1.4-2-.2-.7-.2-1.4.3-1.7 1-.6 1.6-2 1-3.2-.5-1-1.5-1.3-1.5-2.5C14.5 5.8 13.5 4 11 4Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
-                    </svg>
-                    {rug.material_primary || '100% wool'}
-                  </span>
-                  <span className="rp-glance__item">
-                    <svg className="rp-glance__icon" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-                      <path d="M2 9h9v6H3.5L2 13.5V9Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
-                      <path d="M11 7h4.5l3.5 3.5V15H11V7Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round"/>
-                      <circle cx="6" cy="15.5" r="1.6" stroke="currentColor" strokeWidth="1"/>
-                      <circle cx="15" cy="15.5" r="1.6" stroke="currentColor" strokeWidth="1"/>
-                    </svg>
-                    Ships from Marrakech
-                  </span>
-                </div>
-                <p className="rp-acq__note">{rug.acquisition_note}</p>
-                {rug.availability_status === 'available' && (
-                  <div className="rp-acq__cta">
-                    {rug.shopify_variant_id ? (
-                      <AddToCartButton variantId={rug.shopify_variant_id} name={rug.given_name} />
-                    ) : (
-                      <Link href={`/inquire?piece=${rug.slug}&name=${encodeURIComponent(rug.given_name)}`} className="btn btn--primary" style={{ width: '100%' }}>
-                        Inquire about this piece
-                      </Link>
-                    )}
-                  </div>
-                )}
-                {rug.availability_status === 'reserved' && (
-                  <div className="rp-acq__cta">
-                    <Link href="/inquire" className="btn btn--ghost" style={{ width: '100%' }}>
-                      Join waitlist
+
+              {/* Price — the visual anchor of the column */}
+              <p className={`rp-price${rug.availability_status === 'sold' ? ' rp-price--sold' : ''}`}>
+                {rug.availability_status === 'sold' ? 'Sold' : `€${rug.price.toLocaleString()}`}
+              </p>
+
+              {/* Per-rug paragraph — the real selling point. Written by hand per rug.
+                  Renders only when provenance_note is filled; nothing until then. */}
+              {rug.provenance_note && (
+                <p className="rp-blurb">{rug.provenance_note}</p>
+              )}
+
+              {/* Buy */}
+              {rug.availability_status === 'available' && (
+                <div className="rp-acq__cta">
+                  {rug.shopify_variant_id ? (
+                    <AddToCartButton variantId={rug.shopify_variant_id} name={rug.given_name} />
+                  ) : (
+                    <Link href={`/inquire?piece=${rug.slug}&name=${encodeURIComponent(rug.given_name)}`} className="btn btn--primary" style={{ width: '100%' }}>
+                      Inquire about this piece
                     </Link>
-                  </div>
-                )}
-              </div>
-              <div className="rp-trust">
-                <div className="rp-trust-row">
-                  <span className="rp-trust-icon">—</span>
-                  <span className="rp-trust-text">One of a kind. When it is gone, it is gone</span>
+                  )}
                 </div>
-                <div className="rp-trust-row">
-                  <span className="rp-trust-icon">—</span>
-                  <span className="rp-trust-text">Ships worldwide from Marrakech</span>
+              )}
+              {rug.availability_status === 'reserved' && (
+                <div className="rp-acq__cta">
+                  <Link href="/inquire" className="btn btn--ghost" style={{ width: '100%' }}>
+                    Join waitlist
+                  </Link>
                 </div>
-                <div className="rp-trust-row">
-                  <span className="rp-trust-icon">—</span>
-                  <span className="rp-trust-text">All sales are final. Transit damage covered within 48 hours of receipt</span>
-                </div>
-                <div className="rp-trust-row">
-                  <span className="rp-trust-icon">—</span>
-                  <span className="rp-trust-text">Condition guaranteed as described</span>
-                </div>
-                <div style={{ marginTop: 'var(--sp-4)', display: 'flex', gap: 'var(--sp-4)', flexWrap: 'wrap' }}>
-                  <Link href="/care" className="t-ui-xs" style={{ color: 'var(--grey-600)', borderBottom: '1px solid var(--grey-200)' }}>Care & Shipping</Link>
-                  <Link href="/returns" className="t-ui-xs" style={{ color: 'var(--grey-600)', borderBottom: '1px solid var(--grey-200)' }}>Returns</Link>
-                  <ShareLink title={`${rug.given_name} — Tilwen`} />
-                </div>
+              )}
+
+              {/* Quiet utility links — all three identical small size */}
+              <div className="rp-links">
+                <Link href="/care" className="rp-links__item">Care &amp; Shipping</Link>
+                <Link href="/returns" className="rp-links__item">Returns</Link>
+                <ShareLink title={`${rug.given_name} — Tilwen`} className="rp-links__item" />
               </div>
             </div>
 

@@ -4,73 +4,70 @@ import type { Rug } from '@/types'
 import RugCardHover from '@/components/gallery/RugCardHover'
 import { PALETTE } from '@/lib/palette'
 
-// ── Size classifier ──────────────────────────────────────────────────────────
-function getSize(rug: Rug): string {
-  const area = (rug.length_cm * rug.width_cm) / 10000 // m²
+// ── Shape ────────────────────────────────────────────────────────────────────
+// Moroccan rugs are one-of-a-kind objects, not woven to standard market sizes
+// like Persian/Turkish rugs. So we DON'T bucket by size band. Shape, however,
+// is a real discrete property a buyer chooses on.
+function getShape(rug: Rug): string {
+  if (!rug.length_cm || !rug.width_cm) return 'rectangle'
   const ratio = rug.length_cm / rug.width_cm
-  if (ratio > 2.5) return 'runner'
-  if (area < 1.5)  return 'small'
-  if (area < 4)    return 'medium'
-  return 'large'
+  if (ratio >= 2.4) return 'runner'
+  if (ratio <= 1.25) return 'square'
+  return 'rectangle'
 }
 
-// ── Filter definitions ───────────────────────────────────────────────────────
-type FilterGroup = 'tradition' | 'technique' | 'region' | 'size' | 'palette' | 'dye' | 'age'
+const SHAPE_LABELS: Record<string, string> = {
+  rectangle: 'Rectangle', runner: 'Runner', square: 'Square',
+}
+
+// Display labels for slugs that come off the rug data
+const TECHNIQUE_LABELS: Record<string, string> = {
+  'flatweave-kilim': 'Flatweave',
+  'pile-knotted': 'Pile-Knotted',
+  'boucherouitte': 'Boucherouitte',
+  'mixed': 'Mixed',
+}
+
+const PILE_LABELS: Record<string, string> = {
+  Flat: 'Flat', Low: 'Low', Medium: 'Medium', High: 'High',
+}
+
+// ── Filter groups ────────────────────────────────────────────────────────────
+type FilterGroup = 'tradition' | 'palette' | 'shape' | 'pile' | 'technique' | 'dye' | 'age'
 
 interface ActiveFilters {
   tradition: string[]
-  technique: string[]
-  region: string[]
-  size: string[]
   palette: string[]
+  shape: string[]
+  pile: string[]
+  technique: string[]
   dye: string[]
   age: string[]
 }
 
 const EMPTY_FILTERS: ActiveFilters = {
-  tradition: [], technique: [], region: [], size: [], palette: [], dye: [], age: [],
+  tradition: [], palette: [], shape: [], pile: [], technique: [], dye: [], age: [],
 }
 
-const FILTER_PARAM_KEYS: FilterGroup[] = ['tradition', 'technique', 'region', 'size', 'palette', 'dye', 'age']
+const FILTER_PARAM_KEYS: FilterGroup[] = ['tradition', 'palette', 'shape', 'pile', 'technique', 'dye', 'age']
 
-const TECHNIQUE_OPTIONS = [
-  { value: 'flatweave-kilim', label: 'Flatweave' },
-  { value: 'pile-knotted',    label: 'Pile-Knotted' },
-  { value: 'boucherouitte',   label: 'Boucherouitte' },
-]
+// Primary filters sit inline; the rest live behind the "More filters" panel.
+// Region is intentionally NOT a filter — it asks the buyer to know Moroccan
+// geography. It lives as a knowledge link on product pages and the mega menu.
+// Tradition already carries region implicitly (Beni Ourain => Middle Atlas).
+const PRIMARY: FilterGroup[] = ['tradition', 'palette', 'shape']
+const SECONDARY: FilterGroup[] = ['pile', 'technique', 'dye', 'age']
 
-const REGION_OPTIONS = [
-  { value: 'high-atlas',   label: 'High Atlas' },
-  { value: 'middle-atlas', label: 'Middle Atlas' },
-  { value: 'anti-atlas',   label: 'Anti-Atlas' },
-  { value: 'haouz-plain',  label: 'Haouz Plain' },
-  { value: 'saharan',      label: 'Saharan' },
-]
+const LIGHT_SWATCHES = new Set(['ivory', 'cream', 'sand', 'undyed'])
 
-const SIZE_OPTIONS = [
-  { value: 'small',   label: 'Small',   sub: 'under 1.5m²' },
-  { value: 'medium',  label: 'Medium',  sub: '1.5–4m²' },
-  { value: 'large',   label: 'Large',   sub: 'over 4m²' },
-  { value: 'runner',  label: 'Runner',  sub: 'long format' },
-]
-
-const DYE_OPTIONS = [
-  { value: 'natural',   label: 'Natural dye' },
-  { value: 'synthetic', label: 'Synthetic dye' },
-]
-
-const AGE_OPTIONS = [
-  { value: 'vintage',      label: 'Vintage' },
-  { value: 'contemporary', label: 'Contemporary' },
-]
-
-// ── Main component ───────────────────────────────────────────────────────────
+// ── Component ────────────────────────────────────────────────────────────────
 export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
   const [filters, setFilters] = useState<ActiveFilters>(EMPTY_FILTERS)
   const [newOnly, setNewOnly] = useState(false)
+  const [panelOpen, setPanelOpen] = useState(false)
   const [hydratedFromUrl, setHydratedFromUrl] = useState(false)
 
-  // Read filters from the URL once on mount — powers the SHOP mega menu links
+  // Read filters from the URL on mount — powers the SHOP mega menu deep-links
   // (/gallery?tradition=beni-ourain) and shareable filtered views.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -85,10 +82,12 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
     }
     if (any) setFilters(next)
     if (params.get('new')) setNewOnly(true)
+    // If a secondary filter arrived via URL, open the panel so it's visible
+    if (SECONDARY.some(k => next[k].length)) setPanelOpen(true)
     setHydratedFromUrl(true)
   }, [])
 
-  // Keep the URL in sync so filtered views are shareable
+  // Keep the URL in sync so any filtered view is shareable
   useEffect(() => {
     if (!hydratedFromUrl) return
     const params = new URLSearchParams()
@@ -100,286 +99,285 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
     window.history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname)
   }, [filters, newOnly, hydratedFromUrl])
 
-  // Derive available palette colours from actual rug data
-  const availablePalette = useMemo(() => {
-    const used = new Set(rugs.flatMap(r => r.palette_tags || []))
-    return Object.entries(PALETTE).filter(([key]) => used.has(key))
-  }, [rugs])
-
-  // Derive tradition options from live inventory
-  const traditionOptions = useMemo(() => {
-    const m = new Map<string, { label: string; count: number }>()
-    for (const r of rugs) {
-      if (!r.type_slug) continue
-      const cur = m.get(r.type_slug)
-      m.set(r.type_slug, { label: r.type_name || r.type_slug, count: (cur?.count || 0) + 1 })
+  // ── Inventory-derived options ──────────────────────────────────────────────
+  // Every group derives its options from live stock and self-hides when a
+  // dimension has nothing to offer. No dead options that return zero results.
+  const opts = useMemo(() => {
+    const count = <K extends string>(pick: (r: Rug) => K | K[] | null | undefined) => {
+      const m = new Map<string, number>()
+      for (const r of rugs) {
+        const v = pick(r)
+        if (v == null) continue
+        const arr = Array.isArray(v) ? v : [v]
+        for (const x of arr) if (x) m.set(x, (m.get(x) || 0) + 1)
+      }
+      return m
     }
-    return Array.from(m.entries())
-      .map(([value, v]) => ({ value, label: v.label, count: v.count }))
+
+    const tradition = count(r => r.type_slug)
+    const palette = count(r => r.palette_tags)
+    const shape = count(r => getShape(r))
+    const pile = count(r => r.pile_height || null)
+    const technique = count(r => r.technique_slug)
+    const dye = count(r => {
+      const d = (r.dye_type || '').toLowerCase()
+      if (!d) return null
+      return d.includes('synthet') ? 'synthetic' : 'natural'
+    })
+    const age = count(r => {
+      let cls = r.age_class as string | undefined
+      if (cls === 'antique') cls = 'vintage'
+      return cls || null
+    })
+
+    const sortedTraditions = Array.from(tradition.entries())
+      .map(([value, c]) => ({
+        value,
+        label: rugs.find(r => r.type_slug === value)?.type_name || value,
+        count: c,
+      }))
       .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label))
+
+    return { tradition: sortedTraditions, palette, shape, pile, technique, dye, age }
   }, [rugs])
 
+  // ── Mutation ───────────────────────────────────────────────────────────────
   const toggle = useCallback((group: FilterGroup, value: string) => {
     setFilters(prev => {
-      const current = prev[group]
-      const next = current.includes(value)
-        ? current.filter(v => v !== value)
-        : [...current, value]
-      return { ...prev, [group]: next }
+      const cur = prev[group]
+      return {
+        ...prev,
+        [group]: cur.includes(value) ? cur.filter(v => v !== value) : [...cur, value],
+      }
     })
   }, [])
 
   const clearAll = useCallback(() => { setFilters(EMPTY_FILTERS); setNewOnly(false) }, [])
 
-  const hasFilters = Object.values(filters).some(arr => arr.length > 0) || newOnly
+  const activeCount =
+    Object.values(filters).reduce((n, arr) => n + arr.length, 0) + (newOnly ? 1 : 0)
+  const secondaryActive = SECONDARY.reduce((n, k) => n + filters[k].length, 0)
 
-  // Filter logic — rugs arrive newest-first from the data layer
+  // ── Filtering ──────────────────────────────────────────────────────────────
   const filtered = useMemo(() => {
     const pool = newOnly ? rugs.slice(0, 12) : rugs
     return pool.filter(rug => {
       if (filters.tradition.length && !filters.tradition.includes(rug.type_slug || '')) return false
-      if (filters.technique.length && !filters.technique.includes(rug.technique_slug)) return false
-      if (filters.region.length && !filters.region.includes(rug.region_slug)) return false
-      if (filters.size.length && !filters.size.includes(getSize(rug))) return false
       if (filters.palette.length && !filters.palette.some(p => rug.palette_tags?.includes(p))) return false
+      if (filters.shape.length && !filters.shape.includes(getShape(rug))) return false
+      if (filters.pile.length && !filters.pile.includes(rug.pile_height)) return false
+      if (filters.technique.length && !filters.technique.includes(rug.technique_slug)) return false
       if (filters.dye.length) {
-        const dye = rug.dye_type.toLowerCase()
-        if (filters.dye.includes('natural') && !dye.includes('natural')) return false
-        if (filters.dye.includes('synthetic') && dye.includes('natural')) return false
+        const d = (rug.dye_type || '').toLowerCase()
+        const cls = d.includes('synthet') ? 'synthetic' : 'natural'
+        if (!filters.dye.includes(cls)) return false
       }
       if (filters.age.length) {
         let cls = rug.age_class as string | undefined
         if (cls === 'antique') cls = 'vintage'
-        if (!cls) {
-          const year = parseInt(rug.age_period?.replace(/\D/g, '').slice(0, 4) || '0')
-          cls = year > 0 && year < 1985 ? 'vintage' : 'contemporary'
-        }
-        if (!filters.age.includes(cls)) return false
+        if (!cls || !filters.age.includes(cls)) return false
       }
       return true
     })
   }, [rugs, filters, newOnly])
 
+  // ── Reusable pill renderers ────────────────────────────────────────────────
+  const Pill = ({ group, value, label, count }: { group: FilterGroup; value: string; label: string; count?: number }) => {
+    const active = filters[group].includes(value)
+    return (
+      <button
+        className={`gf-pill${active ? ' gf-pill--active' : ''}`}
+        onClick={() => toggle(group, value)}
+        aria-pressed={active}
+      >
+        {label}{typeof count === 'number' ? <span className="gf-pill__n">{count}</span> : null}
+      </button>
+    )
+  }
+
+  const renderGroup = (group: FilterGroup, label: string) => {
+    if (group === 'palette') {
+      const entries = Object.entries(PALETTE).filter(([k]) => opts.palette.has(k))
+      if (!entries.length) return null
+      return (
+        <div className="gf-group" key={group}>
+          <span className="gf-group-label">{label}</span>
+          {entries.map(([key, { hex, label: cname }]) => {
+            const active = filters.palette.includes(key)
+            return (
+              <button
+                key={key}
+                className={`gf-swatch${LIGHT_SWATCHES.has(key) ? ' gf-swatch--light' : ''}${active ? ' gf-swatch--active' : ''}`}
+                style={{ background: hex }}
+                onClick={() => toggle('palette', key)}
+                title={cname}
+                aria-label={`${cname}${active ? ' (active)' : ''}`}
+                aria-pressed={active}
+              />
+            )
+          })}
+        </div>
+      )
+    }
+
+    if (group === 'tradition') {
+      if (opts.tradition.length < 2) return null
+      return (
+        <div className="gf-group" key={group}>
+          <span className="gf-group-label">{label}</span>
+          {opts.tradition.map(o => <Pill key={o.value} group="tradition" value={o.value} label={o.label} count={o.count} />)}
+        </div>
+      )
+    }
+
+    // Generic count-map groups
+    const maps: Record<string, Map<string, number>> = {
+      shape: opts.shape, pile: opts.pile, technique: opts.technique, dye: opts.dye, age: opts.age,
+    }
+    const labels: Record<string, Record<string, string>> = {
+      shape: SHAPE_LABELS, pile: PILE_LABELS, technique: TECHNIQUE_LABELS,
+      dye: { natural: 'Natural dye', synthetic: 'Synthetic dye' },
+      age: { vintage: 'Vintage', contemporary: 'Contemporary' },
+    }
+    const map = maps[group]
+    if (!map || map.size < 2) return null
+    const order = group === 'pile'
+      ? ['Flat', 'Low', 'Medium', 'High']
+      : group === 'shape'
+      ? ['rectangle', 'runner', 'square']
+      : Array.from(map.keys())
+    const items = order.filter(k => map.has(k))
+    return (
+      <div className="gf-group" key={group}>
+        <span className="gf-group-label">{label}</span>
+        {items.map(v => (
+          <Pill key={v} group={group} value={v} label={labels[group]?.[v] || v} count={map.get(v)} />
+        ))}
+      </div>
+    )
+  }
+
+  const LABELS: Record<FilterGroup, string> = {
+    tradition: 'Tradition', palette: 'Colour', shape: 'Shape',
+    pile: 'Pile', technique: 'Weave', dye: 'Dye', age: 'Age',
+  }
+
   return (
     <>
       <style>{`
-        /* ── Filter strip ─────────────────────────────────────── */
         .gf-strip {
-          position: sticky;
-          top: 84px;
-          z-index: 50;
-          background: var(--white);
-          border-bottom: var(--border);
+          position: sticky; top: 84px; z-index: 50;
+          background: var(--white); border-bottom: var(--border);
         }
         .gf-strip__inner {
-          display: flex;
-          align-items: center;
-          gap: 0;
-          overflow-x: auto;
-          scrollbar-width: none;
-          padding: 0;
-          min-height: 48px;
+          display: flex; align-items: center; gap: 0;
+          overflow-x: auto; scrollbar-width: none; min-height: 48px;
         }
         .gf-strip__inner::-webkit-scrollbar { display: none; }
 
-        /* Groups */
         .gf-group {
-          display: flex;
-          align-items: center;
-          gap: var(--sp-2);
-          padding: 0 var(--sp-4);
-          border-right: var(--border);
-          height: 48px;
-          flex-shrink: 0;
+          display: flex; align-items: center; gap: var(--sp-2);
+          padding: 0 var(--sp-4); border-right: var(--border);
+          height: 48px; flex-shrink: 0;
         }
         .gf-group:first-child { padding-left: 0; }
         .gf-group-label {
-          font-family: var(--font-ui);
-          font-size: 0.4375rem;
-          font-weight: 500;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: var(--grey-200);
-          margin-right: var(--sp-2);
-          white-space: nowrap;
+          font-family: var(--font-ui); font-size: 0.4375rem; font-weight: 500;
+          letter-spacing: 0.12em; text-transform: uppercase;
+          color: var(--grey-400); margin-right: var(--sp-2); white-space: nowrap;
         }
 
-        /* Colour circles */
         .gf-swatch {
-          width: 18px;
-          height: 18px;
-          border-radius: 50%;
-          border: 1.5px solid transparent;
-          cursor: pointer;
-          transition: transform 200ms ease, box-shadow 200ms ease;
-          flex-shrink: 0;
-          position: relative;
+          width: 18px; height: 18px; border-radius: 50%;
+          border: 1.5px solid transparent; cursor: pointer;
+          transition: transform 200ms ease; flex-shrink: 0;
         }
         .gf-swatch:hover { transform: scale(1.2); }
-        .gf-swatch--active {
-          box-shadow: 0 0 0 2px var(--white), 0 0 0 3.5px var(--black);
-        }
-        /* Ivory needs a border to be visible on white bg */
+        .gf-swatch--active { box-shadow: 0 0 0 2px var(--white), 0 0 0 3.5px var(--black); }
         .gf-swatch--light { border-color: var(--grey-200) !important; }
 
-        /* Pills */
         .gf-pill {
-          font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          font-weight: 400;
-          letter-spacing: 0.06em;
-          color: var(--grey-600);
-          background: transparent;
-          border: none;
-          padding: 0.3rem 0.75rem;
-          border-radius: 100px;
-          cursor: pointer;
-          transition: background 160ms ease, color 160ms ease;
-          white-space: nowrap;
-          line-height: 1;
+          font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 400;
+          letter-spacing: 0.06em; color: var(--grey-600); background: transparent;
+          border: none; padding: 0.3rem 0.75rem; border-radius: 100px;
+          cursor: pointer; transition: background 160ms ease, color 160ms ease;
+          white-space: nowrap; line-height: 1; display: inline-flex; align-items: center; gap: 0.3em;
         }
         .gf-pill:hover { background: var(--grey-100); color: var(--black); }
-        .gf-pill--active {
-          background: var(--black);
-          color: var(--white);
-        }
-        .gf-pill--active:hover {
-          background: var(--grey-800);
-          color: var(--white);
-        }
+        .gf-pill--active { background: var(--black); color: var(--white); }
+        .gf-pill--active:hover { background: var(--grey-800); color: var(--white); }
+        .gf-pill__n { font-size: 0.875em; opacity: 0.5; }
+        .gf-pill--active .gf-pill__n { opacity: 0.6; }
 
-        /* Size pills with sub-label */
-        .gf-size {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          letter-spacing: 0.06em;
-          color: var(--grey-600);
-          background: transparent;
-          border: none;
-          padding: 0.25rem 0.625rem;
-          border-radius: 100px;
-          cursor: pointer;
-          transition: background 160ms ease, color 160ms ease;
-          line-height: 1.2;
-          white-space: nowrap;
-        }
-        .gf-size:hover { background: var(--grey-100); color: var(--black); }
-        .gf-size--active { background: var(--black); color: var(--white); }
-        .gf-size--active:hover { background: var(--grey-800); }
-        .gf-size__sub {
-          font-size: 0.375rem;
-          letter-spacing: 0.04em;
-          opacity: 0.65;
-          margin-top: 1px;
-        }
-
-        /* Clear */
-        .gf-clear {
-          margin-left: auto;
-          padding: 0 var(--sp-4);
-          font-family: var(--font-ui);
-          font-size: 0.5rem;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          color: var(--grey-400);
-          background: none;
-          border: none;
-          cursor: pointer;
+        /* "More filters" trigger */
+        .gf-more {
+          display: inline-flex; align-items: center; gap: 0.4em;
+          font-family: var(--font-ui); font-size: 0.5rem; letter-spacing: 0.1em;
+          text-transform: uppercase; color: var(--grey-600);
+          background: none; border: none; cursor: pointer;
+          padding: 0 var(--sp-4); height: 48px; flex-shrink: 0;
+          border-left: var(--border);
           transition: color var(--t);
-          white-space: nowrap;
-          flex-shrink: 0;
-          height: 48px;
+        }
+        .gf-more:hover { color: var(--black); }
+        .gf-more__n {
+          font-size: 0.9em; min-width: 1.1em; height: 1.1em; padding: 0 0.3em;
+          display: inline-flex; align-items: center; justify-content: center;
+          background: var(--black); color: var(--white); border-radius: 100px;
+          letter-spacing: 0;
+        }
+        .gf-more__chev { transition: transform 200ms ease; }
+        .gf-more__chev--open { transform: rotate(180deg); }
+
+        /* Secondary panel */
+        .gf-panel {
+          border-bottom: var(--border); background: var(--grey-100);
+          animation: gfPanel 200ms ease;
+        }
+        @keyframes gfPanel { from { opacity: 0; } to { opacity: 1; } }
+        .gf-panel__inner {
+          display: flex; flex-wrap: wrap; align-items: center;
+          gap: var(--sp-2) var(--sp-8);
+          padding: var(--sp-4) 0;
+        }
+        .gf-panel .gf-group { border-right: none; padding: 0; height: auto; flex-wrap: wrap; }
+
+        .gf-count {
+          font-family: var(--font-ui); font-size: 0.5rem; letter-spacing: 0.08em;
+          color: var(--grey-400); padding: 0 var(--sp-4); white-space: nowrap;
+          flex-shrink: 0; height: 48px; display: flex; align-items: center;
+          border-left: var(--border); margin-left: auto;
+        }
+        .gf-clear {
+          padding: 0 var(--sp-4); font-family: var(--font-ui); font-size: 0.5rem;
+          letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-400);
+          background: none; border: none; cursor: pointer; transition: color var(--t);
+          white-space: nowrap; flex-shrink: 0; height: 48px; border-left: var(--border);
         }
         .gf-clear:hover { color: var(--black); }
 
-        /* Result count */
-        .gf-count {
-          font-family: var(--font-ui);
-          font-size: 0.5rem;
-          letter-spacing: 0.08em;
-          color: var(--grey-400);
-          padding: 0 var(--sp-4);
-          white-space: nowrap;
-          flex-shrink: 0;
-          height: 48px;
-          display: flex;
-          align-items: center;
-          border-left: var(--border);
-        }
-
-        /* ── Grid ─────────────────────────────────────────────── */
         .gf-grid {
-          padding: var(--sp-8) 0 var(--sp-32);
-          display: grid;
-          grid-template-columns: repeat(6, 1fr);
-          gap: var(--sp-8) var(--sp-4);
+          padding: var(--sp-12) 0 var(--sp-32);
+          display: grid; grid-template-columns: repeat(4, 1fr);
+          gap: var(--sp-12) var(--sp-8);
+          animation: gfFadeIn 220ms ease;
         }
-        @media (max-width: 1100px) { .gf-grid { grid-template-columns: repeat(4, 1fr); } }
-        @media (max-width: 768px)  { .gf-grid { grid-template-columns: repeat(3, 1fr); } }
+        @keyframes gfFadeIn { from { opacity: 0.6; } to { opacity: 1; } }
+        @media (max-width: 1100px) { .gf-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 768px)  { .gf-grid { grid-template-columns: repeat(2, 1fr); gap: var(--sp-8) var(--sp-4); } }
         @media (max-width: 480px)  { .gf-grid { grid-template-columns: repeat(2, 1fr); } }
 
-        .gf-item { display: block; text-decoration: none; color: inherit; }
-        .gf-item__img {
-          position: relative; aspect-ratio: 1/1;
-          overflow: hidden; background: var(--grey-100);
-        }
-        .gf-item__img img { transition: transform 600ms var(--ease); }
-        .gf-item:hover .gf-item__img img { transform: scale(1.05); }
-
-        .gf-item__avail {
-          position: absolute; top: 6px; right: 6px;
-          width: 6px; height: 6px; border-radius: 50%; z-index: 2;
-        }
-        .gf-item__avail--available { background: var(--black); }
-        .gf-item__avail--reserved  { background: var(--grey-400); }
-        .gf-item__avail--sold      { background: transparent; border: 1px solid var(--grey-400); }
-
-        /* Colour swatches on card */
-        .gf-item__swatches {
-          display: flex; gap: 3px; margin-top: 4px; flex-wrap: wrap;
-        }
-        .gf-item__swatch {
-          width: 8px; height: 8px; border-radius: 50%;
-        }
-        .gf-item__swatch--light { box-shadow: inset 0 0 0 1px var(--grey-200); }
-
-        .gf-item__body { padding: 0.5rem 0 0; }
-        .gf-item__ref {
-          font-family: var(--font-ui); font-size: 0.5rem;
-          letter-spacing: 0.06em; color: var(--grey-400);
-          display: block; margin-bottom: 0.15rem;
-        }
-        .gf-item__name {
-          font-family: var(--font-ui); font-size: 0.6875rem;
-          font-weight: 400; color: var(--black);
-          display: block; letter-spacing: 0.005em; line-height: 1.3;
-        }
-        .gf-item__meta {
-          margin-top: 0.15rem; font-family: var(--font-ui);
-          font-size: 0.4375rem; letter-spacing: 0.06em;
-          text-transform: uppercase; color: var(--grey-400);
-        }
-
         .gf-empty {
-          grid-column: 1/-1; padding: var(--sp-24) 0;
-          text-align: center; font-family: var(--font-body);
-          font-style: italic; color: var(--grey-400);
+          grid-column: 1/-1; padding: var(--sp-24) 0; text-align: center;
+          font-family: var(--font-body); font-style: italic; color: var(--grey-400);
         }
-
-        /* Fade animation on filter change */
-        .gf-grid { animation: gfFadeIn 220ms ease; }
-        @keyframes gfFadeIn { from { opacity: 0.6; } to { opacity: 1; } }
       `}</style>
 
-      {/* ── Filter strip ── */}
+      {/* ── Primary strip ── */}
       <div className="gf-strip">
         <div className="container">
           <div className="gf-strip__inner">
 
-            {/* New arrivals (set via SHOP menu) */}
             {newOnly && (
               <div className="gf-group">
                 <button
@@ -393,136 +391,48 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
               </div>
             )}
 
-            {/* Tradition */}
-            {traditionOptions.length > 1 && (
-              <div className="gf-group">
-                <span className="gf-group-label">Tradition</span>
-                {traditionOptions.map(opt => (
-                  <button
-                    key={opt.value}
-                    className={`gf-pill${filters.tradition.includes(opt.value) ? ' gf-pill--active' : ''}`}
-                    onClick={() => toggle('tradition', opt.value)}
-                    aria-pressed={filters.tradition.includes(opt.value)}
-                  >
-                    {opt.label}
-                  </button>
-                ))}
-              </div>
+            {PRIMARY.map(g => renderGroup(g, LABELS[g]))}
+
+            {/* More filters */}
+            {SECONDARY.some(g => {
+              const map = { pile: opts.pile, technique: opts.technique, dye: opts.dye, age: opts.age }[g]
+              return map && map.size >= 2
+            }) && (
+              <button
+                className="gf-more"
+                onClick={() => setPanelOpen(o => !o)}
+                aria-expanded={panelOpen}
+              >
+                {secondaryActive > 0 && <span className="gf-more__n">{secondaryActive}</span>}
+                More filters
+                <svg className={`gf-more__chev${panelOpen ? ' gf-more__chev--open' : ''}`} width="8" height="6" viewBox="0 0 8 6" fill="none" aria-hidden="true">
+                  <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1" />
+                </svg>
+              </button>
             )}
 
-            {/* Colour swatches */}
-            {availablePalette.length > 0 && (
-              <div className="gf-group">
-                <span className="gf-group-label">Colour</span>
-                {availablePalette.map(([key, { hex, label }]) => {
-                  const isLight = ['ivory', 'cream', 'sand'].includes(key)
-                  const isActive = filters.palette.includes(key)
-                  return (
-                    <button
-                      key={key}
-                      className={`gf-swatch${isLight ? ' gf-swatch--light' : ''}${isActive ? ' gf-swatch--active' : ''}`}
-                      style={{ background: hex }}
-                      onClick={() => toggle('palette', key)}
-                      title={label}
-                      aria-label={`Filter by ${label}${isActive ? ' (active)' : ''}`}
-                      aria-pressed={isActive}
-                    />
-                  )
-                })}
-              </div>
-            )}
-
-            {/* Technique */}
-            <div className="gf-group">
-              <span className="gf-group-label">Weave</span>
-              {TECHNIQUE_OPTIONS.map(opt => (
-                <button
-                  key={opt.value}
-                  className={`gf-pill${filters.technique.includes(opt.value) ? ' gf-pill--active' : ''}`}
-                  onClick={() => toggle('technique', opt.value)}
-                  aria-pressed={filters.technique.includes(opt.value)}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Region */}
-            <div className="gf-group">
-              <span className="gf-group-label">Region</span>
-              {REGION_OPTIONS.map(opt => (
-                <button
-                  key={opt.value}
-                  className={`gf-pill${filters.region.includes(opt.value) ? ' gf-pill--active' : ''}`}
-                  onClick={() => toggle('region', opt.value)}
-                  aria-pressed={filters.region.includes(opt.value)}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Size */}
-            <div className="gf-group">
-              <span className="gf-group-label">Size</span>
-              {SIZE_OPTIONS.map(opt => (
-                <button
-                  key={opt.value}
-                  className={`gf-size${filters.size.includes(opt.value) ? ' gf-size--active' : ''}`}
-                  onClick={() => toggle('size', opt.value)}
-                  aria-pressed={filters.size.includes(opt.value)}
-                >
-                  {opt.label}
-                  <span className="gf-size__sub">{opt.sub}</span>
-                </button>
-              ))}
-            </div>
-
-            {/* Dye */}
-            <div className="gf-group">
-              <span className="gf-group-label">Dye</span>
-              {DYE_OPTIONS.map(opt => (
-                <button
-                  key={opt.value}
-                  className={`gf-pill${filters.dye.includes(opt.value) ? ' gf-pill--active' : ''}`}
-                  onClick={() => toggle('dye', opt.value)}
-                  aria-pressed={filters.dye.includes(opt.value)}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Age */}
-            <div className="gf-group">
-              <span className="gf-group-label">Age</span>
-              {AGE_OPTIONS.map(opt => (
-                <button
-                  key={opt.value}
-                  className={`gf-pill${filters.age.includes(opt.value) ? ' gf-pill--active' : ''}`}
-                  onClick={() => toggle('age', opt.value)}
-                  aria-pressed={filters.age.includes(opt.value)}
-                >
-                  {opt.label}
-                </button>
-              ))}
-            </div>
-
-            {/* Result count */}
             <span className="gf-count">
               {filtered.length} {filtered.length === 1 ? 'piece' : 'pieces'}
             </span>
 
-            {/* Clear */}
-            {hasFilters && (
-              <button className="gf-clear" onClick={clearAll}>
-                Clear
-              </button>
+            {activeCount > 0 && (
+              <button className="gf-clear" onClick={clearAll}>Clear</button>
             )}
 
           </div>
         </div>
       </div>
+
+      {/* ── Secondary panel ── */}
+      {panelOpen && (
+        <div className="gf-panel">
+          <div className="container">
+            <div className="gf-panel__inner">
+              {SECONDARY.map(g => renderGroup(g, LABELS[g]))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── Grid ── */}
       <div className="container">

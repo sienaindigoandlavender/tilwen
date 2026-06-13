@@ -3,6 +3,7 @@ import { rugProductJsonLd, breadcrumbJsonLd } from '@/lib/seo'
 import AddToCartButton from '@/components/gallery/AddToCartButton'
 import ProductCarousel from '@/components/gallery/ProductCarousel'
 import ShareLink from '@/components/gallery/ShareLink'
+import Accordion from '@/components/gallery/Accordion'
 import Link from 'next/link'
 import { getAllRugsSafe, getRugBySlugLive, getRelatedRugsFrom } from '@/lib/rug-source'
 import RugCard from '@/components/gallery/RugCard'
@@ -21,8 +22,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${rug.given_name} — ${rug.cultural_name}`,
     description: `${rug.cultural_name} from the ${rug.region}. ${rug.technique}. One of a kind, fully documented. Available from Tilwen.`,
-    alternates: { canonical: `https://www.tilwen.com/gallery/${rug.slug}` },
-    openGraph: { title: `${rug.given_name} — ${rug.cultural_name}`, description: `${rug.cultural_name} from the ${rug.region}.`, url: `https://www.tilwen.com/gallery/${rug.slug}`, images: rug.images[0] ? [{ url: rug.images[0], alt: `${rug.given_name} — ${rug.cultural_name}` }] : [] },
+    alternates: { canonical: `https://tilwen.com/gallery/${rug.slug}` },
+    openGraph: { title: `${rug.given_name} — ${rug.cultural_name}`, description: `${rug.cultural_name} from the ${rug.region}.`, url: `https://tilwen.com/gallery/${rug.slug}`, images: rug.images[0] ? [{ url: rug.images[0], alt: `${rug.given_name} — ${rug.cultural_name}` }] : [] },
   }
 }
 
@@ -36,8 +37,8 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
 
   const productLd = rugProductJsonLd(rug)
   const breadcrumbLd = breadcrumbJsonLd([
-    { name: 'Gallery', url: 'https://www.tilwen.com/gallery' },
-    { name: `${rug.given_name} — ${rug.cultural_name}`, url: `https://www.tilwen.com/gallery/${rug.slug}` },
+    { name: 'Gallery', url: 'https://tilwen.com/gallery' },
+    { name: `${rug.given_name} — ${rug.cultural_name}`, url: `https://tilwen.com/gallery/${rug.slug}` },
   ])
 
   return (
@@ -84,7 +85,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         /* ── Below: the scholarship, one comfortable reading column ── */
         .rp-body {
           max-width: 72ch;
-          padding: var(--sp-12) 0;
+          padding: var(--sp-6) 0 var(--sp-12);
         }
 
         /* Left column sections */
@@ -151,6 +152,13 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
           font-family: var(--font-display); font-size: 2.25rem; font-weight: 300; letter-spacing: -0.02em;
         }
         .rp-acq__dims { font-family: var(--font-ui); font-size: 0.75rem; color: var(--grey-800); }
+        .rp-glance {
+          display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem;
+          margin-top: var(--sp-4);
+          font-family: var(--font-ui); font-size: 0.5625rem;
+          letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-600);
+        }
+        .rp-glance__sep { color: var(--grey-200); }
         .rp-acq__note {
           font-family: var(--font-body); font-size: 0.875rem; line-height: 1.6;
           color: var(--grey-800); font-style: italic; margin: var(--sp-4) 0;
@@ -235,7 +243,15 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                 </div>
                 <div className="rp-acq__price-row">
                   <span className="rp-acq__price-main">€{rug.price.toLocaleString()}</span>
-                  {rug.length_cm > 0 && <span className="rp-acq__dims">{rug.length_cm} × {rug.width_cm} cm</span>}
+                  {rug.length_cm > 0 && <span className="rp-acq__dims">{rug.length_cm} × {rug.width_cm} cm{rug.length_cm > 0 ? ` · ${(rug.length_cm / 30.48).toFixed(1)} × ${(rug.width_cm / 30.48).toFixed(1)} ft` : ''}</span>}
+                </div>
+                {/* At-a-glance strip — the instant questions, answered before scrolling */}
+                <div className="rp-glance">
+                  <span className="rp-glance__item">One of a kind</span>
+                  <span className="rp-glance__sep" aria-hidden="true">·</span>
+                  <span className="rp-glance__item">{rug.material_primary || '100% wool'}</span>
+                  <span className="rp-glance__sep" aria-hidden="true">·</span>
+                  <span className="rp-glance__item">Ships from Marrakech</span>
                 </div>
                 <p className="rp-acq__note">{rug.acquisition_note}</p>
                 {rug.availability_status === 'available' && (
@@ -291,20 +307,18 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
             <div>
               {/* Provenance */}
               {(rug.provenance_note || rug.selection_voice) && (
-                <div className="rp-section">
-                  <p className="rp-section-title">Provenance</p>
+                <Accordion title="Provenance">
                   {rug.provenance_note && <p className="t-body">{rug.provenance_note}</p>}
                   {rug.selection_voice && (
                     <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.9375rem', fontStyle: 'italic', color: 'var(--grey-600)', marginTop: 'var(--sp-4)', lineHeight: 1.6 }}>
                       {rug.selection_voice}
                     </p>
                   )}
-                </div>
+                </Accordion>
               )}
 
               {/* Specifications */}
-              <div className="rp-section">
-                <p className="rp-section-title">Specifications</p>
+              <Accordion title="Specifications" defaultOpen>
                 <table className="rp-specs">
                   <tbody>
                     <tr><td>Region</td><td>{rug.region_slug ? <Link href={`/regions/${rug.region_slug}`} className="rp-motif-link">{rug.region}</Link> : (rug.region || 'Not determined')}</td></tr>
@@ -312,18 +326,17 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                     <tr><td>Material</td><td>{rug.material_primary || 'Wool — see description'}</td></tr>
                     <tr><td>Technique</td><td>{rug.technique_slug ? <Link href={`/glossary/${rug.technique_slug === 'flatweave-kilim' ? 'kilim' : rug.technique_slug}`} className="rp-motif-link">{rug.technique}</Link> : (rug.technique || 'Not determined')}</td></tr>
                     <tr><td>Age</td><td>{rug.age_period || 'Not determined'}{rug.age_class === 'vintage' && <Link href="/glossary/vintage" className="rp-motif-link" style={{fontSize:'0.625rem',marginLeft:'0.5rem'}}>→ vintage</Link>}</td></tr>
-                    <tr><td>Dimensions</td><td>{rug.length_cm > 0 ? `${rug.length_cm} × ${rug.width_cm} cm` : 'See description'}</td></tr>
+                    <tr><td>Dimensions</td><td>{rug.length_cm > 0 ? `${rug.length_cm} × ${rug.width_cm} cm · ${(rug.length_cm / 30.48).toFixed(1)} × ${(rug.width_cm / 30.48).toFixed(1)} ft` : 'See description'}</td></tr>
                     <tr><td>Pile</td><td><Link href="/glossary/pile-height" className="rp-motif-link">{rug.pile_height}</Link></td></tr>
                     <tr><td>Condition</td><td><Link href="/glossary/condition-grades" className="rp-motif-link">{rug.condition}</Link>{rug.condition_notes ? `. ${rug.condition_notes}` : ''}</td></tr>
                     <tr><td>Dyes</td><td>{rug.dye_type ? <Link href={`/glossary/${rug.dye_type.toLowerCase().startsWith('natural') ? 'natural-dye' : 'synthetic-dye'}`} className="rp-motif-link">{rug.dye_type}</Link> : 'Not determined'}</td></tr>
                   </tbody>
                 </table>
-              </div>
+              </Accordion>
 
               {/* Symbolic reading — falls back to the museum description from Shopify */}
               {rug.symbolic_reading ? (
-                <div className="rp-section">
-                  <p className="rp-section-title">Symbolic Reading</p>
+                <Accordion title="Symbolic Reading" defaultOpen={!rug.provenance_note}>
                   <div className="prose">
                     {rug.symbolic_reading.split('\n\n').map((para, i) => (
                       <p key={i}>{para}</p>
@@ -338,18 +351,16 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                       ))}
                     </div>
                   )}
-                </div>
+                </Accordion>
               ) : rug.description_html ? (
-                <div className="rp-section">
-                  <p className="rp-section-title">The Piece</p>
+                <Accordion title="The Piece" defaultOpen>
                   <div className="prose" dangerouslySetInnerHTML={{ __html: rug.description_html }} />
-                </div>
+                </Accordion>
               ) : null}
 
               {/* Spatial — only when written */}
               {(rug.spatial_atmosphere || rug.spatial_room_affinities || rug.spatial_requirements || rug.spatial_doesnt_suit) && (
-              <div className="rp-section">
-                <p className="rp-section-title">How It Behaves in Space</p>
+              <Accordion title="How It Behaves in Space">
                 <div className="rp-spatial-grid">
                   {rug.spatial_atmosphere && (
                   <div className="rp-spatial-item rp-spatial-item--full">
@@ -382,8 +393,20 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                     </div>
                   )}
                 </div>
-              </div>
+              </Accordion>
               )}
+
+              {/* Care — static, applies to all natural-wool pieces */}
+              <Accordion title="Care & Acquisition">
+                <div className="prose">
+                  <p>Vacuum gently and without a beater bar. Rotate periodically for even wear. Address spills immediately by blotting, never rubbing. Professional cleaning only — these are natural-dye wool pieces and should never be machine washed. A natural wool rug ages into its character; minor shedding in the first months is normal.</p>
+                  <p>This is a one-of-a-kind piece. Once sold, it cannot be replicated. All sales are final; transit damage is covered within 48 hours of receipt. We ship worldwide from Marrakech, with costs confirmed at checkout or inquiry.</p>
+                </div>
+                <div style={{ display: 'flex', gap: 'var(--sp-4)', marginTop: 'var(--sp-4)' }}>
+                  <Link href="/care" className="rp-motif-link">Full care &amp; shipping →</Link>
+                  <Link href="/returns" className="rp-motif-link">Returns →</Link>
+                </div>
+              </Accordion>
             </div>
 
           </div>

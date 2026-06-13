@@ -49,7 +49,7 @@ export default function Nav() {
       <style>{`
         .nav-announce {
           position: fixed; top: 0; left: 0; right: 0; z-index: 201;
-          height: 28px; background: var(--white);
+          height: 28px; background: #ffffff;
           border-bottom: 1px solid var(--grey-100);
           display: flex; align-items: center; justify-content: center;
           font-family: var(--font-ui); font-size: 0.5625rem;
@@ -58,7 +58,7 @@ export default function Nav() {
         }
         .nav {
           position: fixed; top: 28px; left: 0; right: 0; z-index: 200;
-          height: 56px; background: var(--white);
+          height: 56px; background: #ffffff;
           border-bottom: 1px solid transparent;
           transition: border-color 300ms ease;
           display: flex; align-items: center;
@@ -91,7 +91,7 @@ export default function Nav() {
             display: flex; align-items: center; gap: 0.5rem;
             height: 32px; padding: 0 0.75rem;
             border: 1px solid var(--grey-200);
-            background: var(--white);
+            background: #ffffff;
             transition: border-color var(--t);
             width: 200px;
           }
@@ -140,7 +140,7 @@ export default function Nav() {
 
         .nav__mobile {
           position: fixed; top: 84px; left: 0; right: 0; bottom: 0;
-          background: var(--white); z-index: 199;
+          background: #ffffff; z-index: 199;
           padding: var(--sp-8); display: flex; flex-direction: column;
           border-top: var(--border); animation: fadeUp 0.25s ease both; overflow-y: auto;
         }

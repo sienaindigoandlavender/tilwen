@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${motif.name} — Amazigh Weaving Motif`,
     description: `${motif.summary} Learn the symbolic reading, regional variants, and cultural context of the ${motif.name} motif in Amazigh textile tradition.`,
-    alternates: { canonical: `https://www.tilwen.com/motifs/${motif.slug}` },
-    openGraph: { title: `${motif.name} — Amazigh Weaving Motif`, description: motif.summary, url: `https://www.tilwen.com/motifs/${motif.slug}` },
+    alternates: { canonical: `https://tilwen.com/motifs/${motif.slug}` },
+    openGraph: { title: `${motif.name} — Amazigh Weaving Motif`, description: motif.summary, url: `https://tilwen.com/motifs/${motif.slug}` },
   }
 }
 
@@ -329,7 +329,7 @@ export default function MotifPage({ params }: { params: { slug: string } }) {
         .mp-bottom-nav a:hover { color: var(--black); border-bottom-color: var(--black); }
       `}</style>
 
-      <div className="mp">
+      <div className="mp magazine-surface">
 
         {/* Hero — image with title overlay */}
         {motif.example_image ? (

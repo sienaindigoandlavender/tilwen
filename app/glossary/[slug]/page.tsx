@@ -17,8 +17,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${entry.term} — Moroccan Rug Glossary`,
     description: `${entry.short_definition} Definition, cultural context, and buying relevance from the Tilwen glossary of Moroccan and Amazigh rug terminology.`,
-    alternates: { canonical: `https://www.tilwen.com/glossary/${entry.slug}` },
-    openGraph: { title: `${entry.term} — Definition`, description: entry.short_definition, url: `https://www.tilwen.com/glossary/${entry.slug}` },
+    alternates: { canonical: `https://tilwen.com/glossary/${entry.slug}` },
+    openGraph: { title: `${entry.term} — Definition`, description: entry.short_definition, url: `https://tilwen.com/glossary/${entry.slug}` },
   }
 }
 
@@ -82,8 +82,8 @@ export default function GlossaryEntryPage({ params }: { params: { slug: string }
     { question: `Why does ${entry.term} matter when buying a Moroccan rug?`, answer: entry.why_it_matters },
   ])
   const breadcrumbLd = breadcrumbJsonLd([
-    { name: 'Glossary', url: 'https://www.tilwen.com/glossary' },
-    { name: entry.term, url: `https://www.tilwen.com/glossary/${entry.slug}` },
+    { name: 'Glossary', url: 'https://tilwen.com/glossary' },
+    { name: entry.term, url: `https://tilwen.com/glossary/${entry.slug}` },
   ])
 
   return (
@@ -289,7 +289,7 @@ export default function GlossaryEntryPage({ params }: { params: { slug: string }
         .ge-nav a:hover { color: var(--black); border-bottom-color: var(--black); }
       `}</style>
 
-      <div className="ge-page">
+      <div className="ge-page magazine-surface">
         {/* Header */}
         <div className="ge-header">
           <div className="container">

@@ -11,6 +11,15 @@
   --grey-600: #2e2d2b;  /* near-black, always legible */
   --grey-800: #1a1917;
 
+  /* ── Surface system ──────────────────────────────────────────
+     Commerce (gallery, product) = pure white.
+     Magazine (journal, regions, motifs, traditions) = warm ground.
+     To compare options live, change --magazine to one of:
+       #f9f9f7  (subtle — barely-warm white, the original)
+       #f0eee8  (distinct — a clear warm grey)            ← currently active
+  */
+  --magazine: #f0eee8;
+
   --font-display: 'Cormorant Garamond', 'Palatino Linotype', Georgia, serif;
   --font-body:    'EB Garamond', Georgia, serif;
   --font-ui:      'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -40,8 +49,11 @@
 /* ─── Reset ──────────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+/* Magazine surface — content pages add this class to their top wrapper */
+.magazine-surface { background: var(--magazine); min-height: 100vh; }
+
 body {
-  background: var(--white);
+  background: #ffffff;
   color: var(--black);
   font-family: var(--font-body);
   font-size: 1.0625rem;

@@ -33,7 +33,7 @@ const FILTER_PARAM_KEYS: FilterGroup[] = ['tradition', 'palette', 'shape', 'pile
 // Order of the dropdowns across the bar (Revival-style: one labelled menu each)
 const BAR_ORDER: FilterGroup[] = ['tradition', 'palette', 'shape', 'pile', 'technique', 'dye', 'age']
 const GROUP_LABEL: Record<FilterGroup, string> = {
-  tradition: 'Tradition', palette: 'Colour', shape: 'Shape', pile: 'Pile',
+  tradition: 'Type', palette: 'Colour', shape: 'Shape', pile: 'Pile',
   technique: 'Weave', dye: 'Dye', age: 'Age',
 }
 const LIGHT_SWATCHES = new Set(['ivory', 'cream', 'sand', 'undyed'])
@@ -43,6 +43,9 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
   const [newOnly, setNewOnly] = useState(false)
   const [openMenu, setOpenMenu] = useState<FilterGroup | null>(null)
   const [hydratedFromUrl, setHydratedFromUrl] = useState(false)
+  const [cols, setCols] = useState<3 | 4>(4)
+  const [sort, setSort] = useState<'newest' | 'price-asc' | 'price-desc'>('newest')
+  const [sortOpen, setSortOpen] = useState(false)
   const barRef = useRef<HTMLDivElement>(null)
 
   // URL → state on mount (powers deep links like /gallery?tradition=beni-ourain)
@@ -71,15 +74,15 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
 
   // Close any open dropdown on outside-click or Escape
   useEffect(() => {
-    if (!openMenu) return
+    if (!openMenu && !sortOpen) return
     const onClick = (e: MouseEvent) => {
-      if (barRef.current && !barRef.current.contains(e.target as Node)) setOpenMenu(null)
+      if (barRef.current && !barRef.current.contains(e.target as Node)) { setOpenMenu(null); setSortOpen(false) }
     }
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpenMenu(null) }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { setOpenMenu(null); setSortOpen(false) } }
     document.addEventListener('mousedown', onClick)
     window.addEventListener('keydown', onKey)
     return () => { document.removeEventListener('mousedown', onClick); window.removeEventListener('keydown', onKey) }
-  }, [openMenu])
+  }, [openMenu, sortOpen])
 
   // Inventory-derived options (counts per value); groups self-hide when empty
   const opts = useMemo(() => {
@@ -135,6 +138,13 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
     })
   }, [rugs, filters, newOnly])
 
+  const sorted = useMemo(() => {
+    if (sort === 'newest') return filtered
+    const arr = [...filtered]
+    arr.sort((a, b) => sort === 'price-asc' ? a.price - b.price : b.price - a.price)
+    return arr
+  }, [filtered, sort])
+
   // Which groups actually have ≥2 options to show
   const visibleGroups = BAR_ORDER.filter(g => {
     if (g === 'tradition') return opts.tradition.size >= 2
@@ -158,7 +168,9 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
       <style>{`
         .gf-bar {
           position: sticky; top: 84px; z-index: 50;
-          background: #ffffff; border-bottom: var(--border);
+          background: #ffffff;
+          border-top: var(--border);
+          border-bottom: var(--border);
         }
         .gf-bar__inner {
           display: flex; align-items: center; gap: var(--sp-2);
@@ -247,14 +259,26 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
           color: var(--grey-400); padding: 0 var(--sp-4); white-space: nowrap;
         }
 
+        /* Right-side controls: sort + density */
+        .gf-right { margin-left: auto; display: flex; align-items: center; gap: var(--sp-2); }
+        .gf-density { display: flex; align-items: center; gap: 2px; padding: 0 var(--sp-2); }
+        .gf-density__btn {
+          width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center;
+          background: none; border: none; cursor: pointer; color: var(--grey-400);
+          transition: color var(--t);
+        }
+        .gf-density__btn:hover { color: var(--black); }
+        .gf-density__btn--on { color: var(--black); }
+        @media (max-width: 768px) { .gf-density { display: none; } }
+
         .gf-grid {
           padding: var(--sp-16) 0 var(--sp-32);
-          display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-12) var(--sp-8);
+          display: grid; grid-template-columns: repeat(var(--gf-cols, 4), 1fr); gap: var(--sp-12) var(--sp-8);
           animation: gfFade 220ms ease;
         }
         @keyframes gfFade { from { opacity: 0.6; } to { opacity: 1; } }
-        @media (max-width: 1100px) { .gf-grid { grid-template-columns: repeat(3, 1fr); } }
-        @media (max-width: 768px)  { .gf-grid { grid-template-columns: repeat(2, 1fr); gap: var(--sp-8) var(--sp-4); } }
+        @media (max-width: 1100px) { .gf-grid { grid-template-columns: repeat(3, 1fr) !important; } }
+        @media (max-width: 768px)  { .gf-grid { grid-template-columns: repeat(2, 1fr) !important; gap: var(--sp-8) var(--sp-4); } }
 
         .gf-empty {
           grid-column: 1/-1; padding: var(--sp-24) 0; text-align: center;
@@ -332,16 +356,79 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
               )
             })}
 
-            <span className="gf-count">{filtered.length} {filtered.length === 1 ? 'piece' : 'pieces'}</span>
+            <span className="gf-count">{sorted.length} {sorted.length === 1 ? 'piece' : 'pieces'}</span>
             {activeCount > 0 && <button className="gf-clearall" onClick={clearAll}>Clear all</button>}
+
+            <div className="gf-right">
+              {/* Sort */}
+              <div className={`gf-drop${sortOpen ? ' gf-drop--open' : ''}`}>
+                <button
+                  className="gf-trigger"
+                  onClick={() => { setSortOpen(o => !o); setOpenMenu(null) }}
+                  aria-expanded={sortOpen}
+                  aria-haspopup="true"
+                >
+                  Sort
+                  <svg className="gf-caret" width="8" height="6" viewBox="0 0 8 6" fill="none" aria-hidden="true">
+                    <path d="M1 1l3 3 3-3" stroke="currentColor" strokeWidth="1" />
+                  </svg>
+                </button>
+                {sortOpen && (
+                  <div className="gf-menu" style={{ left: 'auto', right: 0, minWidth: 160 }}>
+                    {([
+                      ['newest', 'Newest first'],
+                      ['price-asc', 'Price: low to high'],
+                      ['price-desc', 'Price: high to low'],
+                    ] as const).map(([val, lbl]) => (
+                      <button
+                        key={val}
+                        className={`gf-opt${sort === val ? ' gf-opt--on' : ''}`}
+                        onClick={() => { setSort(val); setSortOpen(false) }}
+                      >
+                        <span className="gf-opt__box" />
+                        {lbl}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Density toggle — 3 or 4 per row */}
+              <div className="gf-density" role="group" aria-label="Grid density">
+                <button
+                  className={`gf-density__btn${cols === 3 ? ' gf-density__btn--on' : ''}`}
+                  onClick={() => setCols(3)}
+                  aria-label="Larger images, three per row"
+                  aria-pressed={cols === 3}
+                >
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                    <rect x="1" y="1" width="5.5" height="13" stroke="currentColor" strokeWidth="1" />
+                    <rect x="8.5" y="1" width="5.5" height="13" stroke="currentColor" strokeWidth="1" />
+                  </svg>
+                </button>
+                <button
+                  className={`gf-density__btn${cols === 4 ? ' gf-density__btn--on' : ''}`}
+                  onClick={() => setCols(4)}
+                  aria-label="More images, four per row"
+                  aria-pressed={cols === 4}
+                >
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
+                    <rect x="1" y="1" width="2.6" height="13" stroke="currentColor" strokeWidth="1" />
+                    <rect x="4.8" y="1" width="2.6" height="13" stroke="currentColor" strokeWidth="1" />
+                    <rect x="8.6" y="1" width="2.6" height="13" stroke="currentColor" strokeWidth="1" />
+                    <rect x="12.4" y="1" width="1.6" height="13" stroke="currentColor" strokeWidth="1" />
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="container">
-        <div className="gf-grid">
-          {filtered.length === 0 && <p className="gf-empty">No pieces match the current filters.</p>}
-          {filtered.map((rug, i) => <RugCardHover key={rug.slug} rug={rug} index={i} />)}
+        <div className="gf-grid" style={{ ['--gf-cols' as string]: cols }}>
+          {sorted.length === 0 && <p className="gf-empty">No pieces match the current filters.</p>}
+          {sorted.map((rug, i) => <RugCardHover key={rug.slug} rug={rug} index={i} />)}
         </div>
       </div>
     </>

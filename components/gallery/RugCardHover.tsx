@@ -29,6 +29,11 @@ export default function RugCardHover({ rug, index, showOneOfAKind = true }: Prop
     ? `${(rug.length_cm / 30.48).toFixed(1)} × ${(rug.width_cm / 30.48).toFixed(1)} ft`
     : ''
 
+  // Genuineness signal — truthful, keyed to data we actually have.
+  const origin = rug.age_class === 'vintage' || rug.age_class === 'antique'
+    ? 'Vintage · Morocco'
+    : 'Handwoven · Morocco'
+
   return (
     <>
       <style>{`
@@ -90,6 +95,11 @@ export default function RugCardHover({ rug, index, showOneOfAKind = true }: Prop
 
         /* Body — three calm lines: name, dimensions, price */
         .rhc__body { padding: var(--sp-3) 0 0; }
+        .rhc__origin {
+          display: block; margin-bottom: 0.3rem;
+          font-family: var(--font-ui); font-size: 0.4375rem; font-weight: 500;
+          letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-400);
+        }
         .rhc__name {
           font-family: var(--font-display);
           font-size: 1.0625rem; font-weight: 400;
@@ -150,6 +160,7 @@ export default function RugCardHover({ rug, index, showOneOfAKind = true }: Prop
         </div>
 
         <div className="rhc__body">
+          <span className="rhc__origin">{origin}</span>
           <span className="rhc__name">{rug.given_name}</span>
           {rug.length_cm > 0 && (
             <span className="rhc__dims">{rug.length_cm} × {rug.width_cm} cm · {ft}</span>

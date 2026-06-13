@@ -1,30 +1,31 @@
-# Tilwen — sell-first nav + reassurance icons
+# Tilwen — white commerce / magazine ground + no boxes
 
-## FILES (replace in repo)
-  components/layout/Nav.tsx
-  app/layout.tsx
-  app/gallery/[slug]/page.tsx
+## THE SURFACE SYSTEM
+- COMMERCE (gallery, product pages) → pure white #ffffff
+- MAGAZINE (journal, regions, motifs, traditions, glossary) → warm ground
+- Header & footer → pinned to pure white, independent of either
 
-## CHANGES
-1. MEGA MENU REMOVED. Shop is now a plain, prominent black button → /gallery.
-   (getShopMenuData stays in rug-source.ts, unused — revivable later.)
-   layout.tsx no longer fetches/passes shopMenu.
+## ★ COMPARE THE TWO MAGAZINE GROUNDS (your "show me both")
+Open app/globals.css, find `--magazine:` near the top. Two options:
+    --magazine: #f9f9f7;   /* SUBTLE — barely-warm white (original) */
+    --magazine: #f0eee8;   /* DISTINCT — clear warm grey  ← shipped active */
+Change the one line, redeploy, see it live. Flip between them to decide.
+Everything else keys off this one variable.
 
-2. SEARCH BOX ADDED (top right, desktop + mobile). Submits to /gallery?q=...
-   The gallery currently ignores ?q= safely (no crash). WIRE THE ACTUAL SEARCH
-   NEXT ROUND — this is the box only, as agreed.
+## NO MORE BOXES (Revival register)
+Removed enclosing borders/rectangles from the product page:
+- The acquisition block (price/cart) no longer sits in a bordered box —
+  it floats on white, separated by space and hairline dividers only.
+- Atmosphere tags: bordered pills → plain quiet text.
+- Related-knowledge items: bordered boxes → text with hover fade.
+KEPT: thin hairline DIVIDERS between stacked sections (Revival uses these too).
+A divider line ≠ a box. The Add-to-Cart button stays solid — a button should
+read as a button.
 
-3. TWO-GATE NAV. Primary nav = SELL gate: Search · Shop · Cart.
-   Learning pages (Traditions/Regions/Motifs/Journal) removed from top nav —
-   they remain in the FOOTER (already there) and in the mobile menu under
-   "Explore". They stay fully indexed; learners arrive via Google, not the nav.
+## FILES
+globals.css (the system + variable), Nav.tsx (pinned white), the product page
+(white + de-boxed), and the 9 magazine pages (each wrapped in .magazine-surface).
 
-4. REASSURANCE ICONS on the product page at-a-glance strip:
-   One of a kind · [material] · Ships from Marrakech — drawn as thin-line,
-   single-weight SVGs in Tilwen's palette (NOT Revival's filled clip-art),
-   per your no-decorative-icons design rule.
-
-## NEXT ROUND (noted, not built)
-- Wire /gallery?q= to actually filter (client-side over name/tradition/colour).
-- Essay/story block between product detail and footer (SEO + learner gate).
-- Wishlist deferred until the magic-link client portal exists.
+## NOTE
+Body default is now pure white, so any NEW commerce-type page is correct by
+default. New magazine/content pages: wrap the top element in className="magazine-surface".

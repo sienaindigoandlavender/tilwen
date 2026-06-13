@@ -6,7 +6,7 @@ import { useState } from 'react'
  * Mobile (and Safari desktop): opens the native share sheet.
  * Elsewhere: copies the link, confirms inline. No icons, no networks.
  */
-export default function ShareLink({ title }: { title: string }) {
+export default function ShareLink({ title, className }: { title: string; className?: string }) {
   const [copied, setCopied] = useState(false)
 
   const share = async () => {
@@ -30,6 +30,16 @@ export default function ShareLink({ title }: { title: string }) {
     }
   }
 
+  // When a className is supplied (e.g. rp-links__item) it controls all styling,
+  // so the share link matches its sibling links exactly.
+  if (className) {
+    return (
+      <button onClick={share} className={className} aria-live="polite" style={{ color: copied ? 'var(--black)' : undefined }}>
+        {copied ? 'Link copied' : 'Share this piece'}
+      </button>
+    )
+  }
+
   return (
     <button
       onClick={share}
@@ -41,7 +51,6 @@ export default function ShareLink({ title }: { title: string }) {
         padding: 0,
         cursor: 'pointer',
         color: copied ? 'var(--black)' : 'var(--grey-600)',
-        font: 'inherit',
         transition: 'color 200ms ease',
       }}
       aria-live="polite"

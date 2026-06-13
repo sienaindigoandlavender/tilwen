@@ -15,14 +15,10 @@ export default function RugCardHover({ rug, index, showOneOfAKind = true }: Prop
   const [activeImg, setActiveImg] = useState(0)
   const images = rug.images.length > 0 ? rug.images : []
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (images.length <= 1) return
-    const { left, width } = e.currentTarget.getBoundingClientRect()
-    const x = e.clientX - left
-    const idx = Math.min(Math.floor(x / (width / images.length)), images.length - 1)
-    setActiveImg(idx)
-  }, [images.length])
-
+  // Image cycling is handled by the invisible .rhc__zone overlays below
+  // (onMouseEnter per zone) — cheap, no layout reads. The old onMouseMove +
+  // getBoundingClientRect ran on every pixel of movement and forced synchronous
+  // layout, which tripped an INP warning on dense grids. Removed.
   const handleMouseLeave = useCallback(() => setActiveImg(0), [])
 
   const ft = rug.length_cm > 0
@@ -122,7 +118,7 @@ export default function RugCardHover({ rug, index, showOneOfAKind = true }: Prop
       `}</style>
 
       <Link href={`/gallery/${rug.slug}`} className="rhc">
-        <div className="rhc__img" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+        <div className="rhc__img" onMouseLeave={handleMouseLeave}>
           {images.map((src, i) => (
             <div key={src} className={`rhc__slide${i === activeImg ? ' rhc__slide--active' : ''}`}>
               <Image

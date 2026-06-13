@@ -62,6 +62,11 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         @media (max-width: 900px) { .rp-info { position: static; } }
 
         .rp-identity { padding-bottom: var(--sp-6); border-bottom: var(--border); margin-bottom: var(--sp-6); }
+        .rp-auth {
+          margin-top: var(--sp-4);
+          font-family: var(--font-body); font-size: 0.9375rem; font-style: italic;
+          line-height: 1.6; color: var(--grey-600);
+        }
         .rp-given {
           font-family: var(--font-display);
           font-size: clamp(2rem, 3.2vw, 3.25rem);
@@ -233,6 +238,11 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                 {rug.cultural_name !== rug.given_name && (
                   <p className="rp-cultural">{rug.cultural_name}{rug.reference ? ` · ${rug.reference}` : ''}</p>
                 )}
+                <p className="rp-auth">
+                  {rug.age_class === 'vintage' || rug.age_class === 'antique'
+                    ? 'A genuine vintage piece, sourced in Morocco. Not a reproduction, not factory-woven — one of a kind, and once it is gone it cannot be remade.'
+                    : 'Genuinely handwoven in Morocco on a traditional loom. One of a kind — not factory-produced, and once it is gone it cannot be remade.'}
+                </p>
                 {rug.atmosphere_tags.length > 0 && (
                   <div className="rp-tags">
                     {rug.atmosphere_tags.map(t => (

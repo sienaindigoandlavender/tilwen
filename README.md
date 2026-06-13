@@ -1,86 +1,44 @@
-# Tilwen
+# Tilwen — cleaner gallery (Revival audit, full pass)
 
-Shoppable ethnographic gallery for Moroccan and Amazigh rugs.
+## WHERE THE FILES GO
+Place both inside your repo, replacing the existing files:
 
-## Stack
+  components/gallery/GalleryFilters.tsx
+  components/gallery/RugCardHover.tsx
 
-- **Next.js 14** (App Router)
-- **TypeScript**
-- **Hardcoded data** for rugs (placeholder), motifs, regions, techniques, essays
-- **Supabase** — ready to connect for essays/stories (add credentials to `.env.local`)
-- **Shopify Storefront API** — ready to connect for rug inventory (add credentials to `.env.local`)
+(The folder structure in this zip already mirrors the repo — just drop the
+`components` folder over yours, or copy the two files to that path.)
 
-## Setup
+## WHAT CHANGED (everything from this session, combined)
 
-```bash
-npm install
-cp .env.example .env.local
-npm run dev
-```
+Grid & card cleanliness (the "messy" fix):
+- Gallery grid is now 4 columns (was 6) with generous gaps — bigger images,
+  more air. Single biggest visual improvement.
+- Cards stripped to three calm lines: Name · Dimensions · Price.
+  Removed: the (000) reference code and the row of colour dots (noise).
+- Whole rug shown on white (object-fit: contain) instead of square-cropping,
+  so the grid reads as one consistent set, not a patchwork of crops.
+- Dimensions shown in cm AND ft (for US designers).
+- Quiet "One of a kind" marker on hover — Tilwen's answer to Revival's
+  "Only One Made" badge. Toggle off with showOneOfAKind={false} if unwanted.
 
-Open [http://localhost:3000](http://localhost:3000).
+Filters:
+- Added PILE (Flat / Low / Medium / High) — concrete, physical, buyer-actionable.
+  Lives in the "More filters" panel. Inventory-derived.
+- Removed REGION as a filter — it asks the buyer to know Moroccan geography.
+  Tradition already implies region (Beni Ourain => Middle Atlas). Region stays
+  as a knowledge link on product pages and the mega menu, not a shopping gate.
+- Size BANDS already removed earlier (Moroccan rugs are one-of-a-kind, not
+  woven to market sizes); Shape (Rectangle/Runner/Square) is the discrete axis.
+- Primary inline: Tradition · Colour · Shape
+  Secondary panel: Pile · Weave · Dye · Age
+- Every group derives from live inventory and hides when <2 options.
 
-## Project Structure
+## DEPENDS ON
+The corrected tags being live in Shopify (type:/pile:/etc. prefixes). Pile
+filter reads the pile: tag. If the import didn't fully take, Pile/Tradition/
+Colour will look sparse — that's the data, not this code.
 
-```
-app/
-  page.tsx              Homepage
-  gallery/              Gallery + individual rug pages
-  motifs/               Motifs index + individual motif pages
-  regions/              Regions index + individual region pages
-  journal/              Journal index + individual essay pages
-  about/                About / Methodology
-  inquire/              Inquiry form + trade programme
-  care/                 Care & Shipping
-  returns/              Returns policy
-  payments/             Payments information
-  privacy/              Privacy policy
-  terms/                Terms of use
-
-components/
-  layout/Nav.tsx        Navigation (fixed, responsive)
-  layout/Footer.tsx     Footer with all links
-  gallery/RugCard.tsx   Shared rug card component
-
-data/
-  rugs.ts               Placeholder rug data (4 sample rugs)
-  motifs.ts             Motif definitions (5 motifs)
-  regions.ts            Region definitions (5 regions)
-  techniques.ts         Technique definitions (3 techniques)
-  essays.ts             Essay content (2 essays)
-
-types/
-  index.ts              TypeScript types for all entities
-```
-
-## Content
-
-All content is hardcoded in `data/` files for now. When ready:
-
-- **Essays**: connect Supabase, replace `data/essays.ts` with DB queries
-- **Rugs**: connect Shopify Storefront API, replace `data/rugs.ts` with API queries
-
-## Design System
-
-MoMA-register: stark white (`#f9f9f7`), near-black (`#080808`), zero decorative elements.
-
-Typography:
-- Display: Cormorant Garamond (300, 400)
-- Body: EB Garamond (400, 500, italic)
-- UI: Helvetica Neue
-
-Fonts loaded from Google Fonts in `globals.css`.
-
-## Adding Content
-
-**New rug**: add an entry to `data/rugs.ts` following the `Rug` type in `types/index.ts`.
-
-**New motif**: add an entry to `data/motifs.ts` following the `Motif` type.
-
-**New region**: add an entry to `data/regions.ts` following the `Region` type.
-
-**New essay**: add an entry to `data/essays.ts` following the `Essay` type.
-
-## Deploy
-
-Push to GitHub → Vercel auto-deploys. Add environment variables in Vercel dashboard.
+## MATERIAL (later)
+Add a Material filter the moment inventory is more than wool. The data hook is
+ready; just add `material` to the count map and SECONDARY array.

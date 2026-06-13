@@ -111,6 +111,21 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
           padding: var(--sp-6) 0 var(--sp-12);
         }
 
+        /* Tiny clean spec line — the few facts we reliably have */
+        .rp-facts {
+          display: flex; flex-wrap: wrap; gap: var(--sp-8) var(--sp-12);
+          padding: var(--sp-6) 0; margin-bottom: var(--sp-2);
+          border-bottom: var(--border);
+        }
+        .rp-facts__item { display: flex; flex-direction: column; gap: 0.3rem; }
+        .rp-facts dt {
+          font-family: var(--font-ui); font-size: 0.5rem; font-weight: 500;
+          letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-400);
+        }
+        .rp-facts dd {
+          font-family: var(--font-body); font-size: 0.9375rem; color: var(--grey-800);
+        }
+
         /* Left column sections */
         .rp-section { padding: var(--sp-8) 0; border-bottom: var(--border); }
         .rp-section:last-child { border-bottom: none; }
@@ -320,25 +335,36 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                 </Accordion>
               )}
 
-              {/* Specifications */}
-              <Accordion title="Specifications" defaultOpen>
-                <table className="rp-specs">
-                  <tbody>
-                    <tr><td>Region</td><td>{rug.region_slug ? <Link href={`/regions/${rug.region_slug}`} className="rp-motif-link">{rug.region}</Link> : (rug.region || 'Not determined')}</td></tr>
-                    <tr><td>Community</td><td>{rug.community_tribe || 'Not determined'}</td></tr>
-                    <tr><td>Material</td><td>{rug.material_primary || 'Wool — see description'}</td></tr>
-                    <tr><td>Technique</td><td>{rug.technique_slug ? <Link href={`/glossary/${rug.technique_slug === 'flatweave-kilim' ? 'kilim' : rug.technique_slug}`} className="rp-motif-link">{rug.technique}</Link> : (rug.technique || 'Not determined')}</td></tr>
-                    <tr><td>Age</td><td>{rug.age_period || 'Not determined'}{rug.age_class === 'vintage' && <Link href="/glossary/vintage" className="rp-motif-link" style={{fontSize:'0.625rem',marginLeft:'0.5rem'}}>→ vintage</Link>}</td></tr>
-                    <tr><td>Dimensions</td><td>{rug.length_cm > 0 ? `${rug.length_cm} × ${rug.width_cm} cm · ${(rug.length_cm / 30.48).toFixed(1)} × ${(rug.width_cm / 30.48).toFixed(1)} ft` : 'See description'}</td></tr>
-                    <tr><td>Pile</td><td><Link href="/glossary/pile-height" className="rp-motif-link">{rug.pile_height}</Link></td></tr>
-                    <tr><td>Condition</td><td><Link href="/glossary/condition-grades" className="rp-motif-link">{rug.condition}</Link>{rug.condition_notes ? `. ${rug.condition_notes}` : ''}</td></tr>
-                    <tr><td>Dyes</td><td>{rug.dye_type ? <Link href={`/glossary/${rug.dye_type.toLowerCase().startsWith('natural') ? 'natural-dye' : 'synthetic-dye'}`} className="rp-motif-link">{rug.dye_type}</Link> : 'Not determined'}</td></tr>
-                  </tbody>
-                </table>
-              </Accordion>
+              {/* A tiny clean spec line — only the facts we reliably have.
+                  The full half-empty table and the redundant Shopify description
+                  ("The Piece") were removed; they showed blanks or duplicated data. */}
+              <dl className="rp-facts">
+                {rug.length_cm > 0 && (
+                  <div className="rp-facts__item">
+                    <dt>Size</dt>
+                    <dd>{rug.length_cm} × {rug.width_cm} cm · {(rug.length_cm / 30.48).toFixed(1)} × {(rug.width_cm / 30.48).toFixed(1)} ft</dd>
+                  </div>
+                )}
+                {rug.pile_height && (
+                  <div className="rp-facts__item">
+                    <dt>Pile</dt>
+                    <dd>{rug.pile_height}</dd>
+                  </div>
+                )}
+                {rug.age_period && (
+                  <div className="rp-facts__item">
+                    <dt>Age</dt>
+                    <dd>{rug.age_period}</dd>
+                  </div>
+                )}
+                <div className="rp-facts__item">
+                  <dt>Material</dt>
+                  <dd>{rug.material_primary || '100% wool'}</dd>
+                </div>
+              </dl>
 
-              {/* Symbolic reading — falls back to the museum description from Shopify */}
-              {rug.symbolic_reading ? (
+              {/* Symbolic reading — only when written (no Shopify-description fallback) */}
+              {rug.symbolic_reading && (
                 <Accordion title="Symbolic Reading" defaultOpen={!rug.provenance_note}>
                   <div className="prose">
                     {rug.symbolic_reading.split('\n\n').map((para, i) => (
@@ -355,11 +381,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                     </div>
                   )}
                 </Accordion>
-              ) : rug.description_html ? (
-                <Accordion title="The Piece" defaultOpen>
-                  <div className="prose" dangerouslySetInnerHTML={{ __html: rug.description_html }} />
-                </Accordion>
-              ) : null}
+              )}
 
               {/* Spatial — only when written */}
               {(rug.spatial_atmosphere || rug.spatial_room_affinities || rug.spatial_requirements || rug.spatial_doesnt_suit) && (

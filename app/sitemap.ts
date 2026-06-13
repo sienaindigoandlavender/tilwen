@@ -9,7 +9,15 @@ import { rugTypes } from '@/data/rug-types'
 const BASE = 'https://www.tilwen.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const rugs = await getAllRugsSafe()
+  // The rug pages depend on Shopify; the knowledge pages do not. Isolate the
+  // commerce fetch so a Shopify outage at build time can never strip the
+  // glossary, motifs, regions, and essays out of the sitemap.
+  let rugs: Awaited<ReturnType<typeof getAllRugsSafe>> = []
+  try {
+    rugs = await getAllRugsSafe()
+  } catch {
+    rugs = []
+  }
   const now = new Date()
 
   const statics: MetadataRoute.Sitemap = [
@@ -26,6 +34,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/care`,          lastModified: now, changeFrequency: 'yearly',  priority: 0.4 },
     { url: `${BASE}/returns`,       lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
     { url: `${BASE}/payments`,      lastModified: now, changeFrequency: 'yearly',  priority: 0.3 },
+    { url: `${BASE}/faq`,           lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${BASE}/terms`,         lastModified: now, changeFrequency: 'yearly',  priority: 0.2 },
+    { url: `${BASE}/privacy`,       lastModified: now, changeFrequency: 'yearly',  priority: 0.2 },
   ]
 
   const rugPages = rugs.map(r => ({

@@ -49,8 +49,7 @@ export default async function GalleryPage() {
         <div className="gal-top">
           <div className="container">
             <div className="gal-top__inner">
-              <span className="gal-top__title">Gallery</span>
-              <span className="gal-top__count">{available.length} pieces</span>
+              <h1 className="gal-top__title">Moroccan &amp; Amazigh Rugs</h1>
             </div>
           </div>
         </div>

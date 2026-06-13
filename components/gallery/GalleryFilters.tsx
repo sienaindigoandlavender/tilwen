@@ -44,7 +44,7 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
   const [openMenu, setOpenMenu] = useState<FilterGroup | null>(null)
   const [hydratedFromUrl, setHydratedFromUrl] = useState(false)
   const [cols, setCols] = useState<3 | 4>(4)
-  const [sort, setSort] = useState<'newest' | 'price-asc' | 'price-desc'>('newest')
+  const [sort, setSort] = useState<'newest' | 'price-asc' | 'price-desc' | 'name-asc'>('newest')
   const [sortOpen, setSortOpen] = useState(false)
   const barRef = useRef<HTMLDivElement>(null)
 
@@ -141,7 +141,11 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
   const sorted = useMemo(() => {
     if (sort === 'newest') return filtered
     const arr = [...filtered]
-    arr.sort((a, b) => sort === 'price-asc' ? a.price - b.price : b.price - a.price)
+    if (sort === 'name-asc') {
+      arr.sort((a, b) => a.given_name.localeCompare(b.given_name))
+    } else {
+      arr.sort((a, b) => sort === 'price-asc' ? a.price - b.price : b.price - a.price)
+    }
     return arr
   }, [filtered, sort])
 
@@ -377,6 +381,7 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
                   <div className="gf-menu" style={{ left: 'auto', right: 0, minWidth: 160 }}>
                     {([
                       ['newest', 'Newest first'],
+                      ['name-asc', 'Name: A to Z'],
                       ['price-asc', 'Price: low to high'],
                       ['price-desc', 'Price: high to low'],
                     ] as const).map(([val, lbl]) => (

@@ -1,31 +1,24 @@
-# Tilwen — white commerce / magazine ground + no boxes
+# Tilwen — Revival-style filter dropdowns + page title
 
-## THE SURFACE SYSTEM
-- COMMERCE (gallery, product pages) → pure white #ffffff
-- MAGAZINE (journal, regions, motifs, traditions, glossary) → warm ground
-- Header & footer → pinned to pure white, independent of either
+## FILES (replace in repo)
+  components/gallery/GalleryFilters.tsx
+  app/gallery/page.tsx
 
-## ★ COMPARE THE TWO MAGAZINE GROUNDS (your "show me both")
-Open app/globals.css, find `--magazine:` near the top. Two options:
-    --magazine: #f9f9f7;   /* SUBTLE — barely-warm white (original) */
-    --magazine: #f0eee8;   /* DISTINCT — clear warm grey  ← shipped active */
-Change the one line, redeploy, see it live. Flip between them to decide.
-Everything else keys off this one variable.
+## WHAT CHANGED
+1. FILTERS ARE NOW DROPDOWNS (Revival's pattern). The bar is a calm row of
+   labelled words, each with a caret: Tradition ▾ · Colour ▾ · Shape ▾ ·
+   Pile ▾ · Weave ▾ · Dye ▾ · Age ▾. Options HIDE until you click the label.
+   - Opens on click, closes on outside-click or Escape.
+   - Active filters show a small count badge on the label.
+   - Each menu has "Clear [group]"; the bar has "Clear all".
+   - Colour opens a swatch grid INSIDE its dropdown (dots no longer clutter
+     the bar). Every group still inventory-derived, hides when <2 options,
+     shows per-option counts.
+   - "More filters" panel is gone — all filters are equal dropdowns now.
 
-## NO MORE BOXES (Revival register)
-Removed enclosing borders/rectangles from the product page:
-- The acquisition block (price/cart) no longer sits in a bordered box —
-  it floats on white, separated by space and hairline dividers only.
-- Atmosphere tags: bordered pills → plain quiet text.
-- Related-knowledge items: bordered boxes → text with hover fade.
-KEPT: thin hairline DIVIDERS between stacked sections (Revival uses these too).
-A divider line ≠ a box. The Add-to-Cart button stays solid — a button should
-read as a button.
+2. TITLE: "Gallery" → "Moroccan & Amazigh Rugs", now an <h1> (was a span).
+   This is the buyer's / Google's word, not our internal label — and a proper
+   H1 is an SEO win. The redundant "124 pieces" header is removed (the filter
+   bar already shows the live count).
 
-## FILES
-globals.css (the system + variable), Nav.tsx (pinned white), the product page
-(white + de-boxed), and the 9 magazine pages (each wrapped in .magazine-surface).
-
-## NOTE
-Body default is now pure white, so any NEW commerce-type page is correct by
-default. New magazine/content pages: wrap the top element in className="magazine-surface".
+All filtering logic, URL sync, and deep-links preserved.

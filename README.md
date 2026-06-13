@@ -1,28 +1,35 @@
-# Tilwen — INP performance fix (card hover)
+# Tilwen — hydration error fix (React #423)
 
 ## FILE (replace in repo)
-  components/gallery/RugCardHover.tsx
+  components/layout/Footer.tsx
 
 ## THE PROBLEM
-Browser flagged "INP Issue — event handlers blocked UI updates for 288ms" on
-an SVG element. INP (Interaction to Next Paint) measures UI responsiveness and
-is a Google ranking signal; >200ms feels laggy.
+Console showed React error #423: "There was an error while hydrating but React
+was able to recover by instead client rendering the entire root."
+
+When hydration fails, React throws away the server-rendered HTML and re-renders
+the WHOLE page on the client. That full re-render is what blocked the UI and
+tripped the INP warning (256ms). So this is the ROOT cause — fixing it should
+clear the INP warning too. (The earlier card-hover fix was real but secondary.)
 
 ## THE CAUSE
-The rug card ran onMouseMove on EVERY pixel of mouse movement, and inside it
-called getBoundingClientRect() — which forces a synchronous layout recalc each
-time. Across a dense grid of cards, sweeping the mouse fired this continuously,
-blocking the browser from painting.
+Footer.tsx rendered `new Date().getFullYear()` directly into the markup. The
+footer is on every page, and the page HTML is ISR-cached. A time-derived value
+baked into cached server HTML can mismatch what the client computes at load —
+which is exactly what React's hydration check forbids. Site-wide footer →
+site-wide hydration error.
 
 ## THE FIX
-Removed the onMouseMove handler entirely. Image cycling on hover was ALREADY
-handled redundantly by the invisible .rhc__zone overlays (onMouseEnter per
-zone) — those are cheap and do no layout reads. So the fix removes work and
-keeps identical behaviour: hover left/right over a card still cycles its images.
+Hardcoded `const year = 2026`. A copyright year doesn't need to be live.
+Bump it each January (or, later, render it inside a useEffect if you want it
+auto-updating without the hydration risk).
 
-No visual or behavioural change. Just faster, and the INP warning clears.
+## VERIFIED
+- No other `new Date()` / `Date.now()` rendered into markup anywhere.
+- TanitMark SVG uses no random/unstable IDs (a common SVG hydration cause) — clean.
+- GalleryFilters reads the URL only inside useEffect (post-hydration) — safe.
+- localStorage in cart-context is guarded with `typeof window` — safe.
 
-## ALSO CHECKED (no changes needed)
-- ProductCarousel: no per-pixel handlers.
-- Nav scroll listener: already { passive: true }, reads only scrollY (cheap).
-- No other getBoundingClientRect in any hot path.
+## EXPECTED RESULT
+The red console errors clear, and the INP warning should resolve with them,
+since the page no longer client-rerenders the entire root on load.

@@ -395,7 +395,7 @@ export default function GalleryFilters({ rugs }: { rugs: Rug[] }) {
 
             {/* More filters */}
             {SECONDARY.some(g => {
-              const map = { pile: opts.pile, technique: opts.technique, dye: opts.dye, age: opts.age }[g]
+              const map = opts[g as 'pile' | 'technique' | 'dye' | 'age']
               return map && map.size >= 2
             }) && (
               <button

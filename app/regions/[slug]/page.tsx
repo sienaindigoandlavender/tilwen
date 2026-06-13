@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${region.name} — Moroccan Weaving Region`,
     description: `${region.overview.slice(0, 155)}...`,
-    alternates: { canonical: `https://www.tilwen.com/regions/${region.slug}` },
-    openGraph: { title: `${region.name} — Moroccan Weaving Region`, description: region.overview.slice(0, 155), url: `https://www.tilwen.com/regions/${region.slug}` },
+    alternates: { canonical: `https://tilwen.com/regions/${region.slug}` },
+    openGraph: { title: `${region.name} — Moroccan Weaving Region`, description: region.overview.slice(0, 155), url: `https://tilwen.com/regions/${region.slug}` },
   }
 }
 
@@ -62,7 +62,7 @@ export default function RegionPage({ params }: { params: { slug: string } }) {
         @media (max-width: 480px) { .region-rugs__grid { grid-template-columns: 1fr; } }
       `}</style>
 
-      <div className="region-page">
+      <div className="region-page magazine-surface">
         <div className="region-page-header">
           <div className="container">
             <p className="t-label fade-up"><Link href="/regions" style={{ color: 'var(--grey-600)' }}>Regions</Link> /</p>

@@ -2,7 +2,10 @@ import Link from 'next/link'
 import TanitMark from '@/components/TanitMark'
 
 export default function Footer() {
-  const year = new Date().getFullYear()
+  // Static year — a Date() in render bakes a time-dependent value into the
+  // (ISR-cached) server HTML that can mismatch the client and trip a hydration
+  // error. A copyright year doesn't need to be live; bump it each January.
+  const year = 2026
   return (
     <>
       <style>{`

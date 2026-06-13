@@ -46,7 +46,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <style>{`
-        .rp { padding-bottom: var(--sp-32); }
+        .rp { padding-bottom: var(--sp-32); background: #ffffff; min-height: 100vh; }
 
         /* ── Top: image stack left, sticky identity + acquisition right ── */
         .rp-top {
@@ -77,7 +77,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         .rp-tag {
           font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 500;
           letter-spacing: 0.1em; text-transform: uppercase;
-          border: var(--border); padding: 0.3rem 0.7rem; color: var(--grey-600);
+          padding: 0.3rem 0; color: var(--grey-600);
           transition: all var(--t);
         }
         .rp-tag:hover { border-color: var(--black); color: var(--black); }
@@ -141,7 +141,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
 
         /* Right column — acquisition */
         .rp-acq {
-          border: var(--border); padding: var(--sp-6);
+          /* No enclosing box — sits on white, separated by space (Revival register) */
         }
         .rp-acq__status { margin-bottom: var(--sp-4); }
         .rp-acq__price-row {
@@ -194,9 +194,9 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         .rp-knowledge__grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--sp-6); margin-top: var(--sp-6); }
         @media (max-width: 768px) { .rp-knowledge__grid { grid-template-columns: 1fr; } }
         .rp-knowledge-item {
-          padding: var(--sp-6); border: var(--border); display: block; transition: background var(--t);
+          padding: var(--sp-6) var(--sp-6) var(--sp-6) 0; display: block; transition: opacity var(--t);
         }
-        .rp-knowledge-item:hover { background: var(--grey-100); }
+        .rp-knowledge-item:hover { opacity: 0.6; }
         .rp-knowledge-item__type { display: block; margin-bottom: var(--sp-2); }
         .rp-knowledge-item__name {
           font-family: var(--font-display); font-size: 1.125rem; font-weight: 400;

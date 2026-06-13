@@ -1,43 +1,28 @@
-# Tilwen — UX round: sort, density, type, hairline, genuineness
+# Tilwen — INP performance fix (card hover)
 
-## FILES (replace in repo)
-  components/gallery/GalleryFilters.tsx
+## FILE (replace in repo)
   components/gallery/RugCardHover.tsx
-  app/gallery/[slug]/page.tsx
 
-## CHANGES
+## THE PROBLEM
+Browser flagged "INP Issue — event handlers blocked UI updates for 288ms" on
+an SVG element. INP (Interaction to Next Paint) measures UI responsiveness and
+is a Google ranking signal; >200ms feels laggy.
 
-1. SORT BY  (the real functional gap)
-   New "Sort ▾" dropdown on the right of the filter bar:
-   Newest first · Price low→high · Price high→low.
+## THE CAUSE
+The rug card ran onMouseMove on EVERY pixel of mouse movement, and inside it
+called getBoundingClientRect() — which forces a synchronous layout recalc each
+time. Across a dense grid of cards, sweeping the mouse fired this continuously,
+blocking the browser from painting.
 
-2. DENSITY TOGGLE  (3 / 4 per row)
-   Two grid icons on the right, like Revival. Lets the buyer choose larger
-   images (3) or more at once (4). Keyboard-operable + aria-labelled (real
-   accessibility, not just visual). Hidden on mobile, which stays responsive
-   (3 cols ≤1100px, 2 cols ≤768px).
+## THE FIX
+Removed the onMouseMove handler entirely. Image cycling on hover was ALREADY
+handled redundantly by the invisible .rhc__zone overlays (onMouseEnter per
+zone) — those are cheap and do no layout reads. So the fix removes work and
+keeps identical behaviour: hover left/right over a card still cycles its images.
 
-3. "TRADITION" → "TYPE"
-   The filter that already covered Boujad / Beni Ourain / Azilal is relabelled
-   "Type" — clearer to a buyer. (Data key unchanged; no second filter added,
-   since Type already IS the rug-type filter.)
+No visual or behavioural change. Just faster, and the INP warning clears.
 
-4. TOP HAIRLINE on the filter bar
-   The bar now sits between two hairlines (top + bottom), the detail that makes
-   Revival's bar look contained and resolved.
-
-5. GENUINENESS SIGNAL  (the real differentiator vs Revival)
-   Revival sells "Moroccan-style" rugs likely factory-woven (Pakistan/India),
-   without true provenance. Tilwen's are genuine. Now made LEGIBLE at the point
-   of decision — keyed only to data we actually have (age_class), so it's never
-   a false claim:
-   - CARD: a quiet line above the name — "Vintage · Morocco" or "Handwoven ·
-     Morocco".
-   - PRODUCT PAGE: an italic statement under the title — genuine vintage /
-     genuinely handwoven, not a reproduction, one of a kind, when gone it can't
-     be remade.
-
-## NOTE
-The genuineness copy is deliberately conservative (no invented provenance).
-When you write real provenance_note values per rug ("sourced from a family in
-the Middle Atlas..."), those will deepen it further on the product page.
+## ALSO CHECKED (no changes needed)
+- ProductCarousel: no per-pixel handlers.
+- Nav scroll listener: already { passive: true }, reads only scrollY (cheap).
+- No other getBoundingClientRect in any hot path.

@@ -9,13 +9,13 @@ const RegionsMap = dynamic(() => import('@/components/gallery/RegionsMap'), { ss
 export const metadata = {
   title: 'Weaving Regions — Morocco',
   description: 'The weaving regions of Morocco — High Atlas, Middle Atlas, Anti-Atlas, Haouz Plain, and Saharan. Each region produces a distinct visual language.',
-  alternates: { canonical: 'https://www.tilwen.com/regions' },
-  openGraph: { title: 'Weaving Regions — Morocco', description: 'Each region of Morocco produces a distinct visual language.', url: 'https://www.tilwen.com/regions' },
+  alternates: { canonical: 'https://tilwen.com/regions' },
+  openGraph: { title: 'Weaving Regions — Morocco', description: 'Each region of Morocco produces a distinct visual language.', url: 'https://tilwen.com/regions' },
 }
 
 export default function RegionsPage() {
   return (
-    <>
+    <div className="magazine-surface">
       <style>{`
         .rg-top {
           padding: var(--sp-16) 0 var(--sp-8);
@@ -183,6 +183,6 @@ export default function RegionsPage() {
           })}
         </div>
       </div>
-    </>
+    </div>
   )
 }

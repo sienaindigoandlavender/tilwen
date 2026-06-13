@@ -1,0 +1,65 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/rugs/:slug",
+      "destination": "/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/products/:slug",
+      "destination": "/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/collections/:slug",
+      "destination": "/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/cart",
+      "destination": "/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/cart/:path*",
+      "destination": "/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/search/:path*",
+      "destination": "/gallery",
+      "permanent": true
+    },
+    {
+      "source": "/policies/privacy-policy",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/policies/refund-policy",
+      "destination": "/returns",
+      "permanent": true
+    },
+    {
+      "source": "/policies/terms-of-service",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/policies/:path*",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/intellectual-property",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/account/:path*",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
+}

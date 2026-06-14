@@ -10,6 +10,7 @@ export default function Footer() {
     <>
       <style>{`
         .footer {
+          background: var(--grey-100);
           border-top: var(--border);
           padding: var(--sp-16) 0 var(--sp-8);
           margin-top: var(--sp-32);
@@ -61,7 +62,9 @@ export default function Footer() {
         }
         .footer__link:hover { color: var(--black); }
         .footer__bottom {
+          margin-top: var(--sp-12);
           padding-top: var(--sp-8);
+          border-top: var(--border);
           display: flex;
           justify-content: space-between;
           align-items: center;

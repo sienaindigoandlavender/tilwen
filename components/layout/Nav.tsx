@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import TanitMark from '@/components/TanitMark'
 import { useCart } from '@/lib/cart-context'
 
@@ -27,20 +27,6 @@ export default function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [query, setQuery] = useState('')
-  const [shopOpen, setShopOpen] = useState(false)
-  const shopCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  // Types currently in inventory (from the catalogue). Links into the gallery's
-  // ?tradition= filter. Update this list if new traditions are stocked.
-  const SHOP_TYPES: { slug: string; label: string }[] = [
-    { slug: 'beni-ourain', label: 'Beni Ourain' },
-    { slug: 'beni-mguild', label: "Beni M'Guild" },
-    { slug: 'boujad', label: 'Boujad' },
-    { slug: 'azilal', label: 'Azilal' },
-    { slug: 'zayan', label: 'Zayan' },
-    { slug: 'taznakht', label: 'Taznakht' },
-    { slug: 'talsint', label: 'Talsint' },
-  ]
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 8)
@@ -48,14 +34,7 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  useEffect(() => { setOpen(false); setShopOpen(false) }, [pathname])
-
-  useEffect(() => {
-    if (!shopOpen) return
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setShopOpen(false) }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [shopOpen])
+  useEffect(() => { setOpen(false) }, [pathname])
 
   const submitSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -70,7 +49,7 @@ export default function Nav() {
       <style>{`
         .nav-announce {
           position: fixed; top: 0; left: 0; right: 0; z-index: 201;
-          height: 28px; background: #ffffff;
+          height: 28px; background: var(--grey-100);
           border-bottom: 1px solid var(--grey-100);
           display: flex; align-items: center; justify-content: center;
           font-family: var(--font-ui); font-size: 0.5625rem;
@@ -79,7 +58,7 @@ export default function Nav() {
         }
         .nav {
           position: fixed; top: 28px; left: 0; right: 0; z-index: 200;
-          height: 56px; background: #ffffff;
+          height: 56px; background: var(--grey-100);
           border-bottom: 1px solid transparent;
           transition: border-color 300ms ease;
           display: flex; align-items: center;
@@ -138,34 +117,6 @@ export default function Nav() {
         .nav__shop:hover { background: var(--white); color: var(--black); }
         .nav__shop--active { background: var(--grey-800); border-color: var(--grey-800); }
 
-        /* Shop dropdown */
-        .nav__shopwrap { position: relative; }
-        .nav__shopmenu {
-          position: absolute; top: calc(100% + 6px); right: 0; z-index: 210;
-          min-width: 200px; background: #ffffff;
-          border: 1px solid var(--grey-200);
-          box-shadow: 0 8px 28px rgba(8,8,8,0.08);
-          padding: var(--sp-4); display: flex; flex-direction: column;
-          animation: navShop 160ms ease;
-        }
-        @keyframes navShop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
-        .nav__shopmenu-strong {
-          font-family: var(--font-ui); font-size: 0.625rem; font-weight: 500;
-          letter-spacing: 0.1em; text-transform: uppercase; color: var(--black);
-          padding: 0.5rem 0.3rem; text-decoration: none; transition: opacity var(--t);
-        }
-        .nav__shopmenu-strong:hover { opacity: 0.55; }
-        .nav__shopmenu-label {
-          font-family: var(--font-ui); font-size: 0.5rem; font-weight: 500;
-          letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-400);
-          margin: var(--sp-4) 0.3rem var(--sp-2); padding-top: var(--sp-2);
-          border-top: 1px solid var(--grey-100);
-        }
-        .nav__shopmenu-link {
-          font-family: var(--font-body); font-size: 0.9375rem; color: var(--grey-800);
-          padding: 0.35rem 0.3rem; text-decoration: none; transition: color var(--t);
-        }
-        .nav__shopmenu-link:hover { color: var(--black); }
 
         .nav__cart {
           display: flex; align-items: center; gap: 0.3rem;
@@ -190,7 +141,7 @@ export default function Nav() {
 
         .nav__mobile {
           position: fixed; top: 84px; left: 0; right: 0; bottom: 0;
-          background: #ffffff; z-index: 199;
+          background: var(--grey-100); z-index: 199;
           padding: var(--sp-8); display: flex; flex-direction: column;
           border-top: var(--border); animation: fadeUp 0.25s ease both; overflow-y: auto;
         }
@@ -249,31 +200,12 @@ export default function Nav() {
               />
             </form>
 
-            <div
-              className={`nav__shopwrap${shopOpen ? ' nav__shopwrap--open' : ''}`}
-              onMouseEnter={() => { if (shopCloseTimer.current) clearTimeout(shopCloseTimer.current); setShopOpen(true) }}
-              onMouseLeave={() => { shopCloseTimer.current = setTimeout(() => setShopOpen(false), 160) }}
+            <Link
+              href="/moroccan-rugs"
+              className={`nav__shop${pathname.startsWith('/moroccan-rugs') ? ' nav__shop--active' : ''}`}
             >
-              <Link
-                href="/moroccan-rugs"
-                className={`nav__shop${pathname.startsWith('/moroccan-rugs') ? ' nav__shop--active' : ''}`}
-                onClick={() => setShopOpen(false)}
-              >
-                Shop
-              </Link>
-              {shopOpen && (
-                <div className="nav__shopmenu">
-                  <Link href="/moroccan-rugs" className="nav__shopmenu-strong" onClick={() => setShopOpen(false)}>All Rugs</Link>
-                  <Link href="/moroccan-rugs?new=1" className="nav__shopmenu-strong" onClick={() => setShopOpen(false)}>New Arrivals</Link>
-                  <span className="nav__shopmenu-label">Shop by Type</span>
-                  {SHOP_TYPES.map(t => (
-                    <Link key={t.slug} href={`/moroccan-rugs?tradition=${t.slug}`} className="nav__shopmenu-link" onClick={() => setShopOpen(false)}>
-                      {t.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
+              Shop
+            </Link>
 
             <CartButton />
 
@@ -306,11 +238,6 @@ export default function Nav() {
 
           <Link href="/moroccan-rugs" className="nav__mobile-shop">Shop All Pieces</Link>
           <Link href="/moroccan-rugs?new=1" className="nav__mobile-link">New Arrivals</Link>
-
-          <p className="nav__mobile-section">Shop by Type</p>
-          {SHOP_TYPES.map(t => (
-            <Link key={t.slug} href={`/moroccan-rugs?tradition=${t.slug}`} className="nav__mobile-link">{t.label}</Link>
-          ))}
 
           {/* Learning — secondary gate */}
           <p className="nav__mobile-section">Explore</p>

@@ -128,10 +128,6 @@ export default function RugCardHover({ rug, index, showOneOfAKind = true }: Prop
             </div>
           )}
 
-          {showOneOfAKind && rug.availability_status !== 'sold' && (
-            <span className="rhc__ooak">One of a kind</span>
-          )}
-
           <span className={`rhc__avail rhc__avail--${rug.availability_status}`} />
         </div>
 

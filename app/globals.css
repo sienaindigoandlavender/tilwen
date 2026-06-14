@@ -7,9 +7,12 @@
   --off-white:#f2f1ef;
   --grey-100: #eeede9;
   --grey-200: #dedcd7;
-  --grey-400: #6b6966;  /* darkened for readability */
-  --grey-600: #2e2d2b;  /* near-black, always legible */
-  --grey-800: #1a1917;
+  --grey-400: #4a4843;  /* darkened hard for readability (was #6b6966 — too light) */
+  --grey-600: #232220;  /* near-black */
+  --grey-800: #141312;
+
+  /* Warm accent — used on price and key links (not body text) */
+  --terracotta: #b5532e;
 
   /* ── Surface system ──────────────────────────────────────────
      Commerce (gallery, product) = pure white.
@@ -102,8 +105,8 @@ input, textarea, select {
 }
 .t-label {
   font-family: var(--font-ui);
-  font-size: 0.625rem;
-  font-weight: 500;
+  font-size: 0.6875rem;
+  font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--grey-600);

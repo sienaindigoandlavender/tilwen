@@ -111,13 +111,13 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
           padding: var(--sp-6) 0 var(--sp-12);
         }
 
-        /* Tiny clean spec line — the few facts we reliably have */
+        /* Spec facts — compact, in the buy column under the price */
         .rp-facts {
-          display: flex; flex-wrap: wrap; gap: var(--sp-8) var(--sp-12);
-          padding: var(--sp-6) 0; margin-bottom: var(--sp-2);
+          display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-4) var(--sp-6);
+          padding: var(--sp-6) 0; margin-bottom: var(--sp-6);
           border-bottom: var(--border);
         }
-        .rp-facts__item { display: flex; flex-direction: column; gap: 0.3rem; }
+        .rp-facts__item { display: flex; flex-direction: column; gap: 0.25rem; }
         .rp-facts dt {
           font-family: var(--font-ui); font-size: 0.5rem; font-weight: 500;
           letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-400);
@@ -271,16 +271,38 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                 {rug.cultural_name !== rug.given_name && (
                   <p className="rp-cultural">{rug.cultural_name}{rug.reference ? ` · ${rug.reference}` : ''}</p>
                 )}
-                {/* Dimensions — directly under the title, the first thing a buyer checks */}
-                {rug.length_cm > 0 && (
-                  <p className="rp-dims">{rug.length_cm} × {rug.width_cm} cm · {(rug.length_cm / 30.48).toFixed(1)} × {(rug.width_cm / 30.48).toFixed(1)} ft</p>
-                )}
               </div>
 
               {/* Price — the visual anchor of the column */}
               <p className={`rp-price${rug.availability_status === 'sold' ? ' rp-price--sold' : ''}`}>
                 {rug.availability_status === 'sold' ? 'Sold' : `€${rug.price.toLocaleString()}`}
               </p>
+
+              {/* Spec facts — the buyer's decision facts, all in the buy column */}
+              <dl className="rp-facts">
+                {rug.length_cm > 0 && (
+                  <div className="rp-facts__item">
+                    <dt>Size</dt>
+                    <dd>{rug.length_cm} × {rug.width_cm} cm · {(rug.length_cm / 30.48).toFixed(1)} × {(rug.width_cm / 30.48).toFixed(1)} ft</dd>
+                  </div>
+                )}
+                {rug.pile_height && (
+                  <div className="rp-facts__item">
+                    <dt>Pile</dt>
+                    <dd>{rug.pile_height}</dd>
+                  </div>
+                )}
+                {rug.age_period && (
+                  <div className="rp-facts__item">
+                    <dt>Age</dt>
+                    <dd>{rug.age_period}</dd>
+                  </div>
+                )}
+                <div className="rp-facts__item">
+                  <dt>Material</dt>
+                  <dd>{rug.material_primary || '100% wool'}</dd>
+                </div>
+              </dl>
 
               {/* Per-rug paragraph — the real selling point. Written by hand per rug.
                   Renders only when provenance_note is filled; nothing until then. */}
@@ -334,34 +356,6 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                   )}
                 </Accordion>
               )}
-
-              {/* A tiny clean spec line — only the facts we reliably have.
-                  The full half-empty table and the redundant Shopify description
-                  ("The Piece") were removed; they showed blanks or duplicated data. */}
-              <dl className="rp-facts">
-                {rug.length_cm > 0 && (
-                  <div className="rp-facts__item">
-                    <dt>Size</dt>
-                    <dd>{rug.length_cm} × {rug.width_cm} cm · {(rug.length_cm / 30.48).toFixed(1)} × {(rug.width_cm / 30.48).toFixed(1)} ft</dd>
-                  </div>
-                )}
-                {rug.pile_height && (
-                  <div className="rp-facts__item">
-                    <dt>Pile</dt>
-                    <dd>{rug.pile_height}</dd>
-                  </div>
-                )}
-                {rug.age_period && (
-                  <div className="rp-facts__item">
-                    <dt>Age</dt>
-                    <dd>{rug.age_period}</dd>
-                  </div>
-                )}
-                <div className="rp-facts__item">
-                  <dt>Material</dt>
-                  <dd>{rug.material_primary || '100% wool'}</dd>
-                </div>
-              </dl>
 
               {/* Symbolic reading — only when written (no Shopify-description fallback) */}
               {rug.symbolic_reading && (
@@ -422,16 +416,8 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
               )}
 
               {/* Care — static, applies to all natural-wool pieces */}
-              <Accordion title="Care & Acquisition">
-                <div className="prose">
-                  <p>Vacuum gently and without a beater bar. Rotate periodically for even wear. Address spills immediately by blotting, never rubbing. Professional cleaning only — these are natural-dye wool pieces and should never be machine washed. A natural wool rug ages into its character; minor shedding in the first months is normal.</p>
-                  <p>This is a one-of-a-kind piece. Once sold, it cannot be replicated. All sales are final; transit damage is covered within 48 hours of receipt. We ship worldwide from Marrakech, with costs confirmed at checkout or inquiry.</p>
-                </div>
-                <div style={{ display: 'flex', gap: 'var(--sp-4)', marginTop: 'var(--sp-4)' }}>
-                  <Link href="/care" className="rp-motif-link">Full care &amp; shipping →</Link>
-                  <Link href="/returns" className="rp-motif-link">Returns →</Link>
-                </div>
-              </Accordion>
+              {/* Care & Acquisition accordion removed — redundant with the
+                  Care & Shipping / Returns links in the buy column. */}
             </div>
 
           </div>

@@ -89,7 +89,7 @@ export default function RugCard({ rug, label }: Props) {
         }
       `}</style>
 
-      <Link href={`/gallery/${rug.slug}`} className="rug-card">
+      <Link href={`/moroccan-rugs/${rug.slug}`} className="rug-card">
         {label && <p className="rug-card__label">{label}</p>}
         <div className="rug-card__img-wrap">
           <Image src={hero} alt={`${rug.given_name} — ${rug.cultural_name}`} fill sizes="(max-width:768px) 100vw, 33vw" />

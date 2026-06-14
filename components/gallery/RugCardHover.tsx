@@ -1,5 +1,4 @@
 'use client'
-import { useState, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Rug } from '@/types'
@@ -12,14 +11,11 @@ interface Props {
 }
 
 export default function RugCardHover({ rug, index, showOneOfAKind = true }: Props) {
-  const [activeImg, setActiveImg] = useState(0)
   const images = rug.images.length > 0 ? rug.images : []
 
-  // Image cycling is handled by the invisible .rhc__zone overlays below
-  // (onMouseEnter per zone) — cheap, no layout reads. The old onMouseMove +
-  // getBoundingClientRect ran on every pixel of movement and forced synchronous
-  // layout, which tripped an INP warning on dense grids. Removed.
-  const handleMouseLeave = useCallback(() => setActiveImg(0), [])
+  // Card shows the first image only — static. Hover-cycling to the second image
+  // was removed because the 2nd shot (back/detail) is currently weaker than the
+  // hero. Re-enable when staged/lifestyle images exist.
 
   const ft = rug.length_cm > 0
     ? `${(rug.length_cm / 30.48).toFixed(1)} × ${(rug.width_cm / 30.48).toFixed(1)} ft`
@@ -117,39 +113,23 @@ export default function RugCardHover({ rug, index, showOneOfAKind = true }: Prop
         .rhc__price--sold { color: var(--grey-400); }
       `}</style>
 
-      <Link href={`/gallery/${rug.slug}`} className="rhc">
-        <div className="rhc__img" onMouseLeave={handleMouseLeave}>
-          {images.map((src, i) => (
-            <div key={src} className={`rhc__slide${i === activeImg ? ' rhc__slide--active' : ''}`}>
+      <Link href={`/moroccan-rugs/${rug.slug}`} className="rhc">
+        <div className="rhc__img">
+          {images[0] && (
+            <div className="rhc__slide rhc__slide--active">
               <Image
-                src={src}
-                alt={i === 0 ? `${rug.given_name} — ${rug.cultural_name}` : `${rug.given_name} view ${i + 1}`}
+                src={images[0]}
+                alt={`${rug.given_name} — ${rug.cultural_name}`}
                 fill
                 style={{ objectFit: 'contain' }}
                 sizes="(max-width:480px) 50vw, (max-width:768px) 50vw, (max-width:1100px) 33vw, 25vw"
-                priority={index < 4 && i === 0}
+                priority={index < 4}
               />
-            </div>
-          ))}
-
-          {images.length > 1 && (
-            <div className="rhc__zones">
-              {images.map((_, i) => (
-                <div key={i} className="rhc__zone" onMouseEnter={() => setActiveImg(i)} />
-              ))}
             </div>
           )}
 
           {showOneOfAKind && rug.availability_status !== 'sold' && (
             <span className="rhc__ooak">One of a kind</span>
-          )}
-
-          {images.length > 1 && (
-            <div className="rhc__dots">
-              {images.map((_, i) => (
-                <div key={i} className={`rhc__dot${i === activeImg ? ' rhc__dot--active' : ''}`} />
-              ))}
-            </div>
           )}
 
           <span className={`rhc__avail rhc__avail--${rug.availability_status}`} />

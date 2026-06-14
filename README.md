@@ -1,31 +1,24 @@
-# Tilwen — product page: remove the messy spec table + "The Piece"
+# Tilwen — spec facts moved into buy column + Care accordion removed
 
 ## FILE (replace in repo)
   app/gallery/[slug]/page.tsx
 
-## WHAT CHANGED
-1. REMOVED the big "Specifications" accordion — it was mostly "Not determined"
-   (Region, Community, Technique, Dyes), which looked broken and undermined the
-   genuineness pitch. (Also fixed the "Age: Vintage → VINTAGE" double-print bug
-   that lived in it.)
+## CHANGES
+1. SPEC FACTS moved UP into the right-hand buy column, under the price:
+   Size · Pile · Age · Material, in a tidy 2-column grid. All the buyer's
+   decision facts (dimensions, pile, age, material, price) now sit together
+   in the sticky column. The separate dimensions line under the title was
+   removed (Size in the facts grid covers it).
 
-2. REMOVED "The Piece" accordion — it was the raw Shopify description and
-   repeated the SAME facts (dimensions, pile, age) already shown elsewhere.
-   Pure redundancy. The Shopify-description fallback is gone.
+2. "CARE & ACQUISITION" accordion REMOVED — it was the third place the same
+   care/shipping/final-sale info appeared. The Care & Shipping and Returns
+   links in the buy column (which go to the full pages) cover it.
 
-3. KEPT a tiny clean spec line instead — just the 4 facts we reliably have:
-   Size · Pile · Age · Material. Quiet inline definition list, no blanks.
-   (Any fact that's missing simply doesn't render.)
-
-## WHAT NOW SHOWS BELOW THE BUY COLUMN
-  - The tiny spec line (Size/Pile/Age/Material)
-  - Provenance        — only if written
-  - Symbolic Reading  — only if written (no Shopify fallback now)
-  - How It Behaves    — only if written
-  - Care & Acquisition (static)
-So today it's just the spec line + Care — clean and honest, no half-empty
-table, no duplicated description. The richer accordions appear as you write
-content per rug.
+## BELOW THE BUY COLUMN NOW
+   Only the content accordions, each of which renders ONLY when you write it:
+   Provenance · Symbolic Reading · How It Behaves in Space.
+   Until you write content, the left area is empty and the page is just the
+   image + the complete buy column (name, price, facts, cart, links). Clean.
 
 ## NOTE
-Dead CSS for the old .rp-specs table is left in place — harmless.
+   Dead CSS for removed blocks remains (harmless).

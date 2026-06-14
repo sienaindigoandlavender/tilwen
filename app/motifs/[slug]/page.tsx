@@ -493,7 +493,7 @@ export default function MotifPage({ params }: { params: { slug: string } }) {
 
           <div className="mp-bottom-nav">
             <Link href="/motifs">← All Motifs</Link>
-            <Link href="/gallery">Browse the Gallery →</Link>
+            <Link href="/moroccan-rugs">Browse the Gallery →</Link>
           </div>
 
         </div>

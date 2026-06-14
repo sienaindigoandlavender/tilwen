@@ -38,9 +38,9 @@ export default async function GalleryPage() {
         }
         .gal-top__blurb {
           font-family: var(--font-body);
-          font-size: 1rem;
+          font-size: 1.125rem;
           line-height: 1.6;
-          color: var(--grey-600);
+          color: var(--grey-800);
         }
       `}</style>
 

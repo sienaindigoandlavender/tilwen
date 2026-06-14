@@ -61,7 +61,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         .rp-info { position: sticky; top: 104px; }
         @media (max-width: 900px) { .rp-info { position: static; } }
 
-        .rp-identity { padding-bottom: 0; border-bottom: none; margin-bottom: var(--sp-6); }
+        .rp-identity { padding-bottom: 0; border-bottom: none; margin-bottom: var(--sp-3); }
         .rp-given {
           font-family: var(--font-display);
           font-size: clamp(2rem, 3.2vw, 3.25rem);
@@ -71,29 +71,29 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         .rp-cultural {
           font-family: var(--font-body);
           font-size: 1.0625rem; font-style: italic;
-          color: var(--grey-600); margin-top: var(--sp-2);
+          color: var(--grey-400); margin-top: var(--sp-2);
         }
         .rp-sku {
-          font-family: var(--font-ui); font-size: 0.5625rem; letter-spacing: 0.12em;
+          font-family: var(--font-ui); font-size: 0.6875rem; letter-spacing: 0.1em;
           text-transform: uppercase; color: var(--grey-400); margin-top: var(--sp-3);
         }
         /* Dimensions — right under the title */
         .rp-dims {
-          font-family: var(--font-ui); font-size: 0.75rem; letter-spacing: 0.03em;
-          color: var(--grey-600); margin-top: var(--sp-3);
+          font-family: var(--font-ui); font-size: 0.8125rem; letter-spacing: 0.02em;
+          color: var(--grey-400); margin-top: var(--sp-3);
         }
-        /* Price — the anchor */
+        /* Price — the anchor, in terracotta */
         .rp-price {
           font-family: var(--font-display);
-          font-size: clamp(1.75rem, 2.6vw, 2.5rem);
-          font-weight: 400; letter-spacing: -0.01em; color: var(--black);
+          font-size: clamp(1.875rem, 2.8vw, 2.5rem);
+          font-weight: 500; letter-spacing: -0.01em; color: var(--terracotta);
           padding-bottom: var(--sp-6); border-bottom: var(--border);
           margin-bottom: var(--sp-6);
         }
         .rp-price--sold { color: var(--grey-400); }
         /* Per-rug paragraph — the selling point (filled by hand per rug) */
         .rp-blurb {
-          font-family: var(--font-body); font-size: 1rem; line-height: 1.65;
+          font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.65;
           color: var(--grey-800); margin-bottom: var(--sp-6);
         }
         /* Quiet utility links — all three identical */
@@ -102,18 +102,18 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
           margin-top: var(--sp-6);
         }
         .rp-ship {
-          font-family: var(--font-ui); font-size: 0.625rem; letter-spacing: 0.06em;
+          font-family: var(--font-ui); font-size: 0.6875rem; letter-spacing: 0.04em;
           color: var(--grey-400); text-align: center; margin-top: var(--sp-3);
         }
         .rp-accordions { margin-top: var(--sp-8); }
         .rp-accordions .rp-spatial-grid { display: flex; flex-direction: column; gap: var(--sp-4); }
         .rp-links__item {
-          font-family: var(--font-ui); font-size: 0.625rem; letter-spacing: 0.06em;
+          font-family: var(--font-ui); font-size: 0.6875rem; letter-spacing: 0.04em;
           color: var(--grey-600); text-decoration: none;
-          border-bottom: 1px solid var(--grey-200); padding: 0;
+          border-bottom: 1px solid var(--grey-400); padding: 0;
           background: none; cursor: pointer; transition: color var(--t);
         }
-        .rp-links__item:hover { color: var(--black); }
+        .rp-links__item:hover { color: var(--terracotta); }
 
         /* ── Below: the scholarship, one comfortable reading column ── */
         .rp-body {
@@ -129,11 +129,11 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         }
         .rp-facts__item { display: flex; flex-direction: column; gap: 0.25rem; }
         .rp-facts dt {
-          font-family: var(--font-ui); font-size: 0.5rem; font-weight: 500;
-          letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-400);
+          font-family: var(--font-ui); font-size: 0.625rem; font-weight: 600;
+          letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-400);
         }
         .rp-facts dd {
-          font-family: var(--font-body); font-size: 0.9375rem; color: var(--grey-800);
+          font-family: var(--font-body); font-size: 1rem; color: var(--grey-800);
         }
 
         /* Left column sections */

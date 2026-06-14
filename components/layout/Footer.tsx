@@ -12,7 +12,7 @@ export default function Footer() {
         .footer {
           background: var(--grey-100);
           border-top: var(--border);
-          padding: var(--sp-16) 0 var(--sp-8);
+          padding: var(--sp-24) 0 var(--sp-8);
           margin-top: var(--sp-32);
         }
         .footer__grid {
@@ -45,11 +45,11 @@ export default function Footer() {
         }
         .footer__col-title {
           font-family: var(--font-ui);
-          font-size: 0.5625rem;
+          font-size: 0.625rem;
           font-weight: 600;
-          letter-spacing: 0.16em;
+          letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: var(--grey-600);
+          color: var(--grey-400);
           margin-bottom: var(--sp-4);
           display: block;
         }

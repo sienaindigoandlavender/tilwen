@@ -43,7 +43,7 @@ export default function NotFound() {
           This piece may have sold, or this page may no longer exist.
         </p>
         <div className="not-found__links">
-          <Link href="/gallery" className="btn btn--primary">Browse the Gallery</Link>
+          <Link href="/moroccan-rugs" className="btn btn--primary">Browse the Gallery</Link>
           <Link href="/" className="btn btn--outline">Return Home</Link>
         </div>
       </div>

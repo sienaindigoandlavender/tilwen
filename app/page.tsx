@@ -248,7 +248,7 @@ export default async function HomePage() {
                 Before Islam. Before everything that came after and tried to rename it. The lozenge on a High Atlas kilim is a protective mark, placed by a woman who understood that beauty and protection are the same gesture.
               </p>
               <div className="hp-threshold__links">
-                <Link href="/gallery" className="hp-threshold__link">Enter the gallery</Link>
+                <Link href="/moroccan-rugs" className="hp-threshold__link">Enter the gallery</Link>
                 <Link href="/motifs" className="hp-threshold__link">Read the symbols</Link>
                 <Link href="/journal" className="hp-threshold__link">Sit by the fire</Link>
               </div>
@@ -305,7 +305,7 @@ export default async function HomePage() {
         <div className="hp-objects">
           <div className="hp-objects__header">
             <span className="hp-objects__title">In the gallery now</span>
-            <Link href="/gallery" className="hp-objects__all">See all pieces →</Link>
+            <Link href="/moroccan-rugs" className="hp-objects__all">See all pieces →</Link>
           </div>
           <div className="hp-objects__grid">
             {featured.map((rug, i) => (

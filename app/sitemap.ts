@@ -6,7 +6,7 @@ import { essays } from '@/data/essays'
 import { glossary } from '@/data/glossary'
 import { rugTypes } from '@/data/rug-types'
 
-const BASE = 'https://www.tilwen.com'
+const BASE = 'https://tilwen.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // The rug pages depend on Shopify; the knowledge pages do not. Isolate the
@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const statics: MetadataRoute.Sitemap = [
     { url: BASE,                    lastModified: now, changeFrequency: 'weekly',  priority: 1.0 },
-    { url: `${BASE}/gallery`,       lastModified: now, changeFrequency: 'daily',   priority: 0.9 },
+    { url: `${BASE}/moroccan-rugs`,       lastModified: now, changeFrequency: 'daily',   priority: 0.9 },
     { url: `${BASE}/motifs`,        lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/regions`,       lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/traditions`,    lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
@@ -40,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   const rugPages = rugs.map(r => ({
-    url: `${BASE}/gallery/${r.slug}`,
+    url: `${BASE}/moroccan-rugs/${r.slug}`,
     lastModified: now,
     changeFrequency: 'weekly' as const,
     priority: 0.9,

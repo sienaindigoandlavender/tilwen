@@ -180,7 +180,7 @@ export default function Footer() {
             <div>
               <span className="footer__col-title">Gallery</span>
               <div className="footer__links">
-                <Link href="/gallery" className="footer__link">All Rugs</Link>
+                <Link href="/moroccan-rugs" className="footer__link">All Rugs</Link>
                 <Link href="/traditions" className="footer__link">Traditions</Link>
                 <Link href="/motifs" className="footer__link">Motifs</Link>
                 <Link href="/regions" className="footer__link">Regions</Link>

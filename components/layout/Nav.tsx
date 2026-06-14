@@ -61,7 +61,7 @@ export default function Nav() {
     e.preventDefault()
     const q = query.trim()
     // Search routes into the gallery; the gallery wires up ?q= next round.
-    router.push(q ? `/gallery?q=${encodeURIComponent(q)}` : '/gallery')
+    router.push(q ? `/moroccan-rugs?q=${encodeURIComponent(q)}` : '/moroccan-rugs')
     setOpen(false)
   }
 
@@ -255,19 +255,19 @@ export default function Nav() {
               onMouseLeave={() => { shopCloseTimer.current = setTimeout(() => setShopOpen(false), 160) }}
             >
               <Link
-                href="/gallery"
-                className={`nav__shop${pathname.startsWith('/gallery') ? ' nav__shop--active' : ''}`}
+                href="/moroccan-rugs"
+                className={`nav__shop${pathname.startsWith('/moroccan-rugs') ? ' nav__shop--active' : ''}`}
                 onClick={() => setShopOpen(false)}
               >
                 Shop
               </Link>
               {shopOpen && (
                 <div className="nav__shopmenu">
-                  <Link href="/gallery" className="nav__shopmenu-strong" onClick={() => setShopOpen(false)}>All Rugs</Link>
-                  <Link href="/gallery?new=1" className="nav__shopmenu-strong" onClick={() => setShopOpen(false)}>New Arrivals</Link>
+                  <Link href="/moroccan-rugs" className="nav__shopmenu-strong" onClick={() => setShopOpen(false)}>All Rugs</Link>
+                  <Link href="/moroccan-rugs?new=1" className="nav__shopmenu-strong" onClick={() => setShopOpen(false)}>New Arrivals</Link>
                   <span className="nav__shopmenu-label">Shop by Type</span>
                   {SHOP_TYPES.map(t => (
-                    <Link key={t.slug} href={`/gallery?tradition=${t.slug}`} className="nav__shopmenu-link" onClick={() => setShopOpen(false)}>
+                    <Link key={t.slug} href={`/moroccan-rugs?tradition=${t.slug}`} className="nav__shopmenu-link" onClick={() => setShopOpen(false)}>
                       {t.label}
                     </Link>
                   ))}
@@ -304,12 +304,12 @@ export default function Nav() {
             />
           </form>
 
-          <Link href="/gallery" className="nav__mobile-shop">Shop All Pieces</Link>
-          <Link href="/gallery?new=1" className="nav__mobile-link">New Arrivals</Link>
+          <Link href="/moroccan-rugs" className="nav__mobile-shop">Shop All Pieces</Link>
+          <Link href="/moroccan-rugs?new=1" className="nav__mobile-link">New Arrivals</Link>
 
           <p className="nav__mobile-section">Shop by Type</p>
           {SHOP_TYPES.map(t => (
-            <Link key={t.slug} href={`/gallery?tradition=${t.slug}`} className="nav__mobile-link">{t.label}</Link>
+            <Link key={t.slug} href={`/moroccan-rugs?tradition=${t.slug}`} className="nav__mobile-link">{t.label}</Link>
           ))}
 
           {/* Learning — secondary gate */}

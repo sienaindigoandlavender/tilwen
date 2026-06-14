@@ -195,7 +195,7 @@ export default function TraditionPage({ params }: { params: { slug: string } }) 
                   ))}
                 </div>
               )}
-              <Link href="/gallery" style={{ fontFamily: 'var(--font-ui)', fontSize: '0.5625rem', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--grey-400)', borderBottom: '1px solid var(--grey-200)', paddingBottom: '1px', alignSelf: 'flex-start' }}>
+              <Link href="/moroccan-rugs" style={{ fontFamily: 'var(--font-ui)', fontSize: '0.5625rem', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--grey-400)', borderBottom: '1px solid var(--grey-200)', paddingBottom: '1px', alignSelf: 'flex-start' }}>
                 Browse the Gallery →
               </Link>
             </aside>
@@ -203,7 +203,7 @@ export default function TraditionPage({ params }: { params: { slug: string } }) 
 
           <div className="tp-bottom-nav">
             <Link href="/traditions">← All Traditions</Link>
-            <Link href="/gallery">Browse the Gallery →</Link>
+            <Link href="/moroccan-rugs">Browse the Gallery →</Link>
           </div>
         </div>
       </div>

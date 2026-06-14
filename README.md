@@ -1,20 +1,35 @@
-# Tilwen — accordions moved into the buy column (right, under Add to Cart)
+# Tilwen — readability pass + terracotta + tighter title/price
 
-## FILE (replace in repo)
+## FILES (replace in repo)
+  app/globals.css                       ← the big one (tokens)
+  app/moroccan-rugs/page.tsx
   app/moroccan-rugs/[slug]/page.tsx
+  components/gallery/RugCardHover.tsx
+  components/gallery/Accordion.tsx
 
-## CHANGE
-All six accordions now sit in the RIGHT buy column, directly under
-Add to Cart / Ships line / Share — exactly like Revival's product page.
-Previously they were in a wide section on the left below the fold.
+## 1. TITLE → PRICE GAP tightened on the product page (sp-6 → sp-3).
 
-Order (per-rug content first, then static):
-  About This Piece · Symbolic Reading · How It Behaves in Space
-  Provenance & Craft · Care & Cleaning · Shipping & Returns
+## 2. TERRACOTTA accent (#b5532e), not red:
+   - The price is now terracotta (your version of Revival's coloured price).
+   - Utility links hover to terracotta; link underlines use it.
+   - New token --terracotta in globals.css — use it anywhere you want the accent.
 
-The spatial grid stacks single-column now that it's in the narrow column.
-The wide left "rp-body" section is removed (it's empty now).
-Related Knowledge (region/motif links) still sits full-width below.
+## 3. READABILITY (global) — the main work:
+   DARKENED THE GREY TOKENS at the source, so everything inherits:
+     --grey-400  #6b6966 → #4a4843   (was the main offender — labels/secondary)
+     --grey-600  #2e2d2b → #232220   (toward near-black)
+     --grey-800  #1a1917 → #141312
+   BUMPED TINY FONT SIZES (the 0.4375–0.5625rem labels were below comfortable
+   reading size):
+     - spec labels 0.5 → 0.625rem, values 0.9375 → 1rem
+     - card: name 1.0625→1.1875rem, dims 0.5625→0.6875rem, price 0.625→0.8125rem
+       (price now weight 500), origin tag 0.4375→0.5625rem
+     - gallery blurb 1→1.125rem, colour grey-600→grey-800
+     - accordion titles 0.625→0.6875rem, weight 600
+     - global .t-label 0.625→0.6875rem, weight 600
+   Hierarchy preserved (big/small, dark/lighter) — just raised the legibility
+   floor so the light end is no longer too faint.
 
 ## NOTE
-Dead CSS (.rp-body etc.) left in place — harmless.
+Because the grey TOKENS changed, EVERY page gets more readable, not just these
+files — that's intentional and the safest way to do a global pass.

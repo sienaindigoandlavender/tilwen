@@ -89,25 +89,25 @@ export default function RugCardHover({ rug, index, showOneOfAKind = true }: Prop
         .rhc__body { padding: var(--sp-3) 0 0; }
         .rhc__origin {
           display: block; margin-bottom: 0.3rem;
-          font-family: var(--font-ui); font-size: 0.4375rem; font-weight: 500;
-          letter-spacing: 0.16em; text-transform: uppercase; color: var(--grey-400);
+          font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 600;
+          letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-400);
         }
         .rhc__name {
           font-family: var(--font-display);
-          font-size: 1.0625rem; font-weight: 400;
+          font-size: 1.1875rem; font-weight: 400;
           color: var(--black); line-height: 1.25;
           display: block;
         }
         .rhc__dims {
-          margin-top: 0.25rem;
+          margin-top: 0.3rem;
           font-family: var(--font-ui);
-          font-size: 0.5625rem; letter-spacing: 0.04em;
-          color: var(--grey-600); display: block;
+          font-size: 0.6875rem; letter-spacing: 0.02em;
+          color: var(--grey-400); display: block;
         }
         .rhc__price {
-          margin-top: 0.2rem;
+          margin-top: 0.3rem;
           font-family: var(--font-ui);
-          font-size: 0.625rem; letter-spacing: 0.03em;
+          font-size: 0.8125rem; letter-spacing: 0.01em; font-weight: 500;
           color: var(--black); display: block;
         }
         .rhc__price--sold { color: var(--grey-400); }

@@ -23,7 +23,7 @@ export default function Accordion({
           padding: var(--sp-6) 0;
           text-align: left;
           font-family: var(--font-ui);
-          font-size: 0.625rem; font-weight: 500;
+          font-size: 0.6875rem; font-weight: 600;
           letter-spacing: 0.14em; text-transform: uppercase;
           color: var(--black);
           transition: color var(--t);

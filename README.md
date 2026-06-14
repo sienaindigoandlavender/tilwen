@@ -1,34 +1,31 @@
-# Tilwen — /gallery → /moroccan-rugs + SKU + static cards
+# Tilwen — five small fixes
 
-## ⚠ IMPORTANT: this RENAMES A FOLDER in your repo
-In GitHub you must RENAME the route folder:
-   app/gallery   →   app/moroccan-rugs
-The component folder `components/gallery/` STAYS as-is (do NOT rename it).
-Easiest: delete app/gallery, then upload the app/moroccan-rugs folder from this zip.
-Then upload the other changed files over their existing versions.
+## FILES (replace in repo)
+  app/moroccan-rugs/[slug]/page.tsx   (SKU in spec section)
+  components/gallery/RugCardHover.tsx (remove hover marker)
+  components/layout/Nav.tsx           (grey header)
+  components/layout/Footer.tsx        (grey footer + spacing)
 
 ## CHANGES
+1. PILE — no change needed. The spec already shows each rug's real pile
+   (Flat/Low/Medium/High). This rug is genuinely Medium; low/high rugs show
+   Low/High correctly. If a specific rug shows the wrong value, that's its
+   Shopify tag, not the code.
 
-1. URL: /gallery → /moroccan-rugs  (puts the keyword in the URL — SEO win)
-   - Route folder renamed app/gallery → app/moroccan-rugs (page + [slug]).
-   - Every internal link, canonical, OG url, and sitemap entry updated.
-   - Component IMPORTS (@/components/gallery/...) deliberately unchanged.
-   - REDIRECTS added in vercel.json so Google keeps the indexing it just
-     gained: /gallery → /moroccan-rugs and /gallery/:slug → /moroccan-rugs/:slug
-     (301 permanent). Old Shopify-ghost redirects repointed to the new path too.
+2. "ONE OF A KIND" hover marker on cards — REMOVED.
 
-2. SKU under the title on the product page — its own quiet line (was appended
-   to the cultural name). Uses rug.reference; hidden if absent.
+3. SKU — now shown as "Reference" in the spec section (Size/Pile/Age/Material/
+   Reference), and removed from under the title (was duplicated). It appears
+   only when the rug's title carries a "· SKU" suffix; if you don't see it on a
+   rug, that rug's Shopify title has no reference code.
 
-3. Cards are STATIC now — no hover image-cycling. The 2nd image (back/detail)
-   is currently weaker than the hero, so cycling to it hurt. Shows image[0]
-   only. (Also a small perf win.) Re-enable when staged/lifestyle shots exist.
+4. FOOTER — copyright line had too little breathing room. Added a clear top
+   border + more space (margin-top + padding-top) above "© Tilwen".
 
-## AFTER DEPLOY
-- In Search Console, URL-Inspect https://tilwen.com/moroccan-rugs and Request
-  Indexing. The old /gallery URLs will 301 across automatically.
-- Update the sitemap submission if you pinned a specific URL (the sitemap file
-  now lists /moroccan-rugs automatically).
+5. HEADER + FOOTER — now warm grey (var(--grey-100) #eeede9) instead of white,
+   so they frame the white commerce pages. Search box stays white for crisp
+   input. (The fixed nav sits consistently over both white commerce and grey
+   magazine pages.)
 
 ## NOTE
-Dead CSS for the removed card hover (.rhc__zone/.rhc__dot) left in place — harmless.
+Dead CSS for the removed hover marker (.rhc__ooak) left in place — harmless.

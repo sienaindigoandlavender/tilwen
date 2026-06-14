@@ -275,9 +275,6 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                 {rug.cultural_name !== rug.given_name && (
                   <p className="rp-cultural">{rug.cultural_name}</p>
                 )}
-                {rug.reference && (
-                  <p className="rp-sku">{rug.reference}</p>
-                )}
               </div>
 
               {/* Price — the visual anchor of the column */}
@@ -309,6 +306,12 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                   <dt>Material</dt>
                   <dd>{rug.material_primary || '100% wool'}</dd>
                 </div>
+                {rug.reference && (
+                  <div className="rp-facts__item">
+                    <dt>Reference</dt>
+                    <dd>{rug.reference}</dd>
+                  </div>
+                )}
               </dl>
 
               {/* Per-rug paragraph — the real selling point. Written by hand per rug.

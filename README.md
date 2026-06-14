@@ -1,37 +1,20 @@
-# Tilwen — Revival-style accordions + shipping line
+# Tilwen — accordions moved into the buy column (right, under Add to Cart)
 
 ## FILE (replace in repo)
   app/moroccan-rugs/[slug]/page.tsx
 
-## CHANGES
+## CHANGE
+All six accordions now sit in the RIGHT buy column, directly under
+Add to Cart / Ships line / Share — exactly like Revival's product page.
+Previously they were in a wide section on the left below the fold.
 
-1. "Ships from Marrakech in 3–5 business days" — small line under Add to Cart
-   (Revival has the same reassurance at the decision point).
+Order (per-rug content first, then static):
+  About This Piece · Symbolic Reading · How It Behaves in Space
+  Provenance & Craft · Care & Cleaning · Shipping & Returns
 
-2. SIX accordions, ordered: per-rug content first, then static reassurance.
-   Matches Revival's structure, fills it with genuineness-asserting content.
-
-   PER-RUG (show only when you write them):
-   - About This Piece   (provenance_note + selection_voice; opens by default)
-   - Symbolic Reading   (symbolic_reading + motif links)
-   - How It Behaves in Space (spatial fields)
-
-   STATIC (always show — Revival's skeleton, your substance):
-   - Provenance & Craft — THE anti-Revival accordion. Where Revival's
-     "How It's Made" admits "fresh off the loom" (factory), this asserts:
-     genuine vintage / hand-knotted, sourced in Morocco, never factory-woven,
-     one of a kind. Text adapts to vintage vs contemporary via age_class.
-   - Care & Cleaning — wool-care specifics + link to /care
-   - Shipping & Returns — Marrakech, 3–5 days, final sale + link to /returns
-
-3. The Care & Shipping / Returns links were REMOVED from the buy column (they're
-   now inside the Shipping & Returns and Care accordions). Share link stays.
-
-## WHY SIX, NOT FOUR
-Revival has 4 because they have no real per-rug content. You have 3 content
-slots (About / Symbolic / Spatial) that appear as you write them, PLUS the 3
-static ones. Today, with no writing done, a buyer sees the 3 static accordions —
-already more substance than Revival, all asserting genuineness.
+The spatial grid stacks single-column now that it's in the narrow column.
+The wide left "rp-body" section is removed (it's empty now).
+Related Knowledge (region/motif links) still sits full-width below.
 
 ## NOTE
-Dead CSS for old removed blocks remains — harmless.
+Dead CSS (.rp-body etc.) left in place — harmless.

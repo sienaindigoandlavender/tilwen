@@ -303,7 +303,7 @@ export default function EssayPage({ params }: { params: { slug: string } }) {
                 <div className="ep-sidebar-block">
                   <span className="ep-sidebar-label">Pieces in the Gallery</span>
                   {featuredRugs.map(r => (
-                    <Link key={r.slug} href={`/gallery/${r.slug}`} className="ep-sidebar-rug">
+                    <Link key={r.slug} href={`/moroccan-rugs/${r.slug}`} className="ep-sidebar-rug">
                       <RugCard rug={r} />
                     </Link>
                   ))}
@@ -328,7 +328,7 @@ export default function EssayPage({ params }: { params: { slug: string } }) {
                 ) : null
               })()}
 
-              <Link href="/gallery" style={{ fontFamily: 'var(--font-ui)', fontSize: '0.5625rem', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--grey-400)', borderBottom: '1px solid var(--grey-200)', paddingBottom: '1px', alignSelf: 'flex-start', transition: 'all var(--t)' }}>
+              <Link href="/moroccan-rugs" style={{ fontFamily: 'var(--font-ui)', fontSize: '0.5625rem', fontWeight: 500, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--grey-400)', borderBottom: '1px solid var(--grey-200)', paddingBottom: '1px', alignSelf: 'flex-start', transition: 'all var(--t)' }}>
                 Browse the Gallery →
               </Link>
             </aside>

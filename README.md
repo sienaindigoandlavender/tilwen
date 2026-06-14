@@ -1,31 +1,37 @@
-# Tilwen — five small fixes
+# Tilwen — Revival-style accordions + shipping line
 
-## FILES (replace in repo)
-  app/moroccan-rugs/[slug]/page.tsx   (SKU in spec section)
-  components/gallery/RugCardHover.tsx (remove hover marker)
-  components/layout/Nav.tsx           (grey header)
-  components/layout/Footer.tsx        (grey footer + spacing)
+## FILE (replace in repo)
+  app/moroccan-rugs/[slug]/page.tsx
 
 ## CHANGES
-1. PILE — no change needed. The spec already shows each rug's real pile
-   (Flat/Low/Medium/High). This rug is genuinely Medium; low/high rugs show
-   Low/High correctly. If a specific rug shows the wrong value, that's its
-   Shopify tag, not the code.
 
-2. "ONE OF A KIND" hover marker on cards — REMOVED.
+1. "Ships from Marrakech in 3–5 business days" — small line under Add to Cart
+   (Revival has the same reassurance at the decision point).
 
-3. SKU — now shown as "Reference" in the spec section (Size/Pile/Age/Material/
-   Reference), and removed from under the title (was duplicated). It appears
-   only when the rug's title carries a "· SKU" suffix; if you don't see it on a
-   rug, that rug's Shopify title has no reference code.
+2. SIX accordions, ordered: per-rug content first, then static reassurance.
+   Matches Revival's structure, fills it with genuineness-asserting content.
 
-4. FOOTER — copyright line had too little breathing room. Added a clear top
-   border + more space (margin-top + padding-top) above "© Tilwen".
+   PER-RUG (show only when you write them):
+   - About This Piece   (provenance_note + selection_voice; opens by default)
+   - Symbolic Reading   (symbolic_reading + motif links)
+   - How It Behaves in Space (spatial fields)
 
-5. HEADER + FOOTER — now warm grey (var(--grey-100) #eeede9) instead of white,
-   so they frame the white commerce pages. Search box stays white for crisp
-   input. (The fixed nav sits consistently over both white commerce and grey
-   magazine pages.)
+   STATIC (always show — Revival's skeleton, your substance):
+   - Provenance & Craft — THE anti-Revival accordion. Where Revival's
+     "How It's Made" admits "fresh off the loom" (factory), this asserts:
+     genuine vintage / hand-knotted, sourced in Morocco, never factory-woven,
+     one of a kind. Text adapts to vintage vs contemporary via age_class.
+   - Care & Cleaning — wool-care specifics + link to /care
+   - Shipping & Returns — Marrakech, 3–5 days, final sale + link to /returns
+
+3. The Care & Shipping / Returns links were REMOVED from the buy column (they're
+   now inside the Shipping & Returns and Care accordions). Share link stays.
+
+## WHY SIX, NOT FOUR
+Revival has 4 because they have no real per-rug content. You have 3 content
+slots (About / Symbolic / Spatial) that appear as you write them, PLUS the 3
+static ones. Today, with no writing done, a buyer sees the 3 static accordions —
+already more substance than Revival, all asserting genuineness.
 
 ## NOTE
-Dead CSS for the removed hover marker (.rhc__ooak) left in place — harmless.
+Dead CSS for old removed blocks remains — harmless.

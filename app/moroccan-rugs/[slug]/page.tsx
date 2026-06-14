@@ -101,6 +101,10 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
           display: flex; gap: var(--sp-4); flex-wrap: wrap;
           margin-top: var(--sp-6);
         }
+        .rp-ship {
+          font-family: var(--font-ui); font-size: 0.625rem; letter-spacing: 0.06em;
+          color: var(--grey-400); text-align: center; margin-top: var(--sp-3);
+        }
         .rp-links__item {
           font-family: var(--font-ui); font-size: 0.625rem; letter-spacing: 0.06em;
           color: var(--grey-600); text-decoration: none;
@@ -322,15 +326,18 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
 
               {/* Buy */}
               {rug.availability_status === 'available' && (
-                <div className="rp-acq__cta">
-                  {rug.shopify_variant_id ? (
-                    <AddToCartButton variantId={rug.shopify_variant_id} name={rug.given_name} />
-                  ) : (
-                    <Link href={`/inquire?piece=${rug.slug}&name=${encodeURIComponent(rug.given_name)}`} className="btn btn--primary" style={{ width: '100%' }}>
-                      Inquire about this piece
-                    </Link>
-                  )}
-                </div>
+                <>
+                  <div className="rp-acq__cta">
+                    {rug.shopify_variant_id ? (
+                      <AddToCartButton variantId={rug.shopify_variant_id} name={rug.given_name} />
+                    ) : (
+                      <Link href={`/inquire?piece=${rug.slug}&name=${encodeURIComponent(rug.given_name)}`} className="btn btn--primary" style={{ width: '100%' }}>
+                        Inquire about this piece
+                      </Link>
+                    )}
+                  </div>
+                  <p className="rp-ship">Ships from Marrakech in 3–5 business days</p>
+                </>
               )}
               {rug.availability_status === 'reserved' && (
                 <div className="rp-acq__cta">
@@ -340,10 +347,8 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                 </div>
               )}
 
-              {/* Quiet utility links — all three identical small size */}
+              {/* Share only — Care/Returns now live in the Shipping accordion below */}
               <div className="rp-links">
-                <Link href="/care" className="rp-links__item">Care &amp; Shipping</Link>
-                <Link href="/returns" className="rp-links__item">Returns</Link>
                 <ShareLink title={`${rug.given_name} — Tilwen`} className="rp-links__item" />
               </div>
             </div>
@@ -355,9 +360,9 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         <div className="container">
           <div className="rp-body">
             <div>
-              {/* Provenance */}
+              {/* About This Piece — the per-rug writing (shows only when written) */}
               {(rug.provenance_note || rug.selection_voice) && (
-                <Accordion title="Provenance">
+                <Accordion title="About This Piece" defaultOpen>
                   {rug.provenance_note && <p className="t-body">{rug.provenance_note}</p>}
                   {rug.selection_voice && (
                     <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.9375rem', fontStyle: 'italic', color: 'var(--grey-600)', marginTop: 'var(--sp-4)', lineHeight: 1.6 }}>
@@ -425,9 +430,34 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
               </Accordion>
               )}
 
-              {/* Care — static, applies to all natural-wool pieces */}
-              {/* Care & Acquisition accordion removed — redundant with the
-                  Care & Shipping / Returns links in the buy column. */}
+              {/* Provenance & Craft — the genuineness statement (static, all stock).
+                  Where Revival admits "fresh off the loom," Tilwen asserts the opposite. */}
+              <Accordion title="Provenance & Craft">
+                <div className="prose">
+                  <p>{rug.age_class === 'vintage' || rug.age_class === 'antique'
+                    ? 'A genuine vintage piece, hand-knotted in Morocco and sourced from the families and markets of the regions where these traditions live. Not a reproduction, not factory-woven, not made to a standard size for export. It carries the irregularities and the wear of a rug that was made to be used.'
+                    : 'Genuinely hand-knotted in Morocco on a traditional loom, by a single weaver, using methods passed down through generations. Not factory-produced, not made to a uniform pattern.'}</p>
+                  <p>Every piece is one of a kind. Once it is sold, it cannot be replicated.</p>
+                </div>
+              </Accordion>
+
+              {/* Care & Cleaning — static */}
+              <Accordion title="Care & Cleaning">
+                <div className="prose">
+                  <p>Vacuum gently and without a beater bar. Rotate periodically for even wear. Blot spills immediately — never rub. Professional cleaning only; these are natural-dye wool pieces and should never be machine washed.</p>
+                  <p>A natural wool rug ages into its character. Minor shedding in the first months is normal and settles with use.</p>
+                  <p><Link href="/care" className="rp-motif-link">Full care &amp; shipping →</Link></p>
+                </div>
+              </Accordion>
+
+              {/* Shipping & Returns — static */}
+              <Accordion title="Shipping & Returns">
+                <div className="prose">
+                  <p>Ships worldwide from Marrakech, generally within 3–5 business days. Shipping costs are confirmed at checkout or on inquiry.</p>
+                  <p>All sales are final. Transit damage is covered when reported within 48 hours of receipt.</p>
+                  <p><Link href="/returns" className="rp-motif-link">Returns policy →</Link></p>
+                </div>
+              </Accordion>
             </div>
 
           </div>

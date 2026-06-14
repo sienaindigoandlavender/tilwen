@@ -1,4 +1,4 @@
-const BASE_URL = 'https://www.tilwen.com'
+const BASE_URL = 'https://tilwen.com'
 const SITE_NAME = 'Tilwen'
 const DEFAULT_DESCRIPTION = 'Before Islam. Before everything that came after and tried to rename it. The lozenge on a High Atlas kilim is a protective mark — placed by a woman who understood that beauty and protection are the same gesture. Tilwen is where those objects are.'
 
@@ -37,7 +37,7 @@ export const websiteJsonLd = {
   description: DEFAULT_DESCRIPTION,
   // SearchAction intentionally omitted: it must point at a working text-search
   // endpoint, and the gallery currently filters by facet only (no ?q= search).
-  // Re-add once /gallery supports a text query, or Google may penalise the
+  // Re-add once /moroccan-rugs supports a text query, or Google may penalise the
   // sitelinks searchbox for pointing at a dead endpoint.
 }
 
@@ -50,7 +50,7 @@ export function rugProductJsonLd(rug: {
     '@type': 'Product',
     name: `${rug.given_name} — ${rug.cultural_name}`,
     description: `${rug.cultural_name} from the ${rug.region}. ${rug.technique}.`,
-    url: `${BASE_URL}/gallery/${rug.slug}`,
+    url: `${BASE_URL}/moroccan-rugs/${rug.slug}`,
     image: rug.images,
     brand: { '@type': 'Brand', name: 'Tilwen' },
     category: 'Rugs & Carpets > Moroccan & Amazigh Rugs',
@@ -66,7 +66,7 @@ export function rugProductJsonLd(rug: {
         : rug.availability_status === 'reserved'
         ? 'https://schema.org/PreOrder'
         : 'https://schema.org/SoldOut',
-      url: `${BASE_URL}/gallery/${rug.slug}`,
+      url: `${BASE_URL}/moroccan-rugs/${rug.slug}`,
       seller: { '@type': 'Organization', name: 'Tilwen' },
       // Final sale — stated honestly so Merchant rich results don't warn on a
       // missing return policy. Reflects /returns.

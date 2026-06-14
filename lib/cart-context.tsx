@@ -349,7 +349,7 @@ function CartDrawer() {
           {lines.length === 0 ? (
             <div className="cart-empty">
               <p className="cart-empty__text">Your selection is empty.</p>
-              <a href="/gallery" className="cart-empty__link" onClick={closeCart}>
+              <a href="/moroccan-rugs" className="cart-empty__link" onClick={closeCart}>
                 Browse the Gallery →
               </a>
             </div>

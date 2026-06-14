@@ -401,7 +401,7 @@ export default function GlossaryEntryPage({ params }: { params: { slug: string }
           {/* Bottom nav */}
           <div className="ge-nav">
             <Link href="/glossary">← Back to Glossary</Link>
-            <Link href="/gallery">Browse all rugs →</Link>
+            <Link href="/moroccan-rugs">Browse all rugs →</Link>
           </div>
         </div>
       </div>

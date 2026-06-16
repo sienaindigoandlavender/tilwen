@@ -6,6 +6,8 @@ import ShareLink from '@/components/gallery/ShareLink'
 import Accordion from '@/components/gallery/Accordion'
 import Link from 'next/link'
 import { getAllRugsSafe, getRugBySlugLive, getRelatedRugsFrom } from '@/lib/rug-source'
+import { getRugTypeBySlug } from '@/data/rug-types'
+import { GlossaryText } from '@/lib/glossary-link'
 import RugCard from '@/components/gallery/RugCard'
 
 export const revalidate = 600
@@ -32,6 +34,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
   const rug = all.find(r => r.slug === params.slug)
   if (!rug) notFound()
 
+  const rugType = rug.type_slug ? getRugTypeBySlug(rug.type_slug) : undefined
   const related = getRelatedRugsFrom(rug, all)
   const hero = rug.images[0] || 'https://images.unsplash.com/photo-1600166898405-da9535204843?w=1400&q=80'
 
@@ -96,6 +99,13 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
           font-family: var(--font-body); font-size: 1.0625rem; line-height: 1.65;
           color: var(--grey-800); margin-bottom: var(--sp-6);
         }
+        .glossary-link {
+          color: inherit;
+          text-decoration: none;
+          border-bottom: 1px solid var(--grey-200);
+          transition: border-color var(--t), color var(--t);
+        }
+        .glossary-link:hover { color: var(--terracotta); border-color: var(--terracotta); }
         /* Quiet utility links — all three identical */
         .rp-links {
           display: flex; gap: var(--sp-4); flex-wrap: wrap;
@@ -323,7 +333,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
               {/* Per-rug paragraph — the real selling point. Written by hand per rug.
                   Renders only when provenance_note is filled; nothing until then. */}
               {rug.provenance_note && (
-                <p className="rp-blurb">{rug.provenance_note}</p>
+                <p className="rp-blurb"><GlossaryText text={rug.provenance_note} skipSlug={rug.type_slug} /></p>
               )}
 
               {/* Buy */}
@@ -358,7 +368,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
               <div className="rp-accordions">
                 {(rug.provenance_note || rug.selection_voice) && (
                   <Accordion title="About This Piece" defaultOpen>
-                    {rug.provenance_note && <p className="t-body">{rug.provenance_note}</p>}
+                    {rug.provenance_note && <p className="t-body"><GlossaryText text={rug.provenance_note} skipSlug={rug.type_slug} /></p>}
                     {rug.selection_voice && (
                       <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.9375rem', fontStyle: 'italic', color: 'var(--grey-600)', marginTop: 'var(--sp-4)', lineHeight: 1.6 }}>
                         {rug.selection_voice}
@@ -431,6 +441,23 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
                     <p>Every piece is one of a kind. Once it is sold, it cannot be replicated.</p>
                   </div>
                 </Accordion>
+
+                {/* Type-level context — SEO-rich, specific to this tradition,
+                    glossary-linked. Helps the page rank for "{type} rug" queries
+                    without per-rug writing. Skips self-linking the type term. */}
+                {rugType && (
+                  <Accordion title={`About ${rugType.name} Rugs`}>
+                    <div className="prose">
+                      <p><GlossaryText text={rugType.short_definition} skipSlug={rug.type_slug} /></p>
+                      <p><strong>Origin.</strong> <GlossaryText text={rugType.origin} skipSlug={rug.type_slug} /></p>
+                      <p><strong>Technique.</strong> <GlossaryText text={rugType.technique} skipSlug={rug.type_slug} /></p>
+                      <p><strong>Palette.</strong> <GlossaryText text={rugType.palette} skipSlug={rug.type_slug} /></p>
+                      {rug.type_slug && (
+                        <p><Link href={`/traditions/${rug.type_slug}`} className="rp-motif-link">Read the full {rugType.name} tradition →</Link></p>
+                      )}
+                    </div>
+                  </Accordion>
+                )}
 
                 <Accordion title="Care & Cleaning">
                   <div className="prose">

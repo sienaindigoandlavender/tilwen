@@ -138,6 +138,18 @@ function typeName(slug: string | null): string {
   return rugTypes.find(t => t.slug === slug)?.name || prettify(slug)
 }
 
+// Reverse: derive a type slug from a name parsed off the title, e.g.
+// "Beni M'Guild" → "beni-mguild". Used as a fallback when the Shopify
+// `type:` tag is missing, so the Type filter still works from the title alone.
+function typeSlugFromName(name: string | null): string | null {
+  if (!name) return null
+  const norm = (s: string) => s.toLowerCase().replace(/['']/g, '').replace(/[^a-z0-9]+/g, '')
+  const target = norm(name)
+  if (!target) return null
+  const hit = rugTypes.find(t => norm(t.name) === target || norm(t.slug) === target)
+  return hit ? hit.slug : null
+}
+
 function prettify(slug: string): string {
   return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
 }
@@ -171,6 +183,10 @@ function shopifyToRug(p: ShopifyProduct): Rug {
   const tSlug = tags.techniqueSlug || o?.technique_slug || ''
   const ageClass = tags.ageClass || o?.age_class
   const tName = typeName(tags.typeSlug) || t.typeName
+  // Effective type slug: prefer the Shopify `type:` tag; fall back to deriving
+  // it from the title's type name so the Type filter works even when the tag
+  // is missing or wasn't imported in the type:slug format.
+  const effectiveTypeSlug = tags.typeSlug || typeSlugFromName(t.typeName) || undefined
 
   const availability: AvailabilityStatus =
     p.availableForSale && p.variantAvailable
@@ -237,8 +253,8 @@ function shopifyToRug(p: ShopifyProduct): Rug {
     description_html: p.descriptionHtml || undefined,
     reference: t.reference || undefined,
     age_class: ageClass || undefined,
-    type_slug: tags.typeSlug || undefined,
-    type_name: tags.typeSlug ? typeName(tags.typeSlug) : undefined,
+    type_slug: effectiveTypeSlug,
+    type_name: effectiveTypeSlug ? typeName(effectiveTypeSlug) : undefined,
   }
 }
 

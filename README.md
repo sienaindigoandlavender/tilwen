@@ -1,27 +1,36 @@
-# Tilwen — era falls back to the age_period field
+# Tilwen — three-tier product page (structure only, content later)
 
-## FILE (replace in repo)
-  lib/rug-source.ts   (supersedes the SKU-round version)
+## FILES (replace in repo)
+  types/index.ts                      (new story fields on Rug)
+  lib/rug-source.ts                   (wires story fields through the merge)
+  app/moroccan-rugs/[slug]/page.tsx   (Level 2 + Level 3 sections)
 
-## WHY SOME CARDS LACKED THE YEAR
-The heading era ("c.1980") was parsed ONLY from the title. Titles like
-"Beni Ourain circa 1980 — …" showed the year; titles like "Beni Ourain — …"
-(no year) showed none. Inconsistent source titles → inconsistent headings.
+## THE THREE TIERS (top → bottom of the page)
+  LEVEL 1 — transactional (already built): photo, price, specs, buy block,
+            accordions. For the fast buyer.
+  LEVEL 2 — poetic story (NEW slot): poetic_title + poem + weavers_tale.
+            Intimate, centred, italic. For the slow-burn buyer. Sits BELOW the
+            product data so it never slows a fast buyer.
+  LEVEL 3 — Kinfolk essay (NEW slot): essay_title + essay_body. Magazine
+            register, generous measure, drop-cap. Deepest layer + SEO surface.
 
-## THE FIX (Option A)
-The era now falls back to the `age_period` metafield (how.age_period) and the
-local overlay when the title has no year:
-   title era  →  age_period era  →  (nothing)
-Handles "Circa 1980", "1980s", "1960–1975", "Vintage circa 1960–1975", etc.
-Returns nothing when the value has no year (e.g. just "Vintage").
+## IMPORTANT: STRUCTURE ONLY — NO CONTENT YET
+Both new sections render ONLY when their fields are filled. They are empty
+now, so the live page is unchanged until content is written. This is the
+"build the vessel, fill it later" approach you chose.
 
-## IMPORTANT — depends on your data
-This fills the gap ONLY when age_period actually contains a year for that
-product. If a rug's title has no year AND its age_period is empty or just says
-"Vintage" (no number), the heading correctly stays "Beni Ourain" — there's no
-year anywhere to show. To get the year on those, fill how.age_period in Shopify
-(e.g. "Circa 1980") or add the year to the title.
+## NEW Rug FIELDS (types/index.ts)
+  poetic_title, poem, weavers_tale     (Level 2)
+  essay_title, essay_body              (Level 3)
+Sourced from metafields or the local overlay in lib/rug-source.ts. The
+dedicated content pass will populate these (and re-key your rug_stories.xlsx
+to the CURRENT handles — note the file's handles end in "-copy" and predate
+the CSV cleanup, so they need remapping before import).
+
+## CONTENT NOTES (for the later writing pass)
+- poem: newlines become line breaks. weavers_tale & essay_body: blank lines
+  separate paragraphs.
+- essay_body first paragraph gets a terracotta drop-cap automatically.
 
 ## NOTE
-This whole era/heading behaviour is a FALLBACK for the no-given-name state.
-Once you write a given name, it replaces the heading entirely. No re-import needed.
+Build verified clean. Nothing renders until content exists.

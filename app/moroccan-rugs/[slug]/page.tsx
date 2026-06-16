@@ -248,8 +248,52 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
         @media (max-width: 480px) { .rp-related__grid { grid-template-columns: 1fr; } }
 
         /* Knowledge */
-        .rp-knowledge { padding: var(--sp-12) 0; border-top: var(--border); }
-        .rp-knowledge__grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--sp-6); margin-top: var(--sp-6); }
+        /* ── Level 2: poetic story — intimate, centred, emotional ── */
+        .rp-story {
+          max-width: 38rem; margin: 0 auto;
+          padding: var(--sp-24) 0 var(--sp-16);
+          border-top: var(--border); text-align: center;
+        }
+        .rp-story__title {
+          font-family: var(--font-display); font-weight: 300;
+          font-size: clamp(1.75rem, 3vw, 2.5rem); letter-spacing: -0.01em;
+          color: var(--black); margin-bottom: var(--sp-8);
+        }
+        .rp-story__poem {
+          font-family: var(--font-body); font-style: italic;
+          font-size: 1.25rem; line-height: 1.9; color: var(--grey-800);
+          margin-bottom: var(--sp-10);
+        }
+        .rp-story__tale {
+          max-width: 32rem; margin: 0 auto; text-align: left;
+        }
+        .rp-story__tale p {
+          font-family: var(--font-body); font-size: 1.0625rem;
+          line-height: 1.75; color: var(--grey-800);
+        }
+
+        /* ── Level 3: Kinfolk-style essay — magazine register, generous measure ── */
+        .rp-essay {
+          max-width: 40rem; margin: 0 auto;
+          padding: var(--sp-16) 0 var(--sp-24);
+        }
+        .rp-essay__title {
+          font-family: var(--font-display); font-weight: 300;
+          font-size: clamp(1.5rem, 2.5vw, 2rem); letter-spacing: -0.01em;
+          color: var(--black); margin-bottom: var(--sp-8);
+          padding-top: var(--sp-12); border-top: var(--border);
+        }
+        .rp-essay__body p {
+          font-family: var(--font-body); font-size: 1.125rem;
+          line-height: 1.85; color: var(--grey-800); margin-bottom: var(--sp-6);
+        }
+        .rp-essay__body p:first-of-type::first-letter {
+          font-family: var(--font-display); font-size: 3.4em;
+          float: left; line-height: 0.8; padding: 0.1em 0.1em 0 0;
+          color: var(--terracotta); font-weight: 400;
+        }
+
+        .rp-knowledge { padding: var(--sp-12) 0; border-top: var(--border); }        .rp-knowledge__grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--sp-6); margin-top: var(--sp-6); }
         @media (max-width: 768px) { .rp-knowledge__grid { grid-template-columns: 1fr; } }
         .rp-knowledge-item {
           padding: var(--sp-6) var(--sp-6) var(--sp-6) 0; display: block; transition: opacity var(--t);
@@ -479,6 +523,47 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
 
           </div>
         </div>
+
+        {/* ── Level 2: the poetic story (slow-burn buyer). Below the product
+            data so it never slows a fast buyer. Renders only when written. ── */}
+        {(rug.poetic_title || rug.poem || rug.weavers_tale) && (
+          <div className="container">
+            <section className="rp-story">
+              {rug.poetic_title && <h2 className="rp-story__title">{rug.poetic_title}</h2>}
+              {rug.poem && (
+                <p className="rp-story__poem">
+                  {rug.poem.split('\n').map((line, i) => (
+                    <span key={i}>{line}<br /></span>
+                  ))}
+                </p>
+              )}
+              {rug.weavers_tale && (
+                <div className="rp-story__tale prose">
+                  {rug.weavers_tale.split('\n\n').map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </div>
+              )}
+            </section>
+          </div>
+        )}
+
+        {/* ── Level 3: Kinfolk-style essay (deepest layer, SEO surface).
+            Renders only when written. ── */}
+        {(rug.essay_title || rug.essay_body) && (
+          <div className="container">
+            <article className="rp-essay">
+              {rug.essay_title && <h2 className="rp-essay__title">{rug.essay_title}</h2>}
+              {rug.essay_body && (
+                <div className="rp-essay__body">
+                  {rug.essay_body.split('\n\n').map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+                </div>
+              )}
+            </article>
+          </div>
+        )}
 
         {/* Related knowledge */}
         {(rug.region_slug || rug.motifs.length > 0) && (

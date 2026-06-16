@@ -49,11 +49,10 @@ export default function Nav() {
       <style>{`
         .nav-announce {
           position: fixed; top: 0; left: 0; right: 0; z-index: 201;
-          height: 28px; background: var(--grey-100);
-          border-bottom: 1px solid var(--grey-200);
+          height: 28px; background: var(--black);
           display: flex; align-items: center; justify-content: center;
           font-family: var(--font-ui); font-size: 0.625rem; font-weight: 600;
-          letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-800);
+          letter-spacing: 0.14em; text-transform: uppercase; color: var(--white);
           padding: 0 var(--sp-4); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .nav {

@@ -12,14 +12,15 @@ export default function Footer() {
         .footer {
           background: var(--grey-100);
           border-top: var(--border);
-          padding: var(--sp-24) 0 var(--sp-8);
+          padding: var(--sp-32) 0 var(--sp-16);
           margin-top: var(--sp-32);
         }
         .footer__grid {
           display: grid;
           grid-template-columns: 2fr 1fr 1fr 1fr;
           gap: var(--sp-8);
-          padding-bottom: var(--sp-12);
+          padding-top: var(--sp-8);
+          padding-bottom: var(--sp-16);
           border-bottom: var(--border);
         }
         @media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } }

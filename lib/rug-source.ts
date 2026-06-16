@@ -251,7 +251,7 @@ function shopifyToRug(p: ShopifyProduct): Rug {
     shopify_product_id: p.id,
     shopify_variant_id: p.variantId || undefined,
     description_html: p.descriptionHtml || undefined,
-    reference: t.reference || undefined,
+    reference: p.sku || t.reference || undefined,
     age_class: ageClass || undefined,
     type_slug: effectiveTypeSlug,
     type_name: effectiveTypeSlug ? typeName(effectiveTypeSlug) : undefined,

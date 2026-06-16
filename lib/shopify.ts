@@ -258,6 +258,7 @@ export interface ShopifyProduct {
   images: ShopifyProductImage[]
   variantId: string | null
   variantAvailable: boolean
+  sku: string | null
   price: number
   currencyCode: string
   /** how.* metafields, keyed without the namespace, e.g. given_name */
@@ -296,6 +297,7 @@ interface RawProductNode {
     edges: {
       node: {
         id: string
+        sku: string | null
         availableForSale: boolean
         price: { amount: string; currencyCode: string }
       }
@@ -320,6 +322,7 @@ function normaliseProduct(node: RawProductNode): ShopifyProduct {
     images: node.images.edges.map(e => e.node),
     variantId: variant?.id ?? null,
     variantAvailable: variant?.availableForSale ?? false,
+    sku: variant?.sku ?? null,
     price: variant ? Math.round(parseFloat(variant.price.amount)) : 0,
     currencyCode: variant?.price.currencyCode ?? 'EUR',
     metafields,
@@ -341,7 +344,7 @@ export async function fetchAllShopifyProducts(): Promise<ShopifyProduct[]> {
             availableForSale
             images(first: 10) { edges { node { url altText } } }
             variants(first: 1) {
-              edges { node { id availableForSale price { amount currencyCode } } }
+              edges { node { id sku availableForSale price { amount currencyCode } } }
             }
             metafields(identifiers: [${METAFIELD_IDENTIFIERS}]) { key value }
           }

@@ -193,9 +193,18 @@ function shopifyToRug(p: ShopifyProduct): Rug {
       ? (o?.availability_status === 'reserved' ? 'reserved' : 'available')
       : 'sold'
 
+  // Era: prefer the year parsed from the title; if the title has none, pull it
+  // from the age_period metafield/overlay (e.g. "Circa 1980", "Vintage / 1960–1975").
+  const extractEra = (s: string | null | undefined): string => {
+    if (!s) return ''
+    const m = s.match(/\b(circa\s+|c\.?\s*)?(\d{4}(?:\s*[-–]\s*\d{4})?s?)\b/i)
+    return m ? m[2].replace(/\s+/g, '') : ''
+  }
+  const rawEra = t.era || extractEra(mf.age_period) || extractEra(o?.age_period)
+
   // Era display: "1980" → "c.1980", "1960-1975" → "c.1960–1975", "1980s" → "1980s"
-  const eraDisplay = t.era
-    ? (/s$/.test(t.era) ? t.era : `c.${t.era.replace('-', '–')}`)
+  const eraDisplay = rawEra
+    ? (/s$/.test(rawEra) ? rawEra : `c.${rawEra.replace('-', '–')}`)
     : ''
 
   // Heading fallback when no given name is written yet: "Type, c.1980"

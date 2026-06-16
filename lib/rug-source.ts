@@ -94,15 +94,27 @@ function parseTags(tags: string[]): ParsedTags {
 
 function parseTitle(title: string): {
   typeName: string
+  era: string
   lengthCm: number
   widthCm: number
   reference: string
 } {
   const dims = title.match(/(\d+)\s*[×x]\s*(\d+)/)
   const ref = title.match(/·\s*([A-Za-z0-9-]+)\s*$/)
-  const typeName = title.split(/\s+[—–-]\s+/)[0].trim()
+  // Everything before the " — dimensions" part
+  const head = title.split(/\s+[—–-]\s+/)[0].trim()
+  // Pull an era out of the head: "circa 1980", "c. 1980", "1980s", "1960-1975"
+  const eraMatch = head.match(/\b(circa\s+|c\.?\s*)?(\d{4}(?:\s*[-–]\s*\d{4})?s?)\b/i)
+  let era = ''
+  let typeName = head
+  if (eraMatch) {
+    era = eraMatch[2].replace(/\s+/g, '')          // "1980" / "1960-1975" / "1980s"
+    // strip the era (and any leading "circa"/"c.") from the type name
+    typeName = head.replace(eraMatch[0], '').replace(/[,\s]+$/, '').trim()
+  }
   return {
-    typeName: typeName || title.trim(),
+    typeName: typeName || head,
+    era,
     lengthCm: dims ? parseInt(dims[1], 10) : 0,
     widthCm: dims ? parseInt(dims[2], 10) : 0,
     reference: ref ? ref[1] : '',
@@ -165,12 +177,24 @@ function shopifyToRug(p: ShopifyProduct): Rug {
       ? (o?.availability_status === 'reserved' ? 'reserved' : 'available')
       : 'sold'
 
-  const culturalFallback = [tName, regionName(rSlug)].filter(Boolean).join(', ')
+  // Era display: "1980" → "c.1980", "1960-1975" → "c.1960–1975", "1980s" → "1980s"
+  const eraDisplay = t.era
+    ? (/s$/.test(t.era) ? t.era : `c.${t.era.replace('-', '–')}`)
+    : ''
+
+  // Heading fallback when no given name is written yet: "Type, c.1980"
+  const headingFallback = [tName, eraDisplay].filter(Boolean).join(', ')
+
+  // Subtitle: lead with region (+era) so it adds info rather than repeating the
+  // "Type, c.era" heading. Falls back to type+region if no region.
+  const culturalFallback = rSlug
+    ? [regionName(rSlug), eraDisplay].filter(Boolean).join(' · ')
+    : [tName, regionName(rSlug)].filter(Boolean).join(', ')
 
   return {
     id: p.id,
     slug: o?.slug || p.handle,
-    given_name: mf.given_name || o?.given_name || tName,
+    given_name: mf.given_name || o?.given_name || headingFallback || tName,
     cultural_name: mf.cultural_name || o?.cultural_name || culturalFallback || p.title,
     atmosphere_summary: o?.atmosphere_summary || '',
     provenance_note: mf.provenance_note || o?.provenance_note || '',

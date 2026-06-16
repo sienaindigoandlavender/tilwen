@@ -1,34 +1,27 @@
-# Tilwen — Type filter now works from the title (tag fallback)
+# Tilwen — era falls back to the age_period field
 
 ## FILE (replace in repo)
-  lib/rug-source.ts   (supersedes the title-parse version from last round)
+  lib/rug-source.ts   (supersedes the SKU-round version)
 
-## WHY THE TYPE FILTER WAS MISSING
-The filter bar self-hides any group with fewer than 2 values. The Type filter
-reads `type_slug`, which came ONLY from a Shopify tag in the format
-`type:beni-ourain`. Your products don't currently have those prefixed tags
-(evidence: Pile and Age filters show — those tags imported — but Type doesn't),
-so every rug had an empty type_slug and the filter hid itself.
+## WHY SOME CARDS LACKED THE YEAR
+The heading era ("c.1980") was parsed ONLY from the title. Titles like
+"Beni Ourain circa 1980 — …" showed the year; titles like "Beni Ourain — …"
+(no year) showed none. Inconsistent source titles → inconsistent headings.
 
-This is a DATA/tagging gap, not a code bug. But rather than depend on the tags,
-the code now has a safety net.
+## THE FIX (Option A)
+The era now falls back to the `age_period` metafield (how.age_period) and the
+local overlay when the title has no year:
+   title era  →  age_period era  →  (nothing)
+Handles "Circa 1980", "1980s", "1960–1975", "Vintage circa 1960–1975", etc.
+Returns nothing when the value has no year (e.g. just "Vintage").
 
-## THE FIX
-Added a reverse lookup: the product TITLE already starts with the type name
-("Beni M'Guild circa 1980 — ..."), which we parse. When the `type:` tag is
-absent, the type slug is derived from that parsed name:
-   "Beni M'Guild" → beni-mguild   "Boujad" → boujad   etc.
-Matches all 11 traditions (apostrophes handled); returns nothing for unknown
-names so no junk entries appear.
-
-Result: the Type filter populates from the title alone. The `type:` tag still
-takes priority when present (it's the source of truth), but is no longer
-required for the filter to work.
-
-## OPTIONAL — still worth fixing the tags
-For robustness (and so smart collections by type work in Shopify), it's still
-worth having `type:slug` tags on products. But the site no longer breaks
-without them.
+## IMPORTANT — depends on your data
+This fills the gap ONLY when age_period actually contains a year for that
+product. If a rug's title has no year AND its age_period is empty or just says
+"Vintage" (no number), the heading correctly stays "Beni Ourain" — there's no
+year anywhere to show. To get the year on those, fill how.age_period in Shopify
+(e.g. "Circa 1980") or add the year to the title.
 
 ## NOTE
-No CSV re-import required. Display/derivation logic only.
+This whole era/heading behaviour is a FALLBACK for the no-given-name state.
+Once you write a given name, it replaces the heading entirely. No re-import needed.

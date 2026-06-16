@@ -264,6 +264,14 @@ function shopifyToRug(p: ShopifyProduct): Rug {
     age_class: ageClass || undefined,
     type_slug: effectiveTypeSlug,
     type_name: effectiveTypeSlug ? typeName(effectiveTypeSlug) : undefined,
+
+    // Story content (Level 2 + 3). Sourced from overlay/metafields; populated in
+    // the dedicated content pass. Empty until then, so the slots stay hidden.
+    poetic_title: mf.poetic_title || o?.poetic_title || undefined,
+    poem: mf.poem || o?.poem || undefined,
+    weavers_tale: mf.weavers_tale || o?.weavers_tale || undefined,
+    essay_title: mf.essay_title || o?.essay_title || undefined,
+    essay_body: mf.essay_body || o?.essay_body || undefined,
   }
 }
 

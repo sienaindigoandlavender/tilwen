@@ -1,17 +1,15 @@
-# Tilwen — footer spacing + nav announcement separation
+# Tilwen — announcement bar inverted + footer taller
 
 ## FILES (replace in repo)
   components/layout/Nav.tsx
   components/layout/Footer.tsx
 
-## 1. FOOTER — column headers (Gallery/About/Information) were cramped on the
-   top line. Added breathing room (footer top padding sp-16 → sp-24) and bumped
-   the header size 0.5625 → 0.625rem for readability.
+## 1. ANNOUNCEMENT BAR — inverted to white text on almost-black background
+   (--black bg, --white text), like Revival's dark top bar. Was dark-on-grey.
+   Height kept 28px so sticky offsets below are untouched.
 
-## 2. NAV — the announcement bar and the navigation row were both grey and blended
-   into one block. Now SEPARATED:
-   - Announcement ("EACH PIECE IS ONE OF A KIND · SHIPS WORLDWIDE...") → almost
-     black (--grey-800), heavier weight, with a clear bottom border. It now reads
-     as a distinct, important line.
-   - The navigation itself (tagline, search, links) stays grey — unchanged.
-   Height kept at 28px so sticky offsets below it are untouched.
+## 2. FOOTER taller — top/bottom padding increased (sp-24→sp-32 top,
+   sp-8→sp-16 bottom; grid bottom sp-12→sp-16). Less cramped.
+
+## 3. COLUMN HEADERS no longer on the line — added padding-top (sp-8) to the
+   footer grid so Gallery/About/Information sit clearly below the top divider.

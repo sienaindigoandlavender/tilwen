@@ -50,6 +50,14 @@ export interface Rug {
   age_class?: 'vintage' | 'contemporary' | 'antique'  // from standalone age tags
   type_slug?: string            // from type: tag, e.g. "beni-ourain"
   type_name?: string            // display name from data/rug-types.ts
+
+  // ── Level 2: poetic story (slow-burn buyer) — renders below product data ──
+  poetic_title?: string
+  poem?: string
+  weavers_tale?: string
+  // ── Level 3: Kinfolk-style essay (deepest layer, also an SEO surface) ──
+  essay_title?: string
+  essay_body?: string           // multi-paragraph; split on blank lines
 }
 
 export interface Region {

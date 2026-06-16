@@ -118,8 +118,20 @@ export default function FAQPage() {
   const [open, setOpen] = useState<string | null>(null)
   const toggle = (key: string) => setOpen(prev => prev === key ? null : key)
 
+  // FAQPage structured data — wins "People Also Ask" / FAQ rich results.
+  const faqLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.flatMap(c => c.questions).map(item => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
       <style>{`
         .faq-page { padding-bottom: var(--sp-32); }
         .faq-header { padding: var(--sp-16) 0 var(--sp-8); border-bottom: var(--border); }

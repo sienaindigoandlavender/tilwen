@@ -6,8 +6,8 @@ export const revalidate = 600
 export const metadata = {
   title: 'Moroccan Berber Rugs — Genuine Handwoven Vintage & One-of-a-Kind',
   description: 'Genuine handwoven Moroccan Berber rugs — vintage Beni Ourain, Boujad, Azilal, and more. Each one knotted by a single weaver, never reproduced. One of a kind.',
-  alternates: { canonical: 'https://tilwen.com/moroccan-rugs' },
-  openGraph: { title: 'Moroccan Berber Rugs', description: 'Genuine handwoven Moroccan Berber rugs — one of a kind, never reproduced.', url: 'https://tilwen.com/moroccan-rugs' },
+  alternates: { canonical: 'https://www.tilwen.com/moroccan-rugs' },
+  openGraph: { title: 'Moroccan Berber Rugs', description: 'Genuine handwoven Moroccan Berber rugs — one of a kind, never reproduced.', url: 'https://www.tilwen.com/moroccan-rugs' },
 }
 
 export default async function GalleryPage() {

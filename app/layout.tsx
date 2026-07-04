@@ -7,7 +7,7 @@ import { organisationJsonLd, websiteJsonLd, DEFAULT_DESCRIPTION } from '@/lib/se
 import { CartProvider } from '@/lib/cart-context'
 
 const GA_ID = 'G-RSJ2F7NVQ3'
-const BASE = 'https://tilwen.com'
+const BASE = 'https://www.tilwen.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE),

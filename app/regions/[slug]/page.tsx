@@ -15,8 +15,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${region.name} — Moroccan Weaving Region`,
     description: `${region.overview.slice(0, 155)}...`,
-    alternates: { canonical: `https://www.tilwen.com/regions/${region.slug}` },
-    openGraph: { title: `${region.name} — Moroccan Weaving Region`, description: region.overview.slice(0, 155), url: `https://www.tilwen.com/regions/${region.slug}` },
+    alternates: { canonical: `https://tilwen.com/regions/${region.slug}` },
+    openGraph: { title: `${region.name} — Moroccan Weaving Region`, description: region.overview.slice(0, 155), url: `https://tilwen.com/regions/${region.slug}` },
   }
 }
 

@@ -16,8 +16,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${type.name} Rugs — Moroccan Amazigh Rug Tradition`,
     description: `${type.short_definition} Origin, technique, palette, buying intelligence, and cultural context.`,
-    alternates: { canonical: `https://www.tilwen.com/traditions/${type.slug}` },
-    openGraph: { title: `${type.name} Rugs`, description: type.short_definition, url: `https://www.tilwen.com/traditions/${type.slug}` },
+    alternates: { canonical: `https://tilwen.com/traditions/${type.slug}` },
+    openGraph: { title: `${type.name} Rugs`, description: type.short_definition, url: `https://tilwen.com/traditions/${type.slug}` },
   }
 }
 
@@ -59,8 +59,8 @@ export default function TraditionPage({ params }: { params: { slug: string } }) 
     ...(type.commercial_warning ? [{ question: `How do I identify an authentic ${type.name} rug?`, answer: type.commercial_warning }] : []),
   ])
   const breadcrumbLd = breadcrumbJsonLd([
-    { name: 'Traditions', url: 'https://www.tilwen.com/traditions' },
-    { name: type.name, url: `https://www.tilwen.com/traditions/${type.slug}` },
+    { name: 'Traditions', url: 'https://tilwen.com/traditions' },
+    { name: type.name, url: `https://tilwen.com/traditions/${type.slug}` },
   ])
 
   return (

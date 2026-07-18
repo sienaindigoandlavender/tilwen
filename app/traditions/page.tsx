@@ -4,8 +4,8 @@ import { rugTypes } from '@/data/rug-types'
 export const metadata = {
   title: 'Rug Traditions — Moroccan & Amazigh Types',
   keywords: ['Azilal rug', 'Beni Ourain rug', 'Zanafi rug', 'Boujad rug', 'Zemmour rug', 'Boucherouitte rug', 'Moroccan rug types', 'Amazigh rug traditions'],
-  alternates: { canonical: 'https://www.tilwen.com/traditions' },
-  openGraph: { title: 'Rug Traditions — Moroccan & Amazigh Types', description: 'The rug traditions of Morocco.', url: 'https://www.tilwen.com/traditions' },
+  alternates: { canonical: 'https://tilwen.com/traditions' },
+  openGraph: { title: 'Rug Traditions — Moroccan & Amazigh Types', description: 'The rug traditions of Morocco.', url: 'https://tilwen.com/traditions' },
 
   description: 'The rug types of Morocco — Azilal, Beni Ourain, Beni M\'Guild, Beni M\'Rirt, Taznakht, Zanafi, Boujad, Zemmour, Boucherouitte.',
 }

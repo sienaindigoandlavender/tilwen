@@ -3,7 +3,7 @@ import Link from 'next/link'
 export const metadata = {
   title: 'About',
   description: 'Before Islam. Before everything that came after and tried to rename it. Tilwen is where those objects are.',
-  alternates: { canonical: 'https://www.tilwen.com/about' },
+  alternates: { canonical: 'https://tilwen.com/about' },
 }
 
 export default function AboutPage() {

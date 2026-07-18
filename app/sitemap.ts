@@ -6,7 +6,7 @@ import { essays } from '@/data/essays'
 import { glossary } from '@/data/glossary'
 import { rugTypes } from '@/data/rug-types'
 
-const BASE = 'https://www.tilwen.com'
+const BASE = 'https://tilwen.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // The rug pages depend on Shopify; the knowledge pages do not. Isolate the

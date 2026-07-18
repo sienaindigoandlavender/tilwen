@@ -1,4 +1,4 @@
-const BASE_URL = 'https://www.tilwen.com'
+const BASE_URL = 'https://tilwen.com'
 const SITE_NAME = 'Tilwen'
 const DEFAULT_DESCRIPTION = 'Before Islam. Before everything that came after and tried to rename it. The lozenge on a High Atlas kilim is a protective mark — placed by a woman who understood that beauty and protection are the same gesture. Tilwen is where those objects are.'
 

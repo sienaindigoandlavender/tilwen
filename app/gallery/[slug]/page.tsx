@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${rug.given_name} — ${rug.cultural_name}`,
     description: `${rug.cultural_name} from the ${rug.region}. ${rug.technique}. One of a kind, fully documented. Available from Tilwen.`,
-    alternates: { canonical: `https://www.tilwen.com/gallery/${rug.slug}` },
-    openGraph: { title: `${rug.given_name} — ${rug.cultural_name}`, description: `${rug.cultural_name} from the ${rug.region}.`, url: `https://www.tilwen.com/gallery/${rug.slug}`, images: rug.images[0] ? [{ url: rug.images[0], alt: `${rug.given_name} — ${rug.cultural_name}` }] : [] },
+    alternates: { canonical: `https://tilwen.com/gallery/${rug.slug}` },
+    openGraph: { title: `${rug.given_name} — ${rug.cultural_name}`, description: `${rug.cultural_name} from the ${rug.region}.`, url: `https://tilwen.com/gallery/${rug.slug}`, images: rug.images[0] ? [{ url: rug.images[0], alt: `${rug.given_name} — ${rug.cultural_name}` }] : [] },
   }
 }
 
@@ -37,8 +37,8 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
 
   const productLd = rugProductJsonLd(rug)
   const breadcrumbLd = breadcrumbJsonLd([
-    { name: 'Gallery', url: 'https://www.tilwen.com/gallery' },
-    { name: `${rug.given_name} — ${rug.cultural_name}`, url: `https://www.tilwen.com/gallery/${rug.slug}` },
+    { name: 'Gallery', url: 'https://tilwen.com/gallery' },
+    { name: `${rug.given_name} — ${rug.cultural_name}`, url: `https://tilwen.com/gallery/${rug.slug}` },
   ])
 
   return (

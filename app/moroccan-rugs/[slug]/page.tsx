@@ -40,7 +40,7 @@ export default async function RugPage({ params }: { params: { slug: string } }) 
 
   const productLd = rugProductJsonLd(rug)
   const breadcrumbLd = breadcrumbJsonLd([
-    { name: 'Gallery', url: 'https://tilwen.com/moroccan-rugs' },
+    { name: 'Moroccan Rugs', url: 'https://tilwen.com/moroccan-rugs' },
     { name: `${rug.given_name} — ${rug.cultural_name}`, url: `https://tilwen.com/moroccan-rugs/${rug.slug}` },
   ])
 

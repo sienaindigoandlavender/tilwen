@@ -25,10 +25,11 @@ export async function getRugTypeImages(): Promise<Record<string, RugTypeImage>> 
       .from('tilwen_rug_types')
       .select('slug, image_url, image_alt')
     if (error || !data) return (cache = {})
-    cache = Object.fromEntries(
+    const map: Record<string, RugTypeImage> = Object.fromEntries(
       data.map((r: any) => [r.slug, { image_url: r.image_url, image_alt: r.image_alt }])
     )
-    return cache
+    cache = map
+    return map
   } catch {
     return (cache = {})
   }

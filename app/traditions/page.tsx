@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { rugTypes } from '@/data/rug-types'
+import { getRugTypeImages } from '@/lib/rug-type-images'
 
 export const metadata = {
   title: 'Rug Traditions — Moroccan & Amazigh Types',
@@ -10,7 +11,8 @@ export const metadata = {
   description: 'The rug types of Morocco — Azilal, Beni Ourain, Beni M\'Guild, Beni M\'Rirt, Taznakht, Zanafi, Boujad, Zemmour, Boucherouitte.',
 }
 
-export default function TraditionsPage() {
+export default async function TraditionsPage() {
+  const images = await getRugTypeImages()
   return (
     <div className="magazine-surface">
       <style>{`
@@ -65,7 +67,17 @@ export default function TraditionsPage() {
           {rugTypes.map((type, i) => (
             <Link key={type.slug} href={`/traditions/${type.slug}`} className="tr-item">
               <div className="tr-item__img">
-                <span className="tr-item__placeholder">{type.name[0]}</span>
+                {images[type.slug]?.image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={images[type.slug].image_url as string}
+                    alt={images[type.slug].image_alt || `${type.name} rug`}
+                    loading="lazy"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  />
+                ) : (
+                  <span className="tr-item__placeholder">{type.name[0]}</span>
+                )}
               </div>
               <div className="tr-item__body">
                 <span className="tr-item__ref">({String(i).padStart(3, '0')})</span>

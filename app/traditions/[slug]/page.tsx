@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { faqJsonLd, breadcrumbJsonLd } from '@/lib/seo'
 import Link from 'next/link'
 import { rugTypes, getRugTypeBySlug } from '@/data/rug-types'
+import { getRugTypeImage } from '@/lib/rug-type-images'
 import { glossary } from '@/data/glossary'
 import { regions } from '@/data/regions'
 import { motifs } from '@/data/motifs'
@@ -21,9 +22,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default function TraditionPage({ params }: { params: { slug: string } }) {
+export default async function TraditionPage({ params }: { params: { slug: string } }) {
   const type = getRugTypeBySlug(params.slug)
   if (!type) notFound()
+
+  // Image comes live from Supabase (dashboard-editable). Falls back to the
+  // existing letter placeholder when no image_url is set yet.
+  const { image_url, image_alt } = await getRugTypeImage(type.slug)
 
   const relatedGlossary = type.glossary_term_slugs
     .map(s => glossary.find(g => g.slug === s))
@@ -69,6 +74,8 @@ export default function TraditionPage({ params }: { params: { slug: string } }) 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
       <style>{`
         .tp { padding-bottom: var(--sp-32); }
+        .tp-hero { margin: var(--sp-8) 0 0; }
+        .tp-hero img { width: 100%; height: auto; display: block; }
         .tp-header { padding: var(--sp-16) 0 var(--sp-8); border-bottom: var(--border); }
         .tp-back { font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--grey-400); border-bottom: 1px solid transparent; transition: all var(--t); }
         .tp-back:hover { color: var(--black); border-bottom-color: var(--black); }
@@ -123,6 +130,20 @@ export default function TraditionPage({ params }: { params: { slug: string } }) 
             <p className="tp-short-def">{type.short_definition}</p>
           </div>
         </div>
+
+        {image_url && (
+          <div className="container">
+            <figure className="tp-hero">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={image_url}
+                alt={image_alt || `${type.name} rug`}
+                loading="eager"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+            </figure>
+          </div>
+        )}
 
         <div className="container">
           {/* Meta */}

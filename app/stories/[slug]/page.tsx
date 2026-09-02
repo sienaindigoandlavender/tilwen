@@ -78,6 +78,22 @@ export default async function StoryPage({ params }: { params: { slug: string } }
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(essayArticleJsonLd({
+          slug: essay.slug, title: essay.title, excerpt: essay.excerpt,
+          published_at: essay.published_at || '', cover_image: essay.cover_image || undefined,
+          body: essay.body, sources: essay.sources || undefined,
+        })) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd([
+          { name: 'Tilwen', url: 'https://tilwen.com' },
+          { name: 'Stories', url: 'https://tilwen.com/stories' },
+          { name: essay.title, url: `https://tilwen.com/stories/${essay.slug}` },
+        ])) }}
+      />
       <style>{`
         .ep { padding-bottom: var(--sp-32); }
 

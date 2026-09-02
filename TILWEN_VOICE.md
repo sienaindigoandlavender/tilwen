@@ -237,3 +237,121 @@ line that's both the joke and the point ("waited longer than he did").
     If the point still stands on the subject alone, it's right. Just the subject,
     Tilwen, and the reader — nobody else in the room, including a version of us that
     knows it all.
+
+16. **A great storyteller with a scholar's conscience. (The umbrella rule.)**
+    Two disciplines at once: the scholar keeps it TRUE (checked facts, real
+    sources, no claim we can't back, no exaggeration), the storyteller keeps it
+    READABLE (plain words, short paragraphs, a scene a normal person falls into).
+    Most writing has one and not the other: scholars are trustworthy and dull;
+    rug sellers are readable and unreliable. We are both. The whole existing rug
+    internet is the seller register — bombastic, exaggerated, "the finest",
+    "timeless", "magical". Getting away from that register IS the brand.
+    Specifically banned as bombast:
+    - Exaggeration and superlatives ("the finest", "unrivalled", "magical").
+    - Reader-nudging drumrolls: "Read that twice", "Let that sink in", "Believe
+      it or not", "Here's the crazy part". Never cue the reader's reaction — state
+      the fact and trust them to feel it. (Same family as rules 14/15: stop nudging
+      the reader's emotions; let the fact do the work.)
+    - Jargon and long winding paragraphs. Short paragraphs. Plain words a normal
+      person reads without stopping.
+
+17. **Pace model: Richard Templar.** The touchstone for rhythm. Templar (The Rules
+    of..., wisdom/money books) delivers one idea per short unit, in plain talk, and
+    the reader gets the insight fast without wading. Apply it:
+    - ONE idea per paragraph. A paragraph delivers a single clear thing, then stops.
+      No paragraph exists only to set up the next one.
+    - The reader should be able to read the first line of each paragraph and follow
+      the spine of the piece.
+    - Respect the reader's clock. No throat-clearing, no padding, no wind-up. Land
+      the thing, breathe, move to the next thing.
+    This is what makes it READABLE (the storyteller half of rule 16) without going
+    shallow — the ideas are real, they're just delivered clean and quick.
+
+18. **True is necessary but not sufficient — it must also be SAFE to say from a
+    Moroccan brand's position. (Never arm Morocco's cultural rivals.)**
+    Some facts are accurate and still must not be published, because from Tilwen's
+    position they hand ammunition to those disputing Moroccan cultural ownership
+    (the caftan and zellige disputes with Algeria are live and bitter). A Moroccan
+    brand does not publish facts that undermine Moroccan cultural claims, even true
+    ones. This is a hard line, same family as "no religion, no politics".
+    Worked example: Le Corbusier's documented North Africa trips (1931, 1933) were
+    to ALGERIA (Ghardaïa / the M'Zab), and his Villa La Roche rugs (1923–25) predate
+    those trips — so "he discovered them in Morocco" is false. BUT we do NOT correct
+    it by saying "his North African inspiration was Algerian" — that arms Algeria
+    against a Moroccan rug brand. We simply never route the story through where he
+    travelled. Tell only the safe, Moroccan half: the rug reached Paris (Atlas →
+    Paris), and exactly HOW it reached him is an honest, unanswerable mystery.
+    General discipline: never state a fact whose natural next question drags the
+    reader somewhere dangerous for Morocco. If "where did that come from?" leads to
+    Algeria/Tunisia/a rival claim, stop — assert only what stays safely Moroccan,
+    and let the rest be an honest shrug ("nobody knows"), never a dangerous answer.
+    Also: Algerian and Tunisian rugs have negligible presence in the Western market;
+    do not imply the celebrated Moroccan rug shares or owes its identity elsewhere.
+
+19. **Forensics is the engine, not the overhead. (Why Tilwen has stories nobody
+    else has.)**
+    The whole rug trade inherits myths and repeats them without checking. Tilwen
+    checks. That forensic pass — verifying who, when, where, against real sources —
+    is not a chore before the writing; it is where the stories come from. Every
+    stress-tested myth falls one of three ways, all useful:
+    - TRUE → tell it with a confidence nobody else has earned, because we actually
+      verified it.
+    - FALSE → that's often the better story, told safely (rule 14: quiet honest
+      correction, never "everyone's lying"). Example: the widely repeated claim
+      that Le Corbusier discovered Moroccan rugs on his travels is false — his rugs
+      date to 1923–25, his North Africa trips to 1931/33, and those trips were to
+      Algeria, reached by direct Marseille–Algiers ferry, never through Morocco.
+      The honest, safe version: the rug reached HIM, in Paris; how it got there is
+      a genuine Moroccan mystery.
+    - DANGEROUS → the trail leads to a rival's claim (rule 18); we stop, and the
+      not-writing is the win.
+    This is the moat. These stories don't exist anywhere else until someone does
+    the checking. Do the checking. It is the product.
+
+20. **The survival of the sign is the story; whatever displaced it stays unnamed.**
+    When a motif or practice outlives the belief that made it, tell the survival —
+    not what replaced it. Never name the religion or regime that came after (rule
+    18: no religion, no politics). "The temples fell and the name went quiet" /
+    "the praying stopped" carries the passage of time and the fading of the old
+    meaning without naming Islam, a conquest, or a state. It's also better writing:
+    the reader feels time pass instead of getting a history lesson, and the sign's
+    endurance stays centre stage.
+
+20b. **Extends rule 20 — never imply the old ways were ended/erased, even without
+     naming what did it.** It is not enough to leave Islam (or any faith/regime)
+     unnamed. Do not imply the CAUSATION either: no "the temples fell", no "the
+     name was policed / went quiet / had to hide", no erased-but-survived arc. That
+     shape smuggles in the exact religious-tension narrative (old belief toppled by
+     what came after) even with no name attached. Tell endurance, not martyrdom:
+     "thousands of years passed, and the sign stayed." The mark is simply old and
+     still here — nobody had to topple or suppress anything for its survival to be
+     moving. This is truer anyway: continuity, not defiance.
+
+21. **Titles especially: no object as subject, no clever-empty word salad.**
+    The object-as-subject error hides most often in TITLES, where "clever" is
+    tempting. A knot cannot lie. A rug cannot read your feet. A loom cannot make
+    anyone do anything. Banned title shapes: "The [object] That [human verb]"
+    ("The Knot That Never Lies", "The Rug That Reads Your Feet") — these sound
+    smart and mean nothing. A title either (a) puts a PERSON in charge ("The
+    Number They Taught You to Worship", "How to Read a Knot"), or (b) states the
+    plain thing with no personification ("The Path Worn Into It"). One allowed
+    exception, used with care: treating the rug as "she" — because the rug
+    genuinely was a woman's (her work, her household), so "she" is a warm, true
+    relationship, not empty personification ("Why Your Rug Is a She", not "Why
+    Your Rug Is a Woman" — the second is a caption, the first is a bond).
+
+22. **Two jobs, one register: educate + rank. Readable IS the SEO.**
+    Stories do double duty. History/myth pieces (the origin, the Frenchman, Tanit,
+    the diamond, Klee) are the PULL — shareable, brand-building, armchair-traveler
+    bait, backlinks. Practical pieces ("How to Read a Knot", spotting fakes, care,
+    what a size means) are the CATCH — they rank for high-intent buyer searches the
+    whole rug internet answers badly. Both need the same thing: easy to read, never
+    boring. This is not in tension with SEO — it IS the SEO. Google rewards pages
+    people actually read to the end; the boring-scholar and bombastic-seller
+    registers both get bounced, the Templar-paced honest one gets finished, and
+    dwell time is a ranking signal. So readable wins twice.
+    Light SEO discipline on PRACTICAL stories only (never keyword-stuff — that's the
+    seller register we reject): make sure the honest answer naturally CONTAINS the
+    words a real person types ("what does knot count mean", "is a higher knot count
+    better", "how to tell if a Moroccan rug is real"). The scholar's honest sentence
+    and the searcher's question can be the same sentence.

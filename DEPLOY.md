@@ -1,26 +1,38 @@
-# Tilwen — religion & politics removed (site-wide)
+# Tilwen — TOAST structure, implemented in the codebase
 
-No religion, no politics anywhere. Cut across 6 files.
+The contemporary redesign, ported from the prototype into the real repo. Five files.
+Image slots are placeholder grounds — tomorrow's MidJourney work drops straight in.
 
-## Cut
-- lib/seo.ts        Site-wide DEFAULT_DESCRIPTION was "Before Islam..." → now a
-                    plain factual description. (This fed EVERY page's meta.)
-- app/about         Metadata + body "without the incense"→"plainly"; Tanit aside
-                    reframed from "goddess" to "an old North African sign" (logo kept).
-- app/page.tsx      Homepage hero "Before Islam..." → plain description of the rugs.
-- data/rug-types    Zayan: removed "resisted French control until 1921 / keeping its
-                    own terms against pressure" (both short_def and body).
-- data/motifs       Stepped-cross: removed "pre-Islamic", "well before Islam",
-                    "sacred space".
-- data/glossary     amazigh/berber: kept factual etymology + official-language fact,
-                    cut "suppression/incorporation" and "cultural politics" lines.
-                    tanit/elibende: reframed from goddess/deity/divine → old
-                    protective SIGN/figure. "colonial vocabulary" → "European usage".
-
-## Tanit (your call: option a)
-Logomark kept. Copy no longer calls her a goddess/deity — described as an old
-North African protective sign that persists in Amazigh textile, jewellery, tattoo.
+## Files
+- app/globals.css            NEW tokens: --paper, --paper2, --ink, --ink2, --hair,
+                             --oxblood. Old vars kept so nothing else breaks. The
+                             terracotta accent is retired from the chrome.
+- app/layout.tsx             Removed the 84px top padding (old nav was fixed; the
+                             new nav is in-flow, so that padding was a dead gap).
+- components/layout/Nav.tsx  TOAST nav: thin utility bar + sticky bar with a Rugs
+                             MEGA-MENU (Browse / By tradition / two image tiles).
+                             Cart, search, and mobile menu all preserved and wired.
+- app/page.tsx               Homepage rebuilt to TOAST blocks: full-bleed hero →
+                             feature tiles (2 + 3, mixed sizes) → mission band →
+                             stories row (live from Supabase). Modular: delete a
+                             <section> to remove a block.
+- components/layout/Footer.tsx  Fat TOAST footer: 4 columns + newsletter signup
+                             (posts to your existing /api/subscribe).
 
 ## Deploy
-Text/data only. If glossary/motifs/rug-types are in Supabase, re-seed those rows;
-if still in the file, just deploy. No SQL schema change.
+Just deploy — no SQL, no new deps, no route changes. Everything that worked
+(cart, search, subscribe) still works.
+
+## Deliberate changes to react to (not bugs)
+- The header wordmark is now type ("Tilwen" in the display serif), TOAST-style.
+  The Tanit logomark is no longer in the nav bar. If you want it back beside the
+  wordmark, say so — one line.
+- Nav now surfaces Traditions/Regions/Stories/About directly (TOAST-style),
+  which changes the old "sell gate only" nav model on purpose.
+- Feature-tile links point at regions/traditions/new — adjust targets freely.
+
+## Tomorrow (MidJourney)
+Every tile and the hero use a placeholder gradient. Replace each with a real
+image: hero background, the region tile, the tradition tiles, story covers
+(story covers already read cover_image from Supabase — fill those rows and they
+appear automatically).

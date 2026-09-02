@@ -71,9 +71,9 @@ export default async function HomePage() {
         {/* hero */}
         <header className="hp-hero">
           <div className="hp-hero__cap">
-            <span className="hp-hero__k">The autumn arrivals</span>
-            <h1 className="hp-hero__h">Rugs that have already lived a life.</h1>
-            <p className="hp-hero__p">Vintage Amazigh pieces from the Atlas and the south — each one described for exactly what it is.</p>
+            <span className="hp-hero__k">Vintage Amazigh rugs from Morocco</span>
+            <h1 className="hp-hero__h">Handwoven in the Atlas Mountains.</h1>
+            <p className="hp-hero__p">From the mountains and the south — the wool, the dye, and the hand of the loom.</p>
           </div>
         </header>
 

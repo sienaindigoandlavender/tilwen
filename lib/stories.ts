@@ -15,6 +15,7 @@ export type Story = {
   cover_image: string | null
   image_alt: string | null
   published_at: string | null
+  sources: string | null
 }
 
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -36,6 +37,7 @@ function normalise(r: any): Story {
     cover_image: r.cover_image ?? null,
     image_alt: r.image_alt ?? null,
     published_at: r.published_at ?? null,
+    sources: r.sources ?? null,
   }
 }
 

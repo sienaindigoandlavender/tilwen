@@ -86,17 +86,32 @@ export function rugProductJsonLd(rug: {
 
 export function essayArticleJsonLd(essay: {
   slug: string; title: string; excerpt: string; published_at: string; cover_image?: string
+  body?: string; sources?: string
 }) {
+  // Turn the story's Sources block into schema.org citations. This is Tilwen's
+  // GEO moat: real, named citations (museums, scholars) that signal authority to
+  // both Google and AI crawlers — most rug sites have nothing to cite.
+  const citations = (essay.sources || '')
+    .split('\n')
+    .map(l => l.replace(/^\*\*Sources\*\*/i, '').trim())
+    .filter(l => l.length > 8 && !/^\*\*/.test(l))
+    .map(text => ({ '@type': 'CreativeWork', description: text }))
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: essay.title,
     description: essay.excerpt,
     url: `${BASE_URL}/stories/${essay.slug}`,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${BASE_URL}/stories/${essay.slug}` },
+    author: { '@type': 'Organization', name: 'Tilwen', url: BASE_URL },
     publisher: { '@type': 'Organization', name: 'Tilwen', url: BASE_URL },
     datePublished: essay.published_at,
+    dateModified: essay.published_at,
     image: essay.cover_image,
     articleSection: 'Moroccan & Amazigh Material Culture',
+    ...(essay.body ? { articleBody: essay.body } : {}),
+    ...(citations.length ? { citation: citations } : {}),
     inLanguage: 'en',
   }
 }

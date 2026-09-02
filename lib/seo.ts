@@ -92,7 +92,7 @@ export function essayArticleJsonLd(essay: {
     '@type': 'Article',
     headline: essay.title,
     description: essay.excerpt,
-    url: `${BASE_URL}/journal/${essay.slug}`,
+    url: `${BASE_URL}/stories/${essay.slug}`,
     publisher: { '@type': 'Organization', name: 'Tilwen', url: BASE_URL },
     datePublished: essay.published_at,
     image: essay.cover_image,

@@ -1,40 +1,44 @@
 import type { Region } from '@/types'
 
+// Voice: plain, warm, full sentences. Geography as the honest explanation for
+// how a rug looks — altitude, isolation, trade, dye plants — not mysticism.
+// Value-as-concept allowed where it teaches; no prices. No personification.
+
 export const regions: Region[] = [
   {
     slug: 'high-atlas',
     name: 'High Atlas',
-    overview: 'The High Atlas mountains span central Morocco. The altitude, isolation, and seasonal extremes shaped a visual language that is geometric, precise, and spare.',
-    visual_grammar: 'Compositions favour dense allover fields with interlocking diamond and lozenge grids. The palette tends toward undyed ivory and warm ochres, with indigo accents used sparingly. Borders are active rather than passive — they contain the field rather than merely frame it. Asymmetries are deliberate, not accidental.',
-    technique_traditions: 'Primarily flatweave kilim and pile-knotted work. Wool is hand-spun from local flocks; natural dyes predominate in older pieces. The weaving is structural and precise, reflecting the discipline of a tradition passed through generations with minimal variation.',
+    overview: 'The high mountains across central Morocco. Cold, remote, and cut off for much of the year — and the weaving that came out of that isolation is tight, geometric, and disciplined.',
+    visual_grammar: 'The High Atlas favours dense allover fields: interlocking diamonds and lozenge grids that cover the whole surface. The palette leans on undyed ivory and warm ochre, with indigo used sparingly as an accent. Borders do real work here, holding the field in rather than just framing it. Where a composition breaks its own symmetry, the break is deliberate.',
+    technique_traditions: 'Mostly flatweave kilim and pile-knotted work. The wool is hand-spun from local flocks, and older pieces are natural-dyed. The weaving is precise and structural — a tradition passed down with little drift, and it shows in the control.',
   },
   {
     slug: 'haouz-plain',
     name: 'Haouz Plain',
-    overview: 'The agricultural plain surrounding Marrakech. Proximity to the city brought new materials and influences without fully dissolving the local visual grammar.',
-    visual_grammar: 'Softer and more curvilinear than the Atlas traditions. Warmer palette. More use of vegetable dyes including saffron, henna, and pomegranate. Brocaded and mixed-technique pieces are common. The influence of urban Marrakech is visible in some later pieces without dominating them.',
-    technique_traditions: 'Mixed techniques are the norm: flatweave foundations with pile or brocaded supplementary weft. The Haouz plain produced some of the most technically complex domestic textiles in the region.',
+    overview: 'The farmland around Marrakech. Being close to the city brought new materials and ideas within reach without erasing the local hand, so the weaving here sits between country and town.',
+    visual_grammar: 'Softer and more curved than the mountain traditions, and warmer in colour. More vegetable dye — saffron, henna, pomegranate. Brocaded and mixed-technique pieces are common. You can see Marrakech leaking into some later pieces, but it rarely takes them over.',
+    technique_traditions: 'Mixed techniques are normal: a flatweave foundation carrying pile or brocaded supplementary weft. Some of the most technically complex domestic textiles in Morocco were made on this plain, and that complexity is part of what a good Haouz piece is worth.',
   },
   {
     slug: 'anti-atlas',
     name: 'Anti-Atlas',
-    overview: 'The arid, mineral-toned Anti-Atlas range running southwest toward the Sahara. Minimal palette, structural compositions, economy of means.',
-    visual_grammar: 'Austere. Stripes and geometric registers with wide negative space. Undyed wool dominates. When colour appears, it is deliberate — a single accent in a composition that is otherwise completely neutral. The restraint is not poverty of means; it is a formal choice.',
-    technique_traditions: 'Predominantly flatweave. Warp-faced techniques are common. The austerity of the material reflects the environment, and the best pieces have the quality of objects that could not have been made anywhere else.',
+    overview: 'The dry, mineral-coloured range that runs southwest toward the Sahara. Little water, few dye plants, and a weaving tradition that turned that scarcity into a style: spare, structural, economical.',
+    visual_grammar: 'Austere, and on purpose. Stripes and geometric bands with wide open space between them. Undyed wool dominates, and when a colour appears it is a single deliberate accent in an otherwise neutral field. The restraint is a choice, not a lack of means — and it is what makes the best Anti-Atlas pieces hard to mistake for anywhere else.',
+    technique_traditions: 'Mostly flatweave, with warp-faced techniques common. The plainness of the materials follows the environment: the land is spare, and the weaving is spare with it.',
   },
   {
     slug: 'middle-atlas',
     name: 'Middle Atlas',
-    overview: 'Beni Ourain country. The source of the ivory pile-knotted rugs that became one of the most recognised Moroccan textile types in the twentieth century. The reality of the tradition is considerably more varied than its global reputation.',
-    visual_grammar: 'The iconic Beni Ourain rug — ivory ground, sparse dark geometric pattern, deep pile — is one register of Middle Atlas weaving, not the whole of it. The region also produced dense pile pieces with polychrome compositions, flatweaves, and transitional pieces that sit between the two.',
-    technique_traditions: 'Deep-pile knotted work is the signature technique. Wool quality here is exceptional — the altitude and cold produce a dense, long-staple fleece that gives the pile its particular softness. Natural undyed ivory is the dominant ground.',
+    overview: 'Beni Ourain country — the source of the ivory, deep-pile rugs that became one of the most recognised Moroccan textiles of the last century. The tradition on the ground is far more varied than that one famous look suggests.',
+    visual_grammar: 'The ivory Beni Ourain rug — pale ground, sparse dark geometry, deep pile — is one register of Middle Atlas weaving, not all of it. The same region made dense polychrome pile pieces, flatweaves, and rugs that sit somewhere between the two. Reading past the reputation is how you understand what you are actually looking at.',
+    technique_traditions: 'Deep-pile knotting is the signature. The wool is exceptional — the altitude and cold grow a dense, long-staple fleece, and that fleece is where the softness comes from. Undyed ivory is the usual ground, the colour of the wool itself.',
   },
   {
     slug: 'saharan',
     name: 'Saharan',
-    overview: 'The pre-Saharan and Saharan south. Textiles shaped by nomadic life, trans-Saharan trade routes, and the visual cultures of communities who moved through the desert margins.',
-    visual_grammar: 'Geometric, highly structured, and often deeply symbolic. The palette draws on the mineral colours of the landscape: rust, ochre, deep indigo, charcoal. Compositions are frequently directional — designed to be read from one end, not as an allover field.',
-    technique_traditions: 'Flatweave is dominant. Many pieces were functional objects — tent dividers, saddle bags, floor coverings — and the construction reflects that: durable, reversible, built to travel.',
+    overview: 'The pre-Saharan and Saharan south. The weaving here was shaped by moving — nomadic life, the old trans-Saharan trade routes, and the cultures that crossed the desert margins.',
+    visual_grammar: 'Geometric and highly structured. The palette comes straight off the landscape: rust, ochre, deep indigo, charcoal. Many pieces are directional, built to be read from one end rather than as an allover field, which usually tells you they had a specific use and place.',
+    technique_traditions: 'Flatweave dominates. A lot of what survives was functional — tent dividers, saddlebags, floor coverings — and it was built to match: durable, reversible, made to be packed up and carried.',
   },
 ]
 

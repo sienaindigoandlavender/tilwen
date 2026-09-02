@@ -31,7 +31,7 @@ export const regions: Region[] = [
     name: 'Middle Atlas',
     overview: 'Beni Ourain country — the source of the ivory, deep-pile rugs that became one of the most recognised Moroccan textiles of the last century. The tradition on the ground is far more varied than that one famous look suggests.',
     visual_grammar: 'The ivory Beni Ourain rug — pale ground, sparse dark geometry, deep pile — is one register of Middle Atlas weaving, not all of it. The same region made dense polychrome pile pieces, flatweaves, and rugs that sit somewhere between the two. Reading past the reputation is how you understand what you are actually looking at.',
-    technique_traditions: 'Deep-pile knotting is the signature. The wool is exceptional — the altitude and cold grow a dense, long-staple fleece, and that fleece is where the softness comes from. Undyed ivory is the usual ground, the colour of the wool itself.',
+    technique_traditions: 'Deep-pile knotting is the signature. The altitude and cold grow a dense, long-staple fleece, and that fleece is where the softness comes from. Undyed ivory is the usual ground, the colour of the wool itself.',
   },
   {
     slug: 'saharan',

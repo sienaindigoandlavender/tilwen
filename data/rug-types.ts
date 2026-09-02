@@ -61,7 +61,7 @@ The pattern is dense and closely ordered, and it takes a while to read — you h
   {
     slug: 'beni-mrirt',
     name: "Beni M'Rirt",
-    short_definition: "The weavers of M'Rirt, in Khenifra province, make some of the finest pile rugs in the Middle Atlas — dense fields of orange, terracotta, and ivory.",
+    short_definition: "The weavers of M'Rirt, in Khenifra province, make dense, finely knotted pile rugs — fields of orange, terracotta, and ivory.",
     origin: "M'Rirt, Khenifra province, Middle Atlas, Morocco",
     technique: 'Pile-knotted; deep pile on wool warp and weft',
     palette: 'Deep orange, warm terracotta, and ivory; also red, brown, and cream in older natural-dye pieces',
@@ -117,11 +117,11 @@ Boujad is less known abroad than Azilal or Beni Ourain, so it is copied less, an
   {
     slug: 'zemmour',
     name: 'Zemmour',
-    short_definition: 'The women of the Zemmour, an Amazigh (Berber) confederation near Khemisset, weave dense, madder-red rugs of exceptional geometric precision — and the sequinned handira wedding blanket comes from here.',
+    short_definition: 'The women of the Zemmour, an Amazigh (Berber) confederation near Khemisset, weave dense, madder-red rugs of tight geometric precision — and the sequinned handira wedding blanket comes from here.',
     origin: 'Zemmour confederation, Khemisset and Tiflet, Middle Atlas plateau, Morocco',
     technique: 'Pile-knotted and flatweave; the handira (wedding blanket) tradition is central',
     palette: 'Deep madder red over ivory and dark brown, with occasional indigo',
-    description: `The Zemmour are an Amazigh (Berber) confederation whose land spreads across the Khemisset and Tiflet areas north of Rabat. Their weaving is held to be among the finest in Morocco: dense, complex, and worked with a precision that takes real skill, all anchored by the deep red that has become the mark of Zemmour work.
+    description: `The Zemmour are an Amazigh (Berber) confederation whose land spreads across the Khemisset and Tiflet areas north of Rabat. Their weaving is dense and complex, worked at a fineness that takes real skill, all anchored by the deep red that has become the mark of Zemmour work.
 
 The compositions run edge to edge — interlocking lozenges, diamond grids, stepped forms and elaborate borders — worked fine enough to hold detail without losing the punch of that red. The pleasure of a Zemmour is watching strict geometry come out warm.
 

@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { getAllRugsSafe } from '@/lib/rug-source'
 import { motifs } from '@/data/motifs'
 import { regions } from '@/data/regions'
-import { essays } from '@/data/essays'
+import { getStories } from '@/lib/stories'
 import { glossary } from '@/data/glossary'
 import { rugTypes } from '@/data/rug-types'
 
@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/motifs`,        lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/regions`,       lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/traditions`,    lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/journal`,       lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/stories`,       lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/glossary`,      lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/about`,         lastModified: now, changeFrequency: 'yearly',  priority: 0.6 },
     { url: `${BASE}/inquire`,       lastModified: now, changeFrequency: 'yearly',  priority: 0.6 },
@@ -60,8 +60,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.75,
   }))
 
-  const essayPages = essays.map(e => ({
-    url: `${BASE}/journal/${e.slug}`,
+  const stories = await getStories()
+  const essayPages = stories.map(e => ({
+    url: `${BASE}/stories/${e.slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.7,

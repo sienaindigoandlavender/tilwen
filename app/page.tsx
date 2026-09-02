@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getAllRugsSafe } from '@/lib/rug-source'
-import { essays } from '@/data/essays'
+import { getStories } from '@/lib/stories'
 import { motifs } from '@/data/motifs'
 import dynamic from 'next/dynamic'
 import RugCardHover from '@/components/gallery/RugCardHover'
@@ -13,7 +13,8 @@ export const revalidate = 600
 export default async function HomePage() {
   const rugs = await getAllRugsSafe()
   const featured = rugs.filter(r => r.availability_status !== 'sold').slice(0, 4)
-  const featuredEssay = essays[0]
+  const stories = await getStories()
+  const featuredEssay = stories[0]
   const featuredMotifs = motifs.slice(0, 3)
 
   return (
@@ -250,7 +251,7 @@ export default async function HomePage() {
               <div className="hp-threshold__links">
                 <Link href="/moroccan-rugs" className="hp-threshold__link">Enter the gallery</Link>
                 <Link href="/motifs" className="hp-threshold__link">Read the symbols</Link>
-                <Link href="/journal" className="hp-threshold__link">Sit by the fire</Link>
+                <Link href="/stories" className="hp-threshold__link">Sit by the fire</Link>
               </div>
             </div>
           </div>
@@ -279,11 +280,11 @@ export default async function HomePage() {
       {featuredEssay && (
         <div className="hp-essay">
           <div className="container">
-            <Link href={`/journal/${featuredEssay.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
+            <Link href={`/stories/${featuredEssay.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
               <div className="hp-essay__inner">
                 <div className="hp-essay__content">
                   <div>
-                    <span className="hp-essay__label">From the Journal</span>
+                    <span className="hp-essay__label">From the Stories</span>
                     <h2 className="hp-essay__title">{featuredEssay.title}</h2>
                     <p className="hp-essay__excerpt">{featuredEssay.excerpt}</p>
                   </div>
@@ -347,8 +348,8 @@ export default async function HomePage() {
                 <span className="hp-close__link-name">The glossary</span>
                 <span className="hp-close__link-desc">Every term, defined honestly</span>
               </Link>
-              <Link href="/journal" className="hp-close__link">
-                <span className="hp-close__link-name">The journal</span>
+              <Link href="/stories" className="hp-close__link">
+                <span className="hp-close__link-name">Stories</span>
                 <span className="hp-close__link-desc">Essays that don't flatter</span>
               </Link>
             </div>

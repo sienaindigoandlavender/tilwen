@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { motifs, getMotifBySlug } from '@/data/motifs'
 import { rugs } from '@/data/rugs'
 import { glossary } from '@/data/glossary'
-import { essays } from '@/data/essays'
+import { getStories } from '@/lib/stories'
 import { rugTypes } from '@/data/rug-types'
 import { regions } from '@/data/regions'
 import RugCard from '@/components/gallery/RugCard'
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default function MotifPage({ params }: { params: { slug: string } }) {
+export default async function MotifPage({ params }: { params: { slug: string } }) {
   const motif = getMotifBySlug(params.slug)
   if (!motif) notFound()
 
@@ -42,7 +42,8 @@ export default function MotifPage({ params }: { params: { slug: string } }) {
   ).slice(0, 4)
 
   // Essays referencing this motif
-  const relatedEssays = essays.filter(e => e.motif_slugs.includes(motif.slug))
+  const stories = await getStories()
+  const relatedEssays = stories.filter(e => e.motif_slugs.includes(motif.slug))
 
   // Regions where this motif appears (from rugs that carry it)
   const regionSlugs = Array.from(new Set(motifRugs.map(r => r.region_slug)))
@@ -435,7 +436,7 @@ export default function MotifPage({ params }: { params: { slug: string } }) {
                 <div className="mp-sidebar-block">
                   <span className="mp-sidebar-label">Essays</span>
                   {relatedEssays.map(e => (
-                    <Link key={e.slug} href={`/journal/${e.slug}`} className="mp-link-item">
+                    <Link key={e.slug} href={`/stories/${e.slug}`} className="mp-link-item">
                       <span className="mp-link-name">{e.title}</span>
                       <span className="mp-link-type">Essay</span>
                     </Link>

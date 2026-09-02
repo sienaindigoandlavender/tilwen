@@ -1,6 +1,6 @@
 const BASE_URL = 'https://tilwen.com'
 const SITE_NAME = 'Tilwen'
-const DEFAULT_DESCRIPTION = 'Before Islam. Before everything that came after and tried to rename it. The lozenge on a High Atlas kilim is a protective mark — placed by a woman who understood that beauty and protection are the same gesture. Tilwen is where those objects are.'
+const DEFAULT_DESCRIPTION = 'Handwoven vintage Amazigh (Berber) rugs from Morocco, documented honestly — what each piece is, where it is from, and how to read it.'
 
 export function canonical(path: string) {
   return `${BASE_URL}${path}`

@@ -246,7 +246,7 @@ export default async function HomePage() {
             </h1>
             <div className="hp-threshold__right">
               <p className="hp-threshold__text">
-                Before Islam. Before everything that came after and tried to rename it. The lozenge on a High Atlas kilim is a protective mark, placed by a woman who understood that beauty and protection are the same gesture.
+                Handwoven wool rugs made by Amazigh women across Morocco, documented for what they actually are — the wool, the dye, the region, and how to read the pattern.
               </p>
               <div className="hp-threshold__links">
                 <Link href="/moroccan-rugs" className="hp-threshold__link">Enter the gallery</Link>

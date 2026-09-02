@@ -243,7 +243,7 @@ export default function Nav() {
           <Link href="/traditions" className="nav__mobile-link">Traditions</Link>
           <Link href="/regions" className="nav__mobile-link">Regions</Link>
           <Link href="/motifs" className="nav__mobile-link">Motifs</Link>
-          <Link href="/journal" className="nav__mobile-link">Journal</Link>
+          <Link href="/stories" className="nav__mobile-link">Stories</Link>
           <Link href="/about" className="nav__mobile-link">About</Link>
         </div>
       )}

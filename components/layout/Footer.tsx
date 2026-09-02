@@ -188,7 +188,7 @@ export default function Footer() {
                 <Link href="/traditions" className="footer__link">Traditions</Link>
                 <Link href="/motifs" className="footer__link">Motifs</Link>
                 <Link href="/regions" className="footer__link">Regions</Link>
-                <Link href="/journal" className="footer__link">Journal</Link>
+                <Link href="/stories" className="footer__link">Stories</Link>
               </div>
             </div>
 

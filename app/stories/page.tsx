@@ -119,6 +119,7 @@ export default async function StoriesPage() {
           display: block;
           margin-bottom: 0.15rem;
         }
+        .jl-item__excerpt { display:block; font-family:var(--font-body); font-size:0.9rem; color:var(--ink); opacity:.8; margin-top:4px; line-height:1.45; }
         .jl-item__title {
           font-family: var(--font-ui);
           font-size: 0.6875rem;
@@ -218,6 +219,7 @@ export default async function StoriesPage() {
                   <div className="jl-item__body">
                     <span className="jl-item__ref">{code}</span>
                     <span className="jl-item__title">{essay.title}</span>
+                    <span className="jl-item__excerpt">{essay.excerpt}</span>
                     <div className="jl-item__tags">
                       {essay.theme_tags.slice(0, 2).map(t => (
                         <span key={t} className="jl-item__tag">{t}</span>

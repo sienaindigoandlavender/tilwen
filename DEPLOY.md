@@ -1,38 +1,42 @@
-# Tilwen — TOAST structure, implemented in the codebase
+# Tilwen — SEO + GEO fix for the Stories layer
 
-The contemporary redesign, ported from the prototype into the real repo. Five files.
-Image slots are placeholder grounds — tomorrow's MidJourney work drops straight in.
+The stories index and rank on strong content already. This closes one live bug
+and adds the AI-citation (GEO) layer Tilwen was missing (ksour/darija have it).
+
+## The bug (fixed)
+Article JSON-LD was imported into the stories page but never rendered — so no
+rich results. Now both Article and Breadcrumb JSON-LD are injected server-side.
 
 ## Files
-- app/globals.css            NEW tokens: --paper, --paper2, --ink, --ink2, --hair,
-                             --oxblood. Old vars kept so nothing else breaks. The
-                             terracotta accent is retired from the chrome.
-- app/layout.tsx             Removed the 84px top padding (old nav was fixed; the
-                             new nav is in-flow, so that padding was a dead gap).
-- components/layout/Nav.tsx  TOAST nav: thin utility bar + sticky bar with a Rugs
-                             MEGA-MENU (Browse / By tradition / two image tiles).
-                             Cart, search, and mobile menu all preserved and wired.
-- app/page.tsx               Homepage rebuilt to TOAST blocks: full-bleed hero →
-                             feature tiles (2 + 3, mixed sizes) → mission band →
-                             stories row (live from Supabase). Modular: delete a
-                             <section> to remove a block.
-- components/layout/Footer.tsx  Fat TOAST footer: 4 columns + newsletter signup
-                             (posts to your existing /api/subscribe).
+- lib/seo.ts                     Article JSON-LD upgraded: now carries the full
+                                 articleBody AND the story's Sources as schema.org
+                                 `citation` — Tilwen's authority moat (real, named
+                                 sources; most rug sites have none). Added author,
+                                 mainEntityOfPage, dateModified.
+- lib/stories.ts                 `sources` added to the Story type + Supabase read.
+- app/stories/[slug]/page.tsx    Injects Article + Breadcrumb JSON-LD (fed body +
+                                 sources).
+- app/stories/page.tsx           Listing now shows each story's excerpt under its
+                                 title (internal-link context for crawlers + humans).
+- app/llms.txt/route.ts          NEW. Concise AI-facing site map: what Tilwen is +
+                                 a linked index of all stories + reference pages.
+- app/llms-full.txt/route.ts     NEW. Full text of every story WITH its sources,
+                                 for direct AI citation.
+
+## Why GEO matters here
+robots.txt already welcomes GPTBot / ClaudeBot / PerplexityBot / OAI-SearchBot.
+The stories are forensically sourced and answer exact questions — ideal for an
+LLM to cite. llms.txt / llms-full.txt hand crawlers that content on a plate
+instead of making them reconstruct it from HTML.
 
 ## Deploy
-Just deploy — no SQL, no new deps, no route changes. Everything that worked
-(cart, search, subscribe) still works.
+Just deploy — no SQL (the `sources` column already exists from the stories drop).
+No new deps. After deploy, verify:
+  - /llms.txt and /llms-full.txt return plain text listing the stories
+  - view-source on any /stories/[slug] shows two <script type="application/ld+json">
+    blocks, the Article one containing articleBody + citation
+  - test a story URL in Google's Rich Results Test
 
-## Deliberate changes to react to (not bugs)
-- The header wordmark is now type ("Tilwen" in the display serif), TOAST-style.
-  The Tanit logomark is no longer in the nav bar. If you want it back beside the
-  wordmark, say so — one line.
-- Nav now surfaces Traditions/Regions/Stories/About directly (TOAST-style),
-  which changes the old "sell gate only" nav model on purpose.
-- Feature-tile links point at regions/traditions/new — adjust targets freely.
-
-## Tomorrow (MidJourney)
-Every tile and the hero use a placeholder gradient. Replace each with a real
-image: hero background, the region tile, the tradition tiles, story covers
-(story covers already read cover_image from Supabase — fill those rows and they
-appear automatically).
+## Depends on
+The 20 stories being seeded (run the stories package first). llms-full.txt is
+only as full as the rows in tilwen_stories.

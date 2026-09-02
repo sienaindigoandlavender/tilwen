@@ -2,6 +2,16 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
+      "source": "/journal/:slug",
+      "destination": "/stories/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/journal",
+      "destination": "/stories",
+      "permanent": true
+    },
+    {
       "source": "/gallery",
       "destination": "/moroccan-rugs",
       "permanent": true

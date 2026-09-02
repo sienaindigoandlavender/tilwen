@@ -92,3 +92,41 @@ The fact is more authoritative than the adjective. Always.
 Speak like the house that owns the harvest: describe the subject with plain
 authority, claim nothing about yourself, promise nothing a buyer could disprove,
 and never, ever play small.
+
+---
+
+## Story writing (the /stories voice)
+
+Stories are not the reference pages. They are young, light, quick, funny where a
+laugh is earned. The reader learns while having fun. Joy is the differentiator —
+every other rug shop writes the same solemn artisan-hush; we don't.
+
+Hard rules, learned the hard way:
+
+1. **In medias res. No preamble.** Open inside the action, word one. The reader is
+   already kneeling next to the weaver, already standing in front of the rug. Never
+   step to the front of the room to explain the topic first. If the first sentence
+   sets up the story instead of *being* the story, cut it.
+   - LECTURE (banned): "You want the deep red, you wait three years. That's the deal with madder."
+   - SCENE (correct): "She's got a knife in her hand and she's not cutting the plant. She's digging past it, down to the root, counting years while she does it."
+
+2. **Only humans and animals are subjects.** A plant does not "die back", "sulk",
+   "get fussy", or "wait". The WEAVER waits, digs, soaks. Personifying objects or
+   plants is the mysticism reflex in a comic costume — it is banned even when it's
+   trying to be funny.
+
+3. **Show, don't teach.** The teaching arrives *while* the reader is in the scene
+   (she learns the alum trick because the weaver is doing it; she learns the fade
+   tell because the rug is in front of her). Never "here's how X works".
+
+4. **Watch the em dashes.** Two per story is plenty. Use full stops.
+
+5. **No clever-empty titles.** "Madder Doesn't Do Instant" is AI-clever and hollow.
+   Title states something real: "The Three-Year Red".
+
+6. **Every story is a different joke.** The only constant is no pomposity, no
+   Wikipedia voice, no myth. Vary the humour, the angle, the shape.
+
+Reference sample (the voice, correct): see "The Three-Year Red" —
+scene-first, human subjects, the fade-tell taught inside the scene, a closing
+line that's both the joke and the point ("waited longer than he did").

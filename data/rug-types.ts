@@ -135,11 +135,11 @@ The red is the signature. In old pieces it is madder root, and well-kept madder 
   {
     slug: 'zayan',
     name: 'Zayan',
-    short_definition: 'The women of the Zayan, an Amazigh (Berber) confederation near Khenifra, weave bold rugs in warm ochre and deep red — from a people who held out against the French until 1921.',
+    short_definition: 'The women of the Zayan, an Amazigh (Berber) confederation near Khenifra, weave bold rugs in warm ochre and deep red.',
     origin: 'Zayan confederation, western Middle Atlas, Khenifra region, Morocco',
     technique: 'Pile-knotted; medium to high pile on wool foundation',
     palette: 'Warm ochre, deep red, dark brown-black, and ivory',
-    description: `The Zayan hold the western Middle Atlas around Khenifra — the same mountains as the Beni M'Guild and Zemmour, but their own people with their own history. They were among the last Amazigh (Berber) communities to resist French control, holding out until 1921 under Moha ou Hammou Zayani. That is not background colour. These rugs were woven by a community keeping its own terms against steady pressure, and the work has that self-possession in it.
+    description: `The Zayan hold the western Middle Atlas around Khenifra — the same mountains as the Beni M'Guild and Zemmour, but their own people with their own weaving. Their rugs have a plain-spoken confidence: large forms, few of them, set down without fuss.
 
 The compositions are large and direct — lozenges, stepped diamonds, chevrons — in warm ochre, deep madder red, and dark wool over ivory. Less crowded than a Zemmour, less varied than a Beni M'Guild, a Zayan gets its authority from confidence rather than elaboration.
 

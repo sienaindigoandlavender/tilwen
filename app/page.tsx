@@ -1,360 +1,133 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { getAllRugsSafe } from '@/lib/rug-source'
+import { regions } from '@/data/regions'
 import { getStories } from '@/lib/stories'
-import { motifs } from '@/data/motifs'
-import dynamic from 'next/dynamic'
-import RugCardHover from '@/components/gallery/RugCardHover'
 
-const RegionsMap = dynamic(() => import('@/components/gallery/RegionsMap'), { ssr: false })
+export const metadata = {
+  title: 'Tilwen — Vintage Amazigh rugs from Morocco',
+  description: 'A Marrakech gallery of vintage Amazigh (Berber) rugs, documented honestly — what each piece is, where it is from, and how to read it.',
+}
 
-export const revalidate = 600
-
+// Image slots are placeholders (neutral grounds) until the MidJourney heroes and
+// region/story art land. Each tile is built to drop a real image behind its text.
 export default async function HomePage() {
-  const rugs = await getAllRugsSafe()
-  const featured = rugs.filter(r => r.availability_status !== 'sold').slice(0, 4)
-  const stories = await getStories()
-  const featuredEssay = stories[0]
-  const featuredMotifs = motifs.slice(0, 3)
+  const stories = (await getStories()).slice(0, 3)
 
   return (
     <>
       <style>{`
-        .hp-threshold {
-          padding: var(--sp-24) 0 var(--sp-16);
-          border-bottom: var(--border);
-          min-height: 60vh;
-          display: flex;
-          align-items: flex-end;
-        }
-        .hp-threshold__inner {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: var(--sp-24);
-          align-items: end;
-          width: 100%;
-        }
-        @media (max-width: 900px) {
-          .hp-threshold { min-height: auto; padding: var(--sp-16) 0; }
-          .hp-threshold__inner { grid-template-columns: 1fr; gap: var(--sp-8); }
-        }
-        .hp-threshold__title {
-          font-family: var(--font-display);
-          font-size: clamp(3rem, 6vw, 7rem);
-          font-weight: 300;
-          letter-spacing: -0.04em;
-          line-height: 0.92;
-          color: var(--black);
-        }
-        .hp-threshold__title em {
-          font-style: italic;
-          color: var(--grey-400);
-        }
-        .hp-threshold__right {
-          display: flex;
-          flex-direction: column;
-          gap: var(--sp-8);
-          padding-bottom: 0.5rem;
-        }
-        .hp-threshold__text {
-          font-family: var(--font-body);
-          font-size: 1.125rem;
-          line-height: 1.8;
-          color: var(--grey-600);
-          max-width: 46ch;
-        }
-        .hp-threshold__links {
-          display: flex;
-          flex-direction: column;
-          gap: var(--sp-3);
-        }
-        .hp-threshold__link {
-          font-family: var(--font-ui);
-          font-size: 0.5625rem;
-          font-weight: 500;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: var(--black);
-          display: flex;
-          align-items: center;
-          gap: var(--sp-3);
-          transition: gap var(--t);
-        }
-        .hp-threshold__link:hover { gap: var(--sp-4); }
-        .hp-threshold__link::after { content: '→'; font-size: 0.75rem; }
+        .hp { background: var(--paper); color: var(--ink); }
+        .hp a { color: inherit; }
+        .hp-wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--sp-8); }
+        @media(max-width:640px){ .hp-wrap { padding: 0 var(--sp-4); } }
 
-        .hp-motifs { border-bottom: var(--border); overflow: hidden; }
-        .hp-motifs__inner { display: grid; grid-template-columns: repeat(3, 1fr); }
-        @media (max-width: 640px) { .hp-motifs__inner { grid-template-columns: 1fr; } }
-        .hp-motif {
-          display: block; text-decoration: none; color: inherit;
-          border-right: var(--border); padding: var(--sp-8);
-          transition: background var(--t); overflow: hidden;
-        }
-        .hp-motif:last-child { border-right: none; }
-        .hp-motif:hover { background: var(--grey-100); }
-        .hp-motif__img {
-          aspect-ratio: 4/3; position: relative;
-          overflow: hidden; background: var(--grey-100); margin-bottom: var(--sp-4);
-        }
-        .hp-motif__img img { transition: transform 700ms var(--ease); }
-        .hp-motif:hover .hp-motif__img img { transform: scale(1.04); }
-        .hp-motif__label {
-          font-family: var(--font-ui); font-size: 0.5rem; font-weight: 500;
-          letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-400);
-          display: block; margin-bottom: var(--sp-2);
-        }
-        .hp-motif__name {
-          font-family: var(--font-display); font-size: 1.5rem; font-weight: 300;
-          letter-spacing: -0.02em; color: var(--black); display: block; margin-bottom: var(--sp-2);
-        }
-        .hp-motif__summary {
-          font-family: var(--font-body); font-size: 0.875rem; line-height: 1.6;
-          color: var(--grey-600); font-style: italic;
-          display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-        }
+        /* hero */
+        .hp-hero { height: 86vh; min-height: 520px; position: relative; display:flex; align-items:flex-end;
+          color: var(--paper);
+          background: linear-gradient(180deg,rgba(20,19,16,0) 45%,rgba(20,19,16,.52)),
+            radial-gradient(120% 90% at 65% 25%,#a99e8c,#6d6153 48%,#37312a); }
+        .hp-hero__cap { padding: 0 var(--sp-8) 54px; }
+        @media(max-width:640px){ .hp-hero__cap { padding: 0 var(--sp-4) 36px; } }
+        .hp-hero__k { font-family: var(--font-body); font-style: italic; font-size: 1.0625rem; opacity: 1; }
+        .hp-hero__h { font-family: var(--font-display); font-weight: 300; font-size: clamp(38px,5.4vw,74px); line-height: 1; margin-top: 12px; max-width: 16ch; }
+        .hp-hero__p { margin-top: 16px; font-family: var(--font-body); font-size: 1.125rem; max-width: 46ch; opacity: 1; }
 
-        .hp-essay { border-bottom: var(--border); }
-        .hp-essay__inner { display: grid; grid-template-columns: 1fr 1fr; min-height: 480px; }
-        @media (max-width: 900px) { .hp-essay__inner { grid-template-columns: 1fr; min-height: auto; } }
-        .hp-essay__content {
-          padding: var(--sp-12); display: flex; flex-direction: column;
-          justify-content: space-between; border-right: var(--border);
-        }
-        @media (max-width: 900px) { .hp-essay__content { border-right: none; border-bottom: var(--border); padding: var(--sp-8) 0; } }
-        .hp-essay__label {
-          font-family: var(--font-ui); font-size: 0.5rem; font-weight: 500;
-          letter-spacing: 0.14em; text-transform: uppercase; color: var(--grey-400);
-          display: block; margin-bottom: var(--sp-6);
-        }
-        .hp-essay__title {
-          font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3.5rem);
-          font-weight: 300; letter-spacing: -0.03em; line-height: 0.95;
-          color: var(--black); margin-bottom: var(--sp-6);
-        }
-        .hp-essay__excerpt {
-          font-family: var(--font-body); font-size: 1rem; line-height: 1.75;
-          color: var(--grey-600); flex: 1; margin-bottom: var(--sp-8); max-width: 44ch;
-        }
-        .hp-essay__read {
-          font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 500;
-          letter-spacing: 0.12em; text-transform: uppercase; color: var(--black);
-          border-bottom: 1px solid var(--black); padding-bottom: 1px;
-          align-self: flex-start; transition: opacity var(--t);
-        }
-        .hp-essay:hover .hp-essay__read { opacity: 0.5; }
-        .hp-essay__img {
-          position: relative; overflow: hidden; background: var(--grey-100); min-height: 360px;
-        }
-        .hp-essay__img img { transition: transform 800ms var(--ease); }
-        .hp-essay:hover .hp-essay__img img { transform: scale(1.025); }
+        /* feature tiles */
+        .hp-feat { display:grid; grid-template-columns:1fr 1fr; gap:26px; padding: 70px 0 0; }
+        .hp-feat--3 { grid-template-columns:1fr 1fr 1fr; padding-top:26px; padding-bottom:70px; }
+        .hp-tile { position:relative; overflow:hidden; display:flex; align-items:flex-end; min-height:440px; color:var(--paper); padding:30px; }
+        .hp-tile--tall { min-height:600px; }
+        .hp-tile__in { position:relative; z-index:2; }
+        .hp-tile__k { font-family: var(--font-body); font-style:italic; font-size:0.9375rem; opacity:1; }
+        .hp-tile__h { font-family: var(--font-display); font-weight:400; font-size:1.9rem; margin-top:6px; }
+        .hp-tile__l { font-family: var(--font-body); font-size:0.9rem; font-style:italic; border-bottom:1px solid rgba(255,255,255,.6); display:inline-block; margin-top:12px; padding-bottom:2px; }
+        .hp-g1{background:radial-gradient(120% 100% at 40% 25%,#8f8577,#4a443a)}
+        .hp-g2{background:radial-gradient(120% 100% at 40% 25%,#79463c,#341f1a)}
+        .hp-g3{background:radial-gradient(120% 100% at 40% 25%,#9a9384,#565045)}
+        .hp-g4{background:radial-gradient(120% 100% at 40% 25%,#6f6a5c,#302c25)}
+        @media(max-width:820px){ .hp-feat,.hp-feat--3{grid-template-columns:1fr} .hp-tile,.hp-tile--tall{min-height:380px} }
 
-        .hp-objects { padding: var(--sp-16) 0 var(--sp-24); }
-        .hp-objects__header {
-          display: flex; align-items: baseline; justify-content: space-between;
-          margin-bottom: var(--sp-8); padding-bottom: var(--sp-6); border-bottom: var(--border);
-        }
-        .hp-objects__title {
-          font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 500;
-          letter-spacing: 0.14em; text-transform: uppercase; color: var(--black);
-        }
-        .hp-objects__all {
-          font-family: var(--font-ui); font-size: 0.5625rem; font-weight: 500;
-          letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-400);
-          border-bottom: 1px solid var(--grey-200); padding-bottom: 1px; transition: all var(--t);
-        }
-        .hp-objects__all:hover { color: var(--black); border-bottom-color: var(--black); }
-        .hp-objects__grid {
-          display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-8) var(--sp-4);
-        }
-        @media (max-width: 900px) { .hp-objects__grid { grid-template-columns: repeat(2, 1fr); } }
+        /* mission */
+        .hp-mission { background: var(--paper2); padding: 100px 0; text-align:center; }
+        .hp-mission__in { max-width: 720px; margin:0 auto; }
+        .hp-mission__k { font-family: var(--font-body); font-style:italic; color: var(--ink); }
+        .hp-mission__h { font-family: var(--font-display); font-weight:300; font-size:clamp(26px,3.4vw,44px); line-height:1.14; margin:14px 0 22px; }
+        .hp-mission__l { font-family: var(--font-body); font-style:italic; border-bottom:1px solid var(--ink); padding-bottom:2px; }
 
-        .hp-map { border-top: var(--border); }
-        .hp-map__header {
-          padding: var(--sp-8) 0 var(--sp-4); display: flex;
-          justify-content: space-between; align-items: baseline;
-        }
-        .hp-map__hint {
-          font-family: var(--font-body); font-size: 0.875rem;
-          font-style: italic; color: var(--grey-400);
-        }
-        @media (max-width: 600px) { .hp-map__hint { display: none; } }
-
-        .hp-close {
-          padding: var(--sp-24) 0;
-          border-top: var(--border);
-        }
-        .hp-close__inner {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: var(--sp-16);
-          align-items: end;
-        }
-        @media (max-width: 768px) { .hp-close__inner { grid-template-columns: 1fr; gap: var(--sp-8); } }
-        .hp-close__statement {
-          font-family: var(--font-display);
-          font-size: clamp(1.5rem, 2.5vw, 2.25rem);
-          font-weight: 300;
-          letter-spacing: -0.025em;
-          line-height: 1.25;
-          color: var(--black);
-        }
-        .hp-close__statement em {
-          font-style: italic;
-          color: var(--grey-400);
-        }
-        .hp-close__links {
-          display: flex;
-          flex-direction: column;
-          gap: var(--sp-2);
-          padding-bottom: 0.25rem;
-        }
-        .hp-close__link {
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
-          padding: var(--sp-3) 0;
-          border-bottom: var(--border);
-          text-decoration: none;
-          color: inherit;
-          transition: padding-left var(--t);
-        }
-        .hp-close__link:hover { padding-left: var(--sp-2); }
-        .hp-close__link-name {
-          font-family: var(--font-display);
-          font-size: 1.125rem;
-          font-weight: 400;
-          color: var(--black);
-          letter-spacing: -0.01em;
-        }
-        .hp-close__link-desc {
-          font-family: var(--font-body);
-          font-size: 0.8125rem;
-          font-style: italic;
-          color: var(--grey-400);
-        }
+        /* stories */
+        .hp-mag { padding: 90px 0; }
+        .hp-mag__head { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:40px; }
+        .hp-mag__head h2 { font-family: var(--font-display); font-weight:400; font-size:1.75rem; }
+        .hp-mag__head a { font-family: var(--font-body); font-style:italic; font-size:0.95rem; }
+        .hp-mag__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+        .hp-art__img { aspect-ratio:4/3; background:var(--paper2); margin-bottom:16px; overflow:hidden; }
+        .hp-art__img img { width:100%; height:100%; object-fit:cover; }
+        .hp-art h3 { font-family: var(--font-display); font-size:1.4rem; font-weight:400; }
+        .hp-art p { font-family: var(--font-body); font-size:1.0625rem; color:var(--ink); margin-top:7px; max-width:42ch; line-height:1.55; }
+        .hp-art__m { font-family: var(--font-body); font-size:0.9375rem; font-style:italic; color:var(--ink); opacity:.75; margin-top:11px; }
+        @media(max-width:820px){ .hp-mag__grid{grid-template-columns:1fr} }
       `}</style>
 
-      {/* Opening */}
-      <div className="hp-threshold">
-        <div className="container">
-          <div className="hp-threshold__inner">
-            <h1 className="hp-threshold__title">
-              The magic<br />
-              <em>is woven</em><br />
-              in.
-            </h1>
-            <div className="hp-threshold__right">
-              <p className="hp-threshold__text">
-                Handwoven wool rugs made by Amazigh women across Morocco, documented for what they actually are — the wool, the dye, the region, and how to read the pattern.
-              </p>
-              <div className="hp-threshold__links">
-                <Link href="/moroccan-rugs" className="hp-threshold__link">Enter the gallery</Link>
-                <Link href="/motifs" className="hp-threshold__link">Read the symbols</Link>
-                <Link href="/stories" className="hp-threshold__link">Sit by the fire</Link>
-              </div>
-            </div>
+      <div className="hp">
+        {/* hero */}
+        <header className="hp-hero">
+          <div className="hp-hero__cap">
+            <span className="hp-hero__k">The autumn arrivals</span>
+            <h1 className="hp-hero__h">Rugs that have already lived a life.</h1>
+            <p className="hp-hero__p">Vintage Amazigh pieces from the Atlas and the south — each one described for exactly what it is.</p>
           </div>
-        </div>
-      </div>
+        </header>
 
-      {/* Three motifs */}
-      <div className="hp-motifs">
-        <div className="hp-motifs__inner">
-          {featuredMotifs.map(motif => (
-            <Link key={motif.slug} href={`/motifs/${motif.slug}`} className="hp-motif">
-              <div className="hp-motif__img">
-                {motif.example_image && (
-                  <Image src={motif.example_image} alt={motif.name} fill style={{ objectFit: 'cover' }} sizes="(max-width:640px) 100vw, 33vw" />
-                )}
+        <div className="hp-wrap">
+          {/* feature tiles */}
+          <div className="hp-feat">
+            <Link href={`/regions/${regions[3]?.slug || 'middle-atlas'}`} className="hp-tile hp-tile--tall hp-g1">
+              <div className="hp-tile__in">
+                <span className="hp-tile__k">In the hands of weavers</span>
+                <div className="hp-tile__h">The Middle Atlas</div>
+                <span className="hp-tile__l">Discover the region</span>
               </div>
-              <span className="hp-motif__label">Symbol</span>
-              <span className="hp-motif__name">{motif.name}</span>
-              <p className="hp-motif__summary">{motif.summary}</p>
             </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* Essay */}
-      {featuredEssay && (
-        <div className="hp-essay">
-          <div className="container">
-            <Link href={`/stories/${featuredEssay.slug}`} style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
-              <div className="hp-essay__inner">
-                <div className="hp-essay__content">
-                  <div>
-                    <span className="hp-essay__label">From the Stories</span>
-                    <h2 className="hp-essay__title">{featuredEssay.title}</h2>
-                    <p className="hp-essay__excerpt">{featuredEssay.excerpt}</p>
-                  </div>
-                  <span className="hp-essay__read">Read the essay →</span>
-                </div>
-                <div className="hp-essay__img">
-                  {featuredEssay.cover_image && (
-                    <Image src={featuredEssay.cover_image} alt={featuredEssay.title} fill style={{ objectFit: 'cover', objectPosition: 'center 30%' }} sizes="(max-width:900px) 100vw, 50vw" />
-                  )}
-                </div>
+            <Link href="/moroccan-rugs?new=1" className="hp-tile hp-g2">
+              <div className="hp-tile__in">
+                <span className="hp-tile__k">New this month</span>
+                <div className="hp-tile__h">Fresh from the Atlas</div>
+                <span className="hp-tile__l">See what's new</span>
               </div>
             </Link>
           </div>
-        </div>
-      )}
 
-      {/* Objects */}
-      <div className="container">
-        <div className="hp-objects">
-          <div className="hp-objects__header">
-            <span className="hp-objects__title">In the gallery now</span>
-            <Link href="/moroccan-rugs" className="hp-objects__all">See all pieces →</Link>
-          </div>
-          <div className="hp-objects__grid">
-            {featured.map((rug, i) => (
-              <RugCardHover key={rug.slug} rug={rug} index={i} />
-            ))}
+          <div className="hp-feat hp-feat--3">
+            <Link href="/traditions/beni-ourain" className="hp-tile hp-g3"><div className="hp-tile__in"><div className="hp-tile__h">Beni Ourain</div><span className="hp-tile__l">The tradition</span></div></Link>
+            <Link href="/traditions/zanafi" className="hp-tile hp-g4"><div className="hp-tile__in"><div className="hp-tile__h">Flatweaves</div><span className="hp-tile__l">Zanafi &amp; Taznakht</span></div></Link>
+            <Link href="/traditions/boucherouitte" className="hp-tile hp-g2"><div className="hp-tile__in"><div className="hp-tile__h">Boucherouitte</div><span className="hp-tile__l">Made from what was there</span></div></Link>
           </div>
         </div>
-      </div>
 
-      {/* Map */}
-      <div className="hp-map">
-        <div className="container">
-          <div className="hp-map__header">
-            <span className="t-label">The weaving regions</span>
-            <span className="hp-map__hint">Each region is a distinct visual language</span>
-          </div>
-        </div>
-        <RegionsMap />
-      </div>
+        {/* mission */}
+        <section className="hp-mission">
+          <div className="hp-wrap"><div className="hp-mission__in">
+            <span className="hp-mission__k">Why Tilwen</span>
+            <h2 className="hp-mission__h">Every rug online arrives wrapped in a story. We tell you what&apos;s true, and where the story ends.</h2>
+            <Link href="/about" className="hp-mission__l">Read our approach</Link>
+          </div></div>
+        </section>
 
-      {/* Closing — the door left open */}
-      <div className="container">
-        <div className="hp-close">
-          <div className="hp-close__inner">
-            <p className="hp-close__statement">
-              She put something in the border.<br />
-              <em>Nobody told her to.</em>
-            </p>
-            <div className="hp-close__links">
-              <Link href="/traditions" className="hp-close__link">
-                <span className="hp-close__link-name">The traditions</span>
-                <span className="hp-close__link-desc">Beni Ourain, Zemmour, Talsint</span>
-              </Link>
-              <Link href="/motifs" className="hp-close__link">
-                <span className="hp-close__link-name">The symbols</span>
-                <span className="hp-close__link-desc">What the marks mean</span>
-              </Link>
-              <Link href="/glossary" className="hp-close__link">
-                <span className="hp-close__link-name">The glossary</span>
-                <span className="hp-close__link-desc">Every term, defined honestly</span>
-              </Link>
-              <Link href="/stories" className="hp-close__link">
-                <span className="hp-close__link-name">Stories</span>
-                <span className="hp-close__link-desc">Essays that don't flatter</span>
-              </Link>
+        {/* stories */}
+        {stories.length > 0 && (
+          <section className="hp-wrap hp-mag">
+            <div className="hp-mag__head"><h2>Stories</h2><Link href="/stories">All stories</Link></div>
+            <div className="hp-mag__grid">
+              {stories.map(s => (
+                <Link key={s.slug} href={`/stories/${s.slug}`} className="hp-art">
+                  <div className="hp-art__img">{s.cover_image && <img src={s.cover_image} alt={s.image_alt || s.title} />}</div>
+                  <h3>{s.title}</h3>
+                  <p>{s.excerpt}</p>
+                  {s.theme_tags?.[0] && <div className="hp-art__m">{s.theme_tags[0]}</div>}
+                </Link>
+              ))}
             </div>
-          </div>
-        </div>
+          </section>
+        )}
       </div>
     </>
   )

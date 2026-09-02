@@ -81,7 +81,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <CartProvider>
           <Nav />
-          <main style={{ paddingTop: '84px' }}>{children}</main>
+          <main>{children}</main>
           <Footer />
         </CartProvider>
       </body>

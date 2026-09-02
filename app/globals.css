@@ -12,7 +12,15 @@
   --grey-800: #141312;
 
   /* Warm accent — used on price and key links (not body text) */
-  --terracotta: #b5532e;
+  --terracotta: #b5532e;   /* legacy — no longer used in chrome */
+
+  /* ── TOAST-register tokens (contemporary redesign) ── */
+  --paper:   #FBFBF9;   /* cooler than the old cream */
+  --paper2:  #F1F0EC;   /* recessed panels */
+  --ink:     #141310;   /* true near-black */
+  --ink2:    #403E39;   /* secondary text */
+  --hair:    #E2E1DB;   /* hairline */
+  --oxblood: #5E2A24;   /* used once, deliberately */
 
   /* ── Surface system ──────────────────────────────────────────
      Commerce (gallery, product) = pure white.

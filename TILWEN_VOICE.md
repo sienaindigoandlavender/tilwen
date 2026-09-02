@@ -130,3 +130,110 @@ Hard rules, learned the hard way:
 Reference sample (the voice, correct): see "The Three-Year Red" —
 scene-first, human subjects, the fade-tell taught inside the scene, a closing
 line that's both the joke and the point ("waited longer than he did").
+
+7. **Distance is a tell. Name the relationship.** People don't learn from "the
+   woman before her" or "practitioners" or "one would". They learn from their
+   mother, their aunt, the neighbour who smelled of wool. Aloof, anthropological
+   phrasing reads like a museum placard and holds the reader at arm's length when
+   the whole point is warmth. Name the specific human relationship and the reader
+   feels the hand on the shoulder.
+   - ALOOF (banned): "She learned this from the woman before her."
+   - CLOSE (correct): "Her mother taught her this, standing over the same pot."
+
+8. **Give her a name (the identifiable-victim effect).** A statistic moves no one;
+   a named person moves everyone. "Amina, six" beats "millions face hunger" — WFP
+   and every good fundraiser lives on this. In STORIES, open on a named weaver
+   (Itto, Fadma, Zahra, a real Amazigh name) rather than "a woman". The reader can
+   hold a person; she cannot hold a concept.
+   BUT — the liability rule still binds: a name in a story is illustrative (the
+   *kind* of woman who does this), and the story must NOT claim she wove a specific
+   rug being sold. On PRODUCT pages, never attach a name unless it is genuinely
+   true — a name asserts provenance, and false provenance is the banned lie.
+   Warmth in the story, honesty on the product. Both, not one at the cost of the other.
+
+   Naming specifics: use names actually common in the weaving region — Aïcha,
+   Fatima, Zahra, Ibtisem — not "exotic-sounding" picks. And do NOT invent a name
+   from a culture you don't know (e.g. a Navajo/Diné name); leave that figure
+   named by role ("a Diné weaver"). Getting a name subtly wrong is its own small
+   disrespect. Aïcha is ours, told with intimacy; the distant echo stays unnamed.
+
+9. **When there's no answer, dramatize the argument — never invent one.** For
+   origins, dates, "the first rug", "where they learned" — the honest answer is
+   often "nobody knows". Do NOT paper that over with a confident myth (the trade's
+   whole habit; banned). Instead, stage the real debate as a fight with stakes:
+   Persia claims it, Armenia says no and points to the weave, the Turks point to
+   the knot, seventy years and no winner. The disagreement IS the entertainment —
+   the reader leans in to pick a side. "We don't know, and here's who's been
+   arguing about it and why" reads as more expert than false certainty, and it's
+   the Tilwen edge: honest about the mystery, fluent in the real theories.
+   Report each theory as a theory (whose, and on what evidence), never as fact.
+
+10. **No teaching voice. Delete the narrator.** The scene delivers the meaning;
+    you do not step out and explain it. Banned: "Notice what that does…",
+    "None of this makes it less…", any summing-up thesis paragraph, any sentence
+    that tells the reader what the story means. Stay in the scene, show enough
+    that the reader arrives at the point standing there, and get out. The last
+    line should land the meaning without naming it.
+
+11. **The weaving is ancient; the market is ~a century old; the original weaver
+    was NOT a seller.** Two different clocks — do not blur them (the trade blurs
+    them on purpose so "ancient" bleeds onto the commerce). Moroccan rugs as
+    something sold to the world begin roughly in the Le Corbusier era, ~100 years
+    ago. Before that, women wove for their own homes, families, and backs — no
+    buyer, no shop, no price. Never imply an unbroken commercial tradition; there
+    isn't one. A weaver in a story is making a thing she needs, not a product.
+    The market arrives late, from outside, and puts a price on something that
+    never had one.
+
+12. **Source to ground truth only. NEVER cite competitors or rug shops.**
+    Naming or linking a dealer/rug-shop/competitor hands them a free backlink,
+    free brand exposure, and borrows credibility from people who often invented
+    the "fact" in the first place. The Queen of Pentacles does not cite the other
+    stalls. Cite ONLY:
+      - museums / institutions / the physical object (Hermitage, MoMA, the Met)
+      - scholars and books (e.g. Davis, "Weaving Morocco"; Smithsonian catalogues;
+        Brett & Fentress, "The Berbers")
+      - primary words (a painter's diary, a dated building)
+    NEVER cite, link, or name: TazRugs, Nazmiyal, Doris Leslie Blau, or any dealer/
+    shop/competitor — not as a source, not as a link, not even as "some dealers say".
+    When referencing the trade's myths, keep the myth-maker anonymous: "the trade
+    will tell you", "most rug sites claim" — describe the myth, never advertise who
+    spreads it. If the only place a claim appears is rug-shop blogs, treat it as
+    unverified folklore and do not print it as fact.
+
+13. **Every story is a MOROCCAN story. Stay on subject.** Tilwen covers Moroccan
+    rugs. A non-Moroccan fact (Pazyryk in Siberia, a Navajo loom, a European
+    painter) is only ever BORROWED — one line, in service of a point about Moroccan
+    weaving — never a standalone piece. If a draft is mostly *about* the outside
+    thing, it's off-brand; fold the useful fact into a Moroccan story and cut the
+    rest. The bridge to other cultures is welcome; wandering off to live there is not.
+
+14. **Never imply the reader is being lied to. No invisible villain.** Banned:
+    "the part nobody selling you one wants to say", "what they won't tell you",
+    "be gentle with them when they hand you a date", "sold to you as ancient".
+    Casting a lying dealer to make Tilwen look honest by contrast is just the
+    Queen of Pentacles pointing at the other stalls (see rule 12) — chasing,
+    dressed as candour. It also insults the reader by implying they've been
+    fooled. State the true, interesting thing plainly; the honesty is
+    self-evident and needs no villain to stand against. (Describing a widespread
+    *belief* is fine — "the diamond is often read as protection" — as long as no
+    one is cast as deceiving the reader.)
+
+15. **Three-point calibration: confident, honest, indifferent. This is the
+    hardest one and the most important.**
+    The voice keeps sliding off a narrow honest place — inflating Tilwen into
+    "the one source of truth who sees through everyone's lies", or (when corrected)
+    overcorrecting into small, hedging, apologetic. Both are wrong. Stand in the
+    middle:
+    - CONFIDENT about what is verifiable — say it flat, no hedging, no "we humbly
+      believe", no "we think".
+    - HONEST about what is unknown — "nobody knows", "this is debated" — stated as
+      a plain fact about the WORLD, not as a confession of Tilwen's limits and not
+      as a dig at anyone else's false certainty. We do not claim to know everything.
+    - INDIFFERENT to competitors — they are simply not in the frame. No "the trade",
+      no "most sellers", no implied liar (rule 14), AND equally no "we're the honest
+      one / the one true source". Real confidence is not comparative; it needs no foil.
+    The test: remove every "them" AND every self-congratulation from the sentence.
+    If the point still stands on the subject alone, it's right. Just the subject,
+    Tilwen, and the reader — nobody else in the room, including a version of us that
+    knows it all.
